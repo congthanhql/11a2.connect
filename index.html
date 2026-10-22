@@ -59,12 +59,19 @@ tr[data-a]{cursor:pointer}
 </head>
 <body>
 <header><h1 data-a="home">Thi đua lớp 11A2</h1><small id="who"></small><button class="btn g s" id="out" data-a="logout" style="display:none">Đăng xuất</button></header>
-<main id="app"></main>
+<main id="app"><div class="card"><h2>Đang tải…</h2><p class="mut" style="margin:0">Nếu màn hình này không thay đổi, hãy mở trang qua máy chủ web (không mở trực tiếp file) và kiểm tra kết nối mạng.</p></div></main>
 <div id="toast"></div>
 <script type="module">
-import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import {getAuth,signInWithEmailAndPassword,signOut,onAuthStateChanged,createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import {getDatabase,ref,onValue,get,set,push,update,remove} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+const B="https://www.gstatic.com/firebasejs/10.12.2/";
+let M;
+try{
+  const [a,b,c]=await Promise.all([import(B+"firebase-app.js"),import(B+"firebase-auth.js"),import(B+"firebase-database.js")]);
+  M={...a,...b,...c};
+}catch(e){
+  document.getElementById("app").innerHTML=`<div class="card"><h2>Không tải được Firebase</h2><p>Trình duyệt không kết nối được tới <code>gstatic.com</code>, hoặc bạn đang mở file trực tiếp (file://). Hãy mở trang qua máy chủ web (Firebase Hosting, GitHub Pages hoặc <code>npx serve</code>) và kiểm tra mạng.</p><p class="mut">Chi tiết: ${String(e.message||e)}</p></div>`;
+  throw e;
+}
+const {initializeApp,getAuth,signInWithEmailAndPassword,signOut,onAuthStateChanged,createUserWithEmailAndPassword,getDatabase,ref,onValue,get,set,push,update,remove}=M;
 
 const cfg={apiKey:"AIzaSyDDHoie6vCkj_HOibHzN-VZ4PEXKpwfujU",authDomain:"csdl-11a2.firebaseapp.com",databaseURL:"https://csdl-11a2-default-rtdb.firebaseio.com",projectId:"csdl-11a2",storageBucket:"csdl-11a2.firebasestorage.app",messagingSenderId:"527409951361",appId:"1:527409951361:web:c28965e470649aad2dd380"};
 const app=initializeApp(cfg),auth=getAuth(app),db=getDatabase(app);
