@@ -199,6 +199,16 @@ table{width:100%;border-collapse:collapse}th,td{padding:8px 6px;text-align:left;
  .sum b{font-size:19px}
  .acts{padding-bottom:calc(6px + env(safe-area-inset-bottom,0))}
 }
+
+/* In PDF báo cáo */
+.pr .meta{font-size:12px;color:#444;margin:2px 0 8px}
+.pr td.nt{width:52%}.pr td.nt div{margin:2px 0}.pr .vp{color:#b00020}.pr small{color:#555}
+@media print{
+ @page{size:A4;margin:12mm}
+ .pr table{font-size:11.5px;width:100%}.pr th{background:#e9edf3!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .pr thead{display:table-header-group}.pr tr{break-inside:avoid}.pr h3{break-after:avoid;margin:14px 0 6px}
+ .pr td,.pr th{border:1px solid #999;vertical-align:top;padding:5px 6px}
+}
 </style>
 </head>
 <body>
@@ -373,6 +383,15 @@ function stat(to,w){
   const ms=mem(to),n=ms.length,tot=ms.reduce((a,m)=>a+sc(m.id,w),0),vio=ms.filter(m=>isBad(m.id,w)).length;
   return {to,n,vio,ok:n-vio,avg:n?tot/n:0};
 }
+function absMap(){
+  const o={};
+  Object.entries(S.att).forEach(([d,day])=>["s","c"].forEach(k=>Object.values((day||{})[k]||{}).forEach(x=>{
+    if(!x||!["submitted","confirmed"].includes(x.status))return;
+    Object.entries(x.marks||{}).forEach(([mid,v])=>{if(!S.members[mid]||!["l","e","a"].includes(v))return;
+      const r=o[mid]=o[mid]||{l:0,e:0,a:0,list:[]};r[v]++;r.list.push([d,k,v])})})));
+  Object.values(o).forEach(r=>r.list.sort((x,y)=>(x[0]+(x[1]=="s"?"0":"1")).localeCompare(y[0]+(y[1]=="s"?"0":"1"))));
+  return o;
+}
 function rankTab(){
   const w=S.rw,st=[1,2,3,4].map(n=>stat(n,w)).sort((a,b)=>b.avg-a.avg);
   const lbl=w?"Tuần "+w:"Tất cả các tuần";
@@ -381,14 +400,22 @@ function rankTab(){
   const lo=Math.min(100,...st.map(s=>s.avg)),hi=Math.max(100,...st.map(s=>s.avg));
   const list=st.map((s,i)=>`<button class="rk" data-a="tab" data-t="t${s.to}"><span class="medal m${i+1}">${i+1}</span><span class="rkb"><b style="color:${COL[s.to]}">Tổ ${s.to}</b><small>${s.n} HS · ${s.vio} vi phạm · ${s.ok} không vi phạm</small><span class="bar" style="display:block"><i style="width:${hi==lo?50:Math.max(6,(s.avg-lo+5)/(hi-lo+5)*100)}%;background:${COL[s.to]}"></i></span></span><span class="avg">${s.avg.toFixed(1)}</span></button>`).join("");
   const mini=a=>a.length?a.map(m=>`<div class="mini"><span>${esc(m.name)} <small class="mut">Tổ ${m.to}</small></span><b>${m.s}</b></div>`).join(""):`<p class="mut" style="margin:0">Chưa có dữ liệu.</p>`;
-  const rep=[1,2,3,4].map(n=>`<h3 style="margin-top:16px">Tổ ${n}</h3><table><tr><th>Họ tên</th><th>Điểm</th><th>Ghi nhận ${lbl.toLowerCase()}</th></tr>${mem(n).map(m=>`<tr><td>${esc(m.name)}</td><td>${sc(m.id,w)}</td><td>${recs().filter(r=>r.mid==m.id&&(!w||r.week==w)).map(r=>(w?"":`T${r.week}: `)+esc(r.item)+" ("+sg(r.pts)+")").join("; ")||"—"}</td></tr>`).join("")}</table>`).join("");
+  const am=absMap(),vOf=m=>recs().filter(r=>r.mid==m.id&&r.pts<0&&(!w||r.week==w)),zero={e:0,a:0,l:0,list:[]};
+  const tsum=n=>mem(n).reduce((t,m)=>{const x=am[m.id]||zero;t.v+=vOf(m).length;t.n+=x.e+x.a;t.l+=x.l;return t},{v:0,n:0,l:0});
+  const note=m=>{const x=am[m.id]||zero,rs=recs().filter(r=>r.mid==m.id&&(!w||r.week==w)).sort((p,q)=>p.week-q.week||p.ts-q.ts),v=rs.filter(r=>r.pts<0),g=rs.filter(r=>r.pts>0);
+    const f=r=>`T${r.week}: ${esc(r.item)} (${sg(r.pts)})`;
+    const ab=x.list.map(([d,k,t])=>`${d.slice(8)}/${d.slice(5,7)} ${k=="s"?"sáng":"chiều"} – ${{l:"đi muộn",e:"nghỉ có phép",a:"nghỉ không phép"}[t]}`);
+    return `<div class="vp"><b>Vi phạm:</b> ${v.length?v.map(f).join("; "):"không có"}</div>${g.length?`<div><b>Cộng điểm:</b> ${g.map(f).join("; ")}</div>`:""}<div><b>Điểm danh:</b> ${ab.length?ab.join("; "):"đi học đầy đủ"}</div>`};
+  const rep=[1,2,3,4].map(n=>{const t=tsum(n);
+    return `<h3>Tổ ${n} – ${mem(n).length} HS · ${t.v} lỗi vi phạm · ${t.n} buổi nghỉ · ${t.l} lần đi muộn</h3><table><thead><tr><th>STT</th><th>Họ tên</th><th>Điểm</th><th>Buổi nghỉ</th><th>Số lỗi VP</th><th>Ghi chú chi tiết</th></tr></thead><tbody>${mem(n).sort((a,b)=>a.name.localeCompare(b.name,"vi")).map((m,i)=>{const x=am[m.id]||zero,vs=vOf(m);
+      return `<tr><td>${i+1}</td><td>${esc(m.name)}</td><td>${sc(m.id,w)}</td><td><b>${x.e+x.a}</b><br><small>(phép ${x.e} · KP ${x.a})</small><br><small>Muộn ${x.l}</small></td><td><b>${vs.length}</b>${vs.length?`<br><small>(${vs.reduce((a,r)=>a+r.pts,0)} đ)</small>`:""}</td><td class="nt">${note(m)}</td></tr>`}).join("")}</tbody></table>`}).join("");
   const tv=st.reduce((a,s)=>a+s.vio,0);
   return `<div class="top noprint"><h2 class="ttl">Xếp hạng thi đua</h2><select data-c="rw" aria-label="Chọn tuần">${weekOpts(w,1)}</select></div>
     <div class="stats noprint"><div class="stat"><span>Tổng học sinh</span><b>${all.length}</b></div><div class="stat v"><span>Vi phạm</span><b>${tv}</b></div><div class="stat n"><span>Không vi phạm</span><b>${all.length-tv}</b></div><div class="stat"><span>Điểm TB lớp</span><b>${all.length?(all.reduce((a,m)=>a+m.s,0)/all.length).toFixed(1):"0.0"}</b></div></div>
     <div class="card screen"><div class="row sp" style="margin-bottom:6px"><h3 style="margin:0">Thứ hạng các tổ – ${lbl}</h3><div class="row"><button class="btn g s" data-a="csv">Tải CSV</button><button class="btn s" data-a="print">In / PDF</button></div></div>${list}
     <p class="mut sm" style="margin:10px 0 0">Điểm TB là trung bình điểm các thành viên (mỗi người bắt đầu từ 100). Bấm vào một tổ để xem chi tiết.</p></div>
     <div class="two screen"><div class="card"><h3>Top 5 điểm cao nhất</h3>${mini(top)}</div><div class="card"><h3>5 bạn cần quan tâm</h3>${mini(low)}</div></div>
-    <div class="only-print"><h2>Báo cáo thi đua lớp 11A2 – ${lbl}</h2><table><tr><th>Hạng</th><th>Tổ</th><th>Số HS</th><th>Điểm TB</th><th>Vi phạm</th><th>Không VP</th></tr>${st.map((s,i)=>`<tr><td>${i+1}</td><td>Tổ ${s.to}</td><td>${s.n}</td><td>${s.avg.toFixed(1)}</td><td>${s.vio}</td><td>${s.ok}</td></tr>`).join("")}</table>${rep}</div>`;
+    <div class="only-print pr"><h2>Báo cáo thi đua lớp 11A2 – ${lbl}</h2><div class="meta">Ngày in: ${new Date().toLocaleDateString("vi-VN")} · Số lỗi vi phạm tính theo ${lbl.toLowerCase()} · Số buổi nghỉ tính trên toàn bộ điểm danh đã gửi (sáng và chiều, mỗi buổi tính một lần)</div><table><thead><tr><th>Hạng</th><th>Tổ</th><th>Số HS</th><th>Điểm TB</th><th>HS vi phạm</th><th>Tổng lỗi VP</th><th>Tổng buổi nghỉ</th><th>Đi muộn</th></tr></thead><tbody>${st.map((s,i)=>{const t=tsum(s.to);return `<tr><td>${i+1}</td><td>Tổ ${s.to}</td><td>${s.n}</td><td>${s.avg.toFixed(1)}</td><td>${s.vio}</td><td>${t.v}</td><td>${t.n}</td><td>${t.l}</td></tr>`}).join("")}</tbody></table>${rep}</div>`;
 }
 
 /* ---------- Trang duyệt: phân loại + chi tiết nội dung ---------- */
@@ -530,8 +557,8 @@ const A={
   tab(d){S.tab=d.t;if(d.t[0]=="t")S.sub="score";S.sel=null;S.q="";S.flt="all";render();scrollTo(0,0)},
   print(){window.print()},
   csv(){
-    const w=S.rw,rows=[["Tổ","Họ tên","Điểm","Vi phạm","Ghi nhận"]];
-    [1,2,3,4].forEach(n=>mem(n).forEach(m=>rows.push([n,m.name,sc(m.id,w),isBad(m.id,w)?"Có":"Không",recs().filter(r=>r.mid==m.id&&(!w||r.week==w)).map(r=>(w?"":"T"+r.week+": ")+r.item+" ("+sg(r.pts)+")").join("; ")])));
+    const w=S.rw,am=absMap(),z={e:0,a:0,l:0},rows=[["Tổ","Họ tên","Điểm","Vi phạm","Số lỗi vi phạm","Nghỉ có phép","Nghỉ không phép","Đi muộn","Ghi nhận"]];
+    [1,2,3,4].forEach(n=>mem(n).forEach(m=>rows.push([n,m.name,sc(m.id,w),isBad(m.id,w)?"Có":"Không",recs().filter(r=>r.mid==m.id&&r.pts<0&&(!w||r.week==w)).length,(am[m.id]||z).e,(am[m.id]||z).a,(am[m.id]||z).l,recs().filter(r=>r.mid==m.id&&(!w||r.week==w)).map(r=>(w?"":"T"+r.week+": ")+r.item+" ("+sg(r.pts)+")").join("; ")])));
     const t="\ufeff"+rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(",")).join("\n");
     const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:"text/csv;charset=utf-8"}));a.download=`thi-dua-11A2-${w?"tuan"+w:"tat-ca"}.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)},
   chip(d,el){
