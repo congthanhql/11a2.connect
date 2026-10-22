@@ -92,9 +92,6 @@ const recs=()=>Object.entries(S.records).map(([id,r])=>({id,...r}));
 const sc=(mid,wk)=>100+recs().filter(r=>r.mid==mid&&(!wk||r.week==wk)).reduce((a,r)=>a+r.pts,0);
 const isBad=(mid,wk)=>recs().some(r=>r.mid==mid&&r.pts<0&&(!wk||r.week==wk));
 const sg=n=>(n>0?"+":"")+n;
-const DOM="@11a2.edu.vn";
-const toEmail=s=>{s=s.trim();return s.includes("@")?s:s.toLowerCase()+DOM};
-const userName=e=>String(e||"").endsWith(DOM)?e.slice(0,-DOM.length):e;
 const pendFor=id=>Object.values(S.requests).some(q=>q.rid==id&&q.status=="pending");
 const canLead=to=>S.role=="leader"&&S.to==to;
 const can=v=>S.role=="admin"||(v!="admin"&&S.to==v);
@@ -188,12 +185,12 @@ function reqTab(){
     ${q.status=="pending"?`<button class="btn ok s" data-a="approve" data-id="${id}">Duyệt</button><button class="btn r s" data-a="reject" data-id="${id}">Từ chối</button>`:`<span class="tag ${q.status=="approved"?"n":"v"}">${q.status=="approved"?"Đã duyệt":"Đã từ chối"}</span>`}</div>`).join(""):`<p class="mut">Chưa có yêu cầu nào.</p>`}</div>`;
 }
 function accTab(){
-  const us=Object.entries(S.users).sort((a,b)=>(a[1].to||0)-(b[1].to||0)||(a[1].role=="leader"?-1:1));
-  return `<div class="card"><h2>Cấp tài khoản cho tổ</h2><form class="row" data-f="newacc">
-    <input name="name" placeholder="Họ tên" required><input name="user" placeholder="Tên đăng nhập (vd: to1_an)" required autocapitalize="none"><input name="pw" placeholder="Mật khẩu (≥ 6 ký tự)" minlength="6" required>
+  const us=Object.entries(S.users).sort((a,b)=>(a[1].to||0)-(b[1].to||0));
+  return `<div class="card"><h2>Cấp tài khoản</h2><form class="row" data-f="newacc">
+    <input name="name" placeholder="Họ tên" required><input name="email" type="email" placeholder="Email" required><input name="pw" placeholder="Mật khẩu (≥ 6 ký tự)" minlength="6" required>
     <select name="role"><option value="student">Học sinh</option><option value="leader">Tổ trưởng</option></select>
-    <select name="to">${[1,2,3,4].map(n=>`<option value="${n}">Tổ ${n}</option>`).join("")}</select><button class="btn">Tạo tài khoản</button></form></div>
-    <div class="card"><h3>Danh sách tài khoản (${us.length})</h3><div class="wrap">${us.length?`<table><tr><th>Họ tên</th><th>Tổ</th><th>Vai trò</th><th>Tên đăng nhập</th><th>Mật khẩu</th><th></th></tr>${us.map(([id,u])=>`<tr><td>${esc(u.name)}</td><td style="color:${COL[u.to]};font-weight:700">Tổ ${u.to}</td><td>${u.role=="leader"?"Tổ trưởng":"Học sinh"}</td><td><code>${esc(userName(u.email))}</code></td><td><code>${esc(u.pw||"—")}</code></td><td><button class="btn r s" data-a="deluser" data-id="${id}">Thu hồi</button></td></tr>`).join("")}</table>`:`<p class="mut">Chưa có tài khoản nào.</p>`}</div></div>`;
+    <select name="to">${[1,2,3,4].map(n=>`<option>${n}</option>`).join("")}</select><button class="btn">Tạo tài khoản</button></form></div>
+    <div class="card"><h3>Tài khoản đã cấp</h3>${us.length?us.map(([id,u])=>`<div class="rec"><span class="it">${esc(u.name)}<br><small class="mut">${esc(u.email)}</small></span><span class="tag n">${u.role=="leader"?"Tổ trưởng":"Học sinh"} – Tổ ${u.to}</span><button class="btn r s" data-a="deluser" data-id="${id}">Thu hồi</button></div>`).join(""):`<p class="mut">Chưa có tài khoản nào.</p>`}</div>`;
 }
 
 /* ---------- Hộp thoại ---------- */
@@ -201,7 +198,7 @@ function modal(h){closeM();const d=document.createElement("div");d.className="mo
 function closeM(){$("#m")?.remove()}
 function loginModal(v){
   S.pending=v;
-  modal(`<h3>${v=="admin"?"Đăng nhập Admin":"Đăng nhập Tổ "+v}</h3><form data-f="login"><input name="e" type="text" placeholder="Tên đăng nhập hoặc email" required autocomplete="username" autocapitalize="none"><input name="p" type="password" placeholder="Mật khẩu" required autocomplete="current-password"><div class="err" id="err"></div><div class="row"><button class="btn">Đăng nhập</button><button type="button" class="btn g" data-a="close">Hủy</button></div></form>`);
+  modal(`<h3>${v=="admin"?"Đăng nhập Admin":"Đăng nhập Tổ "+v}</h3><form data-f="login"><input name="e" type="email" placeholder="Email" required autocomplete="username"><input name="p" type="password" placeholder="Mật khẩu" required autocomplete="current-password"><div class="err" id="err"></div><div class="row"><button class="btn">Đăng nhập</button><button type="button" class="btn g" data-a="close">Hủy</button></div></form>`);
 }
 function editModal(id){
   const r=S.records[id];
@@ -235,17 +232,17 @@ const A={
   async deluser(d){if(confirm("Thu hồi quyền của tài khoản này?")){await remove(ref(db,"users/"+d.id))}}
 };
 const F={
-  async login(f){const err=$("#err");try{await signInWithEmailAndPassword(auth,toEmail(f.e.value),f.p.value);closeM()}catch(e){err.textContent="Sai tên đăng nhập hoặc mật khẩu."}},
+  async login(f){const err=$("#err");try{await signInWithEmailAndPassword(auth,f.e.value,f.p.value);closeM()}catch(e){err.textContent="Sai email hoặc mật khẩu."}},
   async addmem(f){const n=f.name.value.trim();if(!n)return;await push(ref(db,"members"),{name:n,to:S.view});f.reset()},
   async addrec(f,el){const it=FLAT[f.i.value];await push(ref(db,"records"),{to:S.view,week:S.week,mid:el.dataset.m,item:it[0],pts:it[1],ts:Date.now(),by:S.name});toast("Đã ghi điểm.")},
   async reqedit(f,el){await sendReq(el.dataset.id,"edit",f.i.value);closeM()},
   async newacc(f){
-    const b=f.querySelector("button");b.disabled=true;const email=toEmail(f.user.value),pw=f.pw.value;
+    const b=f.querySelector("button");b.disabled=true;
     try{const sec=initializeApp(cfg,"sec"+Date.now()),sa=getAuth(sec);
-      const c=await createUserWithEmailAndPassword(sa,email,pw);
-      await set(ref(db,"users/"+c.user.uid),{name:f.name.value.trim(),email,pw,role:f.role.value,to:+f.to.value});
+      const c=await createUserWithEmailAndPassword(sa,f.email.value,f.pw.value);
+      await set(ref(db,"users/"+c.user.uid),{name:f.name.value.trim(),email:f.email.value,role:f.role.value,to:+f.to.value});
       await signOut(sa);toast("Đã tạo tài khoản.");f.reset()}
-    catch(e){toast(e.code=="auth/email-already-in-use"?"Tên đăng nhập đã tồn tại.":"Không tạo được: "+e.code)}b.disabled=false}
+    catch(e){toast("Không tạo được: "+e.code)}b.disabled=false}
 };
 document.addEventListener("click",e=>{const b=e.target.closest("[data-a]");if(!b||b.closest(".det")&&b.dataset.a=="sel")return;if(e.target.closest("button")&&b.dataset.a=="sel"&&b!==e.target.closest("button"))return;A[b.dataset.a]?.(b.dataset)});
 document.addEventListener("change",e=>{const c=e.target.dataset.c;if(c=="week"){S.week=+e.target.value;render()}if(c=="rw"){S.rw=+e.target.value;render()}});
