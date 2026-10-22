@@ -2,64 +2,102 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f2a43">
 <title>Thi đua lớp 11A2</title>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;800&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#14213d;--mut:#5b667a;--bg:#eef2f7;--card:#fff;--line:#dbe2ec;--good:#17803d;--bad:#c62828;--pri:#1d4ed8;--t1:#1d4ed8;--t2:#15803d;--t3:#d97706;--t4:#7c3aed}
+:root{--ink:#0f2a43;--ink2:#1c4466;--mut:#62708a;--bg:#f1f4f9;--card:#fff;--line:#e0e6f0;--good:#15803d;--bad:#c62828;--pri:#1d5fd6;--t1:#1d5fd6;--t2:#15803d;--t3:#d97706;--t4:#7c3aed;--sh:0 1px 2px #0f2a4312,0 6px 18px #0f2a430d}
 *{box-sizing:border-box}
-body{margin:0;font:15px/1.5 "Be Vietnam Pro",system-ui,sans-serif;background:var(--bg);color:var(--ink)}
-button,select,input{font:inherit}
-header{background:var(--ink);color:#fff;padding:10px 16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;position:sticky;top:0;z-index:5}
-header h1{font-size:18px;margin:0;flex:1;font-weight:800;letter-spacing:.2px;cursor:pointer}
-header small{opacity:.8}
-main{max-width:1000px;margin:0 auto;padding:16px}
-.btn{border:0;border-radius:8px;padding:8px 14px;background:var(--pri);color:#fff;font-weight:500;cursor:pointer}
-.btn.g{background:#e3e9f3;color:var(--ink)}.btn.r{background:var(--bad)}.btn.s{padding:4px 10px;font-size:13px}.btn.ok{background:var(--good)}
-.btn:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #93b4ff;outline-offset:1px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:14px}
-h2{margin:0 0 10px;font-size:19px}h3{margin:0 0 8px;font-size:16px}
-.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
-.tile{border:0;border-left:8px solid var(--c);background:var(--card);border-radius:10px;padding:18px 16px;text-align:left;cursor:pointer;box-shadow:0 1px 0 var(--line)}
-.tile b{font-size:26px;display:block;color:var(--c)}.tile span{color:var(--mut)}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100vh;display:flex;flex-direction:column;font:15px/1.55 "Be Vietnam Pro",system-ui,sans-serif;background:var(--bg);color:var(--ink)}
+button,select,input{font:inherit;color:inherit}
+header{background:linear-gradient(120deg,var(--ink),var(--ink2));color:#fff;position:sticky;top:0;z-index:5;padding-top:env(safe-area-inset-top,0)}
+header .in{max-width:1040px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;cursor:pointer;min-width:0}
+.logo{background:#fff;color:var(--ink);font-weight:800;border-radius:12px;padding:6px 9px;font-size:15px;letter-spacing:.3px}
+.brand h1{margin:0;font-size:17px;font-weight:800;line-height:1.2;white-space:nowrap}
+.brand small{opacity:.75;font-size:12px;display:block;line-height:1.2}
+.usr{display:flex;align-items:center;gap:8px;font-size:13px;min-width:0}
+#who{opacity:.9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:240px}
+main{width:100%;max-width:1040px;margin:0 auto;padding:18px 16px;flex:1}
+footer{text-align:center;color:var(--mut);font-size:12.5px;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0));border-top:1px solid var(--line);background:#fff}
+.btn{border:0;border-radius:10px;padding:9px 16px;background:var(--pri);color:#fff;font-weight:600;cursor:pointer;transition:filter .15s}
+.btn:hover{filter:brightness(1.08)}
+.btn.g{background:#e6ecf6;color:var(--ink)}.btn.r{background:var(--bad)}.btn.s{padding:5px 11px;font-size:13px}.btn.ok{background:var(--good)}
+.btn:disabled{opacity:.6}
+header .btn.g{background:#ffffff26;color:#fff}
+:focus-visible{outline:3px solid #8fb0ff;outline-offset:2px}
+.card{background:var(--card);border-radius:16px;padding:16px;margin-bottom:16px;box-shadow:var(--sh)}
+h2{margin:0;font-size:20px;font-weight:800}h3{margin:0 0 8px;font-size:16px;font-weight:700}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:nowrap}
+.ttl{margin:0;font-size:24px;font-weight:800;color:var(--c,var(--ink));white-space:nowrap}
+.top select{flex:0 0 auto}
+.hero{background:linear-gradient(120deg,var(--ink),#235a86);color:#fff;border-radius:20px;padding:24px 22px;margin-bottom:16px;box-shadow:var(--sh)}
+.hero h2{font-size:24px}.hero p{margin:6px 0 0;opacity:.85;max-width:60ch}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.tile{border:0;background:var(--card);border-radius:18px;padding:18px;text-align:left;cursor:pointer;box-shadow:var(--sh);display:flex;gap:14px;align-items:center;transition:transform .15s}
+.tile:hover{transform:translateY(-2px)}
+.tile i{font-style:normal;width:48px;height:48px;border-radius:14px;background:var(--c);color:#fff;display:grid;place-items:center;font-size:22px;font-weight:800;flex:none}
+.tile b{display:block;font-size:17px}.tile span{color:var(--mut);font-size:13px}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .row.sp{justify-content:space-between}
-input,select{padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;min-width:0}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
-.stat{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
-.stat b{font-size:24px;display:block}.stat.v b{color:var(--bad)}.stat.n b{color:var(--good)}
-.mem{display:flex;gap:10px;align-items:center;padding:10px 4px;border-top:1px solid var(--line);cursor:pointer;flex-wrap:wrap}
-.mem:first-child{border-top:0}.mem.me{background:#f1f6ff}
-.mem .nm{flex:1;min-width:120px;font-weight:500}
-.sc{font-weight:800;min-width:46px;text-align:right}
-.tag{font-size:12px;padding:2px 8px;border-radius:99px;font-weight:500}
-.tag.v{background:#fde8e8;color:var(--bad)}.tag.n{background:#e3f6ea;color:var(--good)}
-.det{background:#f7f9fc;border-radius:8px;padding:10px;margin:0 0 8px}
-.rec{display:flex;gap:8px;align-items:center;padding:6px 0;border-top:1px dashed var(--line);flex-wrap:wrap}
-.rec .it{flex:1;min-width:140px}.p{font-weight:700}.p.pos{color:var(--good)}.p.neg{color:var(--bad)}
-.wk{display:flex;gap:4px;flex-wrap:wrap;margin:6px 0}
-.wk button{border:1px solid var(--line);background:#fff;border-radius:6px;min-width:34px;padding:3px 4px;font-size:12px;cursor:pointer}
+input,select{padding:9px 11px;border:1px solid var(--line);border-radius:10px;background:#fff;min-width:0}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.stat{background:var(--card);border-radius:14px;padding:12px 14px;box-shadow:var(--sh)}
+.stat span{color:var(--mut);font-size:13px}
+.stat b{font-size:26px;display:block;line-height:1.2}.stat.v b{color:var(--bad)}.stat.n b{color:var(--good)}
+.mem{display:flex;gap:10px;align-items:center;padding:11px 4px;border-top:1px solid var(--line);cursor:pointer}
+.mem:first-of-type{border-top:0}
+.av{width:36px;height:36px;border-radius:50%;background:var(--c);color:#fff;display:grid;place-items:center;font-weight:700;flex:none}
+.mem .nm{flex:1;min-width:0;font-weight:600}
+.mem .nm small{display:block;color:var(--mut);font-weight:400;font-size:12.5px}
+.sc{font-weight:800;font-size:18px;min-width:44px;text-align:right}
+.tag{font-size:12px;padding:2px 9px;border-radius:99px;font-weight:600;white-space:nowrap}
+.tag.v{background:#fde8e8;color:var(--bad)}.tag.n{background:#e1f5e8;color:var(--good)}.tag.w{background:#fff1d6;color:#a15c00}
+.det{background:#f5f8fc;border-radius:12px;padding:12px;margin:2px 0 10px}
+.rec{display:flex;gap:8px;align-items:center;padding:8px 0;border-top:1px dashed var(--line);flex-wrap:wrap}
+.rec:first-of-type{border-top:0}
+.rec .it{flex:1;min-width:150px}.p{font-weight:800}.p.pos{color:var(--good)}.p.neg{color:var(--bad)}
+.rec.pd{opacity:.7}
+.wk{display:flex;gap:4px;flex-wrap:wrap;margin:6px 0 10px}
+.wk button{border:1px solid var(--line);background:#fff;border-radius:7px;min-width:36px;padding:4px;font-size:12px;cursor:pointer}
 .wk .bad{background:#fde8e8;border-color:#f3b4b4}.wk .on{background:var(--ink);color:#fff;border-color:var(--ink)}
-.tabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:14px;padding-bottom:2px}
-.tabs button{white-space:nowrap;border:0;background:#e3e9f3;border-radius:8px;padding:8px 14px;cursor:pointer}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:16px;padding:4px;background:#e6ecf6;border-radius:14px;scrollbar-width:none}
+.tabs button{white-space:nowrap;border:0;background:transparent;border-radius:10px;padding:8px 14px;cursor:pointer;font-weight:500}
 .tabs .on{background:var(--ink);color:#fff}
-table{width:100%;border-collapse:collapse}th,td{padding:8px 6px;text-align:left;border-bottom:1px solid var(--line)}
-.wrap{overflow-x:auto}
-tr[data-a]{cursor:pointer}
-.mut{color:var(--mut)}.pend{font-size:12px;color:#b45309;font-weight:500}
-.modal{position:fixed;inset:0;background:#0008;display:flex;align-items:center;justify-content:center;padding:16px;z-index:20}
-.modal>div{background:#fff;border-radius:12px;padding:18px;width:100%;max-width:380px}
+.rk{display:flex;gap:12px;align-items:center;padding:12px 4px;border-top:1px solid var(--line);cursor:pointer}
+.rk:first-of-type{border-top:0}
+.pos{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:800;background:#e6ecf6;flex:none}
+.pos.p1{background:#fbbf24}.pos.p2{background:#cbd5e1}.pos.p3{background:#e0a878}
+.rkb{flex:1;min-width:0}.rkb small{color:var(--mut);display:block}
+.bar{height:7px;border-radius:9px;background:#e6ecf6;margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;border-radius:9px}
+.avg{font-weight:800;font-size:22px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.mini{display:flex;justify-content:space-between;gap:8px;padding:7px 0;border-top:1px solid var(--line)}.mini:first-of-type{border-top:0}
+.acc{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px}
+table{width:100%;border-collapse:collapse}th,td{padding:8px 6px;text-align:left;border-bottom:1px solid var(--line);font-size:14px}
+.mut{color:var(--mut)}
+.modal{position:fixed;inset:0;background:#0f2a4399;display:flex;align-items:center;justify-content:center;padding:16px;z-index:20}
+.modal>div{background:#fff;border-radius:18px;padding:20px;width:100%;max-width:390px}
 .modal form{display:grid;gap:10px}
 .err{color:var(--bad);font-size:13px;min-height:18px}
-#toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:8px 16px;border-radius:8px;z-index:30;display:none}
+#toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0));left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:12px;z-index:30;display:none;max-width:90vw;text-align:center}
 .only-print{display:none}
-@media(max-width:560px){main{padding:10px}.stats{gap:6px}.stat b{font-size:20px}}
-@media print{header,.noprint,.tabs{display:none!important}body{background:#fff}.card{border:0;padding:0}.only-print{display:block}.screen{display:none}main{max-width:none}}
+@media(max-width:640px){
+ main{padding:12px}.brand small{display:none}.brand h1{font-size:15px}#who{max-width:120px}
+ .stats{grid-template-columns:1fr 1fr;gap:10px}.two{grid-template-columns:1fr}
+ .ttl{font-size:21px}.hero{padding:18px}.hero h2{font-size:20px}
+ .mem .tag{display:none}.card{padding:13px;border-radius:14px}
+ form.row input,form.row select{flex:1 1 100%}form.row .btn{flex:1 1 100%}
+}
+@media print{header,footer,.noprint,.tabs{display:none!important}body{background:#fff}.card{box-shadow:none;padding:0}.only-print{display:block}.screen{display:none}main{max-width:none}}
 </style>
 </head>
 <body>
-<header><h1 data-a="home">Thi đua lớp 11A2</h1><small id="who"></small><button class="btn g s" id="out" data-a="logout" style="display:none">Đăng xuất</button></header>
-<main id="app"><div class="card"><h2>Đang tải…</h2><p class="mut" style="margin:0">Nếu màn hình này không thay đổi, hãy mở trang qua máy chủ web (không mở trực tiếp file) và kiểm tra kết nối mạng.</p></div></main>
+<header><div class="in"><div class="brand" data-a="home"><span class="logo">11A2</span><div><h1>Thi đua lớp 11A2</h1><small>Theo dõi nền nếp và điểm thi đua</small></div></div><div class="usr"><span id="who"></span><button class="btn g s" id="out" data-a="logout" style="display:none">Đăng xuất</button></div></div></header>
+<main id="app"><div class="card"><h2>Đang tải…</h2><p class="mut" style="margin:6px 0 0">Nếu màn hình này không thay đổi, hãy mở trang qua máy chủ web (không mở trực tiếp file) và kiểm tra kết nối mạng.</p></div></main>
+<footer>© 2026 bản quyền thuộc về 11A2. Chịu trách nhiệm Bản Quyền Huỳnh Công Thành!</footer>
 <div id="toast"></div>
 <script type="module">
 const B="https://www.gstatic.com/firebasejs/10.12.2/";
@@ -81,21 +119,28 @@ const ITEMS=[["Trừ điểm",[["Đi học muộn",-2],["Không làm bài tập"
 const FLAT=ITEMS.flatMap(g=>g[1]);
 const WEEKS=Array.from({length:29},(_,i)=>i+7);
 const COL=["","var(--t1)","var(--t2)","var(--t3)","var(--t4)"];
+const RL={admin:"Quản trị viên",teacher:"Giáo viên",leader:"Tổ trưởng",student:"Học sinh"};
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const S={user:null,role:null,to:null,name:"",view:"home",tab:"rank",week:7,rw:0,sel:null,members:{},records:{},requests:{},users:{},pending:null};
 let unsubs=[];
 
-const toast=t=>{const e=$("#toast");e.textContent=t;e.style.display="block";clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display="none",2600)};
+const toast=t=>{const e=$("#toast");e.textContent=t;e.style.display="block";clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display="none",2800)};
 const mem=to=>Object.entries(S.members).filter(([,m])=>m.to==to).map(([id,m])=>({id,...m}));
 const recs=()=>Object.entries(S.records).map(([id,r])=>({id,...r}));
+const reqs=()=>Object.entries(S.requests).map(([id,q])=>({id,...q}));
 const sc=(mid,wk)=>100+recs().filter(r=>r.mid==mid&&(!wk||r.week==wk)).reduce((a,r)=>a+r.pts,0);
 const isBad=(mid,wk)=>recs().some(r=>r.mid==mid&&r.pts<0&&(!wk||r.week==wk));
 const sg=n=>(n>0?"+":"")+n;
-const pendFor=id=>Object.values(S.requests).some(q=>q.rid==id&&q.status=="pending");
+const pendFor=id=>reqs().some(q=>q.rid==id&&q.status=="pending");
+const pendDel=mid=>reqs().some(q=>q.type=="delmem"&&q.mid==mid&&q.status=="pending");
+const isStaff=()=>S.role=="admin"||S.role=="teacher";
+const isAdmin=()=>S.role=="admin";
 const canLead=to=>S.role=="leader"&&S.to==to;
-const can=v=>S.role=="admin"||(v!="admin"&&S.to==v);
+const ctl=to=>isAdmin()||canLead(to);
+const can=v=>isStaff()||(v!="admin"&&S.to==v);
 const weekOpts=(cur,all)=>(all?`<option value="0" ${cur==0?"selected":""}>Tất cả các tuần</option>`:"")+WEEKS.map(w=>`<option value="${w}" ${w==cur?"selected":""}>Tuần ${w}</option>`).join("");
+const itemOpts=()=>ITEMS.map(g=>`<optgroup label="${g[0]}">${g[1].map(x=>`<option value="${FLAT.indexOf(x)}">${x[0]} (${sg(x[1])})</option>`).join("")}</optgroup>`).join("");
 
 /* ---------- Auth & dữ liệu ---------- */
 onAuthStateChanged(auth,async u=>{
@@ -104,62 +149,73 @@ onAuthStateChanged(auth,async u=>{
   let p=null;
   if(u.email===ADMIN)p={role:"admin",name:"Admin tổng"};
   else{try{p=(await get(ref(db,"users/"+u.uid))).val()}catch(e){}}
-  if(!p){toast("Tài khoản chưa được admin phân tổ.");return signOut(auth)}
+  if(!p){toast("Tài khoản chưa được admin cấp quyền.");return signOut(auth)}
   Object.assign(S,{user:u,role:p.role,to:p.to||null,name:p.name||u.email});
   const sub=(path,key)=>unsubs.push(onValue(ref(db,path),s=>{S[key]=s.val()||{};render()},e=>toast("Lỗi đọc dữ liệu: "+e.message)));
   sub("members","members");sub("records","records");sub("requests","requests");
   if(p.role=="admin")sub("users","users");
-  const t=S.pending||(p.role=="admin"?"admin":p.to);S.pending=null;
-  if(can(t)){S.view=t;S.tab="rank"}else{toast("Tài khoản này không thuộc tổ đã chọn.");S.view=p.to||"admin"}
+  const t=S.pending||(isStaff()?"admin":p.to);S.pending=null;
+  if(can(t)){S.view=t;S.tab="rank"}else{toast("Tài khoản này không thuộc tổ đã chọn.");S.view=isStaff()?"admin":p.to}
   render();
 });
 
 /* ---------- Giao diện ---------- */
 function render(){
-  $("#who").textContent=S.user?`${S.name} (${{admin:"Admin",leader:"Tổ trưởng",student:"Học sinh"}[S.role]})`:"";
+  $("#who").textContent=S.user?`${S.name} · ${RL[S.role]||""}`:"";
   $("#out").style.display=S.user?"":"none";
   const v=S.view;
   $("#app").innerHTML=v=="home"?home():v=="admin"?adminPage():toPage(v);
 }
 function home(){
-  return `<div class="card"><h2>Chọn tổ để đăng nhập</h2><p class="mut" style="margin:0">Học sinh và tổ trưởng đăng nhập bằng tài khoản do admin cấp. Học sinh chỉ xem được tổ của mình.</p></div>
-  <div class="grid">${[1,2,3,4].map(n=>`<button class="tile" style="--c:${COL[n]}" data-a="open" data-v="${n}"><b>Tổ ${n}</b><span>${mem(n).length?mem(n).length+" tổ viên":"Đăng nhập vào tổ"}</span></button>`).join("")}
-  <button class="tile" style="--c:var(--ink)" data-a="open" data-v="admin"><b>Admin</b><span>Bảng xếp hạng &amp; duyệt yêu cầu</span></button></div>`;
+  return `<div class="hero"><h2>Chào mừng đến trang thi đua 11A2</h2><p>Chọn tổ của bạn để xem điểm và nền nếp theo tuần. Giáo viên và quản trị viên chọn mục bên dưới để xem toàn lớp.</p></div>
+  <div class="grid">${[1,2,3,4].map(n=>`<button class="tile" style="--c:${COL[n]}" data-a="open" data-v="${n}"><i>${n}</i><div><b>Tổ ${n}</b><span>${mem(n).length?mem(n).length+" tổ viên":"Đăng nhập vào tổ"}</span></div></button>`).join("")}
+  <button class="tile" style="--c:var(--ink)" data-a="open" data-v="admin"><i>★</i><div><b>Giáo viên / Admin</b><span>Thống kê toàn lớp</span></div></button></div>`;
 }
+function stats(ms,w){
+  const vio=ms.filter(m=>isBad(m.id,w)).length,avg=ms.length?ms.reduce((a,m)=>a+sc(m.id,w),0)/ms.length:0;
+  return `<div class="stats"><div class="stat"><span>Tổ viên</span><b>${ms.length}</b></div><div class="stat v"><span>Vi phạm</span><b>${vio}</b></div><div class="stat n"><span>Không vi phạm</span><b>${ms.length-vio}</b></div><div class="stat"><span>Điểm trung bình</span><b>${avg.toFixed(1)}</b></div></div>`;
+}
+function describe(q){
+  const t={add:`Thêm ghi nhận: ${esc(q.item)} (${sg(q.pts)}) cho ${esc(q.mname)}, tuần ${q.week}`,addmem:`Thêm tổ viên: ${esc(q.name)}`,delmem:`Xóa tổ viên: ${esc(q.mname)} và toàn bộ lịch sử điểm`,
+    del:`Xóa ghi nhận: ${esc(q.item)} (${sg(q.pts)}) của ${esc(q.mname)}, tuần ${q.week}`,edit:`Sửa ghi nhận của ${esc(q.mname)} (tuần ${q.week}): ${esc(q.item)} (${sg(q.pts)}) → <b>${esc(q.nitem)} (${sg(q.npts)})</b>`};
+  return t[q.type]||"";
+}
+const stTag=s=>s=="pending"?`<span class="tag w">Chờ duyệt</span>`:s=="approved"?`<span class="tag n">Đã duyệt</span>`:`<span class="tag v">Đã từ chối</span>`;
 function toPage(to){
-  const ms=mem(to),w=S.week,lead=canLead(to);
-  const vio=ms.filter(m=>isBad(m.id,w)).length;
-  return `<div class="row sp noprint" style="margin-bottom:12px"><h2 style="margin:0;color:${COL[to]}">Tổ ${to}</h2>
-    <select data-c="week" aria-label="Chọn tuần">${weekOpts(w)}</select></div>
-  <div class="stats"><div class="stat"><span class="mut">Tổ viên</span><b>${ms.length}</b></div>
-    <div class="stat v"><span class="mut">Vi phạm</span><b>${vio}</b></div>
-    <div class="stat n"><span class="mut">Không vi phạm</span><b>${ms.length-vio}</b></div></div>
+  const ms=mem(to),w=S.week,lead=canLead(to),c=ctl(to);
+  const mine=reqs().filter(q=>q.to==to).sort((a,b)=>b.ts-a.ts).slice(0,8);
+  return `<div class="top"><h2 class="ttl" style="--c:${COL[to]}">Tổ ${to}</h2><select data-c="week" aria-label="Chọn tuần">${weekOpts(w)}</select></div>
+  ${stats(ms,w)}
   <div class="card"><h3>Tổ viên – tuần ${w}</h3>
-    ${ms.length?ms.sort((a,b)=>a.name.localeCompare(b.name,"vi")).map(m=>memRow(m,w,lead)).join(""):`<p class="mut">Chưa có tổ viên.${lead?" Hãy thêm ở bên dưới.":""}</p>`}
-    ${lead?`<form class="row" data-f="addmem" style="margin-top:10px"><input name="name" placeholder="Họ tên tổ viên" required style="flex:1"><button class="btn">Thêm tổ viên</button></form>`:""}</div>`;
+    ${lead?`<p class="mut" style="margin:0 0 8px;font-size:13px">Mọi thay đổi của tổ được gửi cho Quản trị viên kiểm duyệt trước khi tính điểm.</p>`:""}
+    ${ms.length?ms.sort((a,b)=>a.name.localeCompare(b.name,"vi")).map(m=>memRow(m,w,c,to)).join(""):`<p class="mut">Chưa có tổ viên.${c?" Hãy thêm ở bên dưới.":""}</p>`}
+    ${c?`<form class="row" data-f="addmem" style="margin-top:12px"><input name="name" placeholder="Họ tên tổ viên" required style="flex:1"><button class="btn">${isAdmin()?"Thêm tổ viên":"Gửi duyệt thêm"}</button></form>`:""}</div>
+  ${lead&&mine.length?`<div class="card"><h3>Yêu cầu gần đây của tổ</h3>${mine.map(q=>`<div class="rec"><span class="it">${describe(q)}<br><small class="mut">${new Date(q.ts).toLocaleDateString("vi-VN")}</small></span>${stTag(q.status)}</div>`).join("")}</div>`:""}`;
 }
-function memRow(m,w,lead){
-  const bad=isBad(m.id,w),open=S.sel==m.id,mine=S.user&&S.users&&0;
+function memRow(m,w,c,to){
+  const bad=isBad(m.id,w),open=S.sel==m.id,pd=pendDel(m.id);
   let d="";
   if(open){
     const rs=recs().filter(r=>r.mid==m.id&&r.week==w).sort((a,b)=>b.ts-a.ts);
+    const pa=reqs().filter(q=>q.type=="add"&&q.mid==m.id&&q.week==w&&q.status=="pending");
     d=`<div class="det"><div class="mut" style="font-size:13px">Lỗi theo tuần (đỏ = có vi phạm)</div>
       <div class="wk">${WEEKS.map(k=>`<button data-a="wk" data-w="${k}" class="${k==w?"on":isBad(m.id,k)?"bad":""}">${k}</button>`).join("")}</div>
-      <h3>Tuần ${w}</h3>${rs.length?rs.map(r=>`<div class="rec"><span class="it">${esc(r.item)}<br><small class="mut">${new Date(r.ts).toLocaleDateString("vi-VN")} · ${esc(r.by)}</small></span>
+      <h3>Tuần ${w}</h3>${rs.length||pa.length?rs.map(r=>`<div class="rec"><span class="it">${esc(r.item)}<br><small class="mut">${new Date(r.ts).toLocaleDateString("vi-VN")} · ${esc(r.by)}</small></span>
         <span class="p ${r.pts>0?"pos":"neg"}">${sg(r.pts)}</span>
-        ${lead?(pendFor(r.id)?`<span class="pend">Chờ duyệt</span>`:`<button class="btn g s" data-a="redit" data-id="${r.id}">Sửa</button><button class="btn r s" data-a="rdel" data-id="${r.id}">Xóa</button>`):""}</div>`).join(""):`<p class="mut" style="margin:4px 0">Không có ghi nhận nào trong tuần này.</p>`}
-      ${lead?`<form class="row" data-f="addrec" data-m="${m.id}" style="margin-top:10px"><select name="i" style="flex:1">${ITEMS.map(g=>`<optgroup label="${g[0]}">${g[1].map(x=>`<option value="${FLAT.indexOf(x)}">${x[0]} (${sg(x[1])})</option>`).join("")}</optgroup>`).join("")}</select><button class="btn ok">Ghi điểm</button></form>
-      <button class="btn r s" data-a="delmem" data-m="${m.id}" style="margin-top:10px">Xóa tổ viên</button>`:""}</div>`;
+        ${c?(pendFor(r.id)?`<span class="tag w">Chờ duyệt</span>`:`<button class="btn g s" data-a="redit" data-id="${r.id}">Sửa</button><button class="btn r s" data-a="rdel" data-id="${r.id}">Xóa</button>`):""}</div>`).join("")+pa.map(q=>`<div class="rec pd"><span class="it">${esc(q.item)}<br><small class="mut">Đang chờ duyệt · ${esc(q.by)}</small></span><span class="p ${q.pts>0?"pos":"neg"}">${sg(q.pts)}</span><span class="tag w">Chờ duyệt</span></div>`).join(""):`<p class="mut" style="margin:4px 0">Không có ghi nhận nào trong tuần này.</p>`}
+      ${c?`<form class="row" data-f="addrec" data-m="${m.id}" style="margin-top:10px"><select name="i" style="flex:1">${itemOpts()}</select><button class="btn ok">${isAdmin()?"Ghi điểm":"Gửi duyệt"}</button></form>
+      ${pd?`<span class="tag w" style="display:inline-block;margin-top:10px">Đang chờ duyệt xóa tổ viên</span>`:`<button class="btn r s" data-a="delmem" data-m="${m.id}" style="margin-top:10px">${isAdmin()?"Xóa tổ viên":"Gửi duyệt xóa tổ viên"}</button>`}`:""}</div>`;
   }
-  return `<div class="mem" data-a="sel" data-m="${m.id}"><span class="nm">${esc(m.name)}</span>
-    <span class="tag ${bad?"v":"n"}">${bad?"Vi phạm":"Không vi phạm"}</span>
-    <span class="mut" style="font-size:13px">Tuần: ${sg(sc(m.id,w)-100)}</span><span class="sc">${sc(m.id)}</span></div>${d}`;
+  return `<div class="mem" data-a="sel" data-m="${m.id}" style="--c:${COL[to]}"><span class="av">${esc(m.name.trim().split(" ").pop()[0]||"?").toUpperCase()}</span>
+    <span class="nm">${esc(m.name)}<small>Tuần ${w}: ${sg(sc(m.id,w)-100)}</small></span>
+    ${pd?`<span class="tag w">Chờ xóa</span>`:`<span class="tag ${bad?"v":"n"}">${bad?"Vi phạm":"Không vi phạm"}</span>`}
+    <span class="sc">${sc(m.id)}</span></div>${d}`;
 }
 function adminPage(){
-  const t=S.tab,np=Object.values(S.requests).filter(q=>q.status=="pending").length;
-  const tabs=[["rank","Xếp hạng"],["req",`Yêu cầu${np?` (${np})`:""}`],["acc","Tài khoản"],...[1,2,3,4].map(n=>["t"+n,"Tổ "+n])];
+  const t=S.tab,np=reqs().filter(q=>q.status=="pending").length;
+  const tabs=[["rank","Xếp hạng"],...(isAdmin()?[["req",`Yêu cầu${np?` (${np})`:""}`],["acc","Tài khoản"]]:[]),...[1,2,3,4].map(n=>["t"+n,"Tổ "+n])];
   return `<div class="tabs">${tabs.map(([k,l])=>`<button data-a="tab" data-t="${k}" class="${k==t?"on":""}">${l}</button>`).join("")}</div>`+
-   (t=="rank"?rankTab():t=="req"?reqTab():t=="acc"?accTab():toPage(+t[1]));
+   (t=="rank"?rankTab():t=="req"&&isAdmin()?reqTab():t=="acc"&&isAdmin()?accTab():toPage(+t[1]||1));
 }
 function stat(to,w){
   const ms=mem(to),n=ms.length,tot=ms.reduce((a,m)=>a+sc(m.id,w),0);
@@ -169,28 +225,32 @@ function stat(to,w){
 function rankTab(){
   const w=S.rw,st=[1,2,3,4].map(n=>stat(n,w)).sort((a,b)=>b.avg-a.avg);
   const lbl=w?"Tuần "+w:"Tất cả các tuần";
-  const table=`<table><tr><th>Hạng</th><th>Tổ</th><th>Số HS</th><th>Điểm TB</th><th>Vi phạm</th><th>Không VP</th></tr>
-    ${st.map((s,i)=>`<tr data-a="tab" data-t="t${s.to}"><td><b>${i+1}</b></td><td style="color:${COL[s.to]};font-weight:700">Tổ ${s.to}</td><td>${s.n}</td><td><b>${s.avg.toFixed(1)}</b></td><td>${s.vio}</td><td>${s.ok}</td></tr>`).join("")}</table>`;
+  const all=[1,2,3,4].flatMap(n=>mem(n).map(m=>({...m,s:sc(m.id,w)})));
+  const top=[...all].sort((a,b)=>b.s-a.s).slice(0,5),low=[...all].sort((a,b)=>a.s-b.s).slice(0,5);
+  const mx=Math.max(100,...st.map(s=>s.avg));
+  const list=st.map((s,i)=>`<div class="rk" data-a="tab" data-t="t${s.to}"><span class="pos p${i+1}">${i+1}</span><div class="rkb"><b style="color:${COL[s.to]}">Tổ ${s.to}</b><small>${s.n} HS · ${s.vio} vi phạm · ${s.ok} không vi phạm</small><div class="bar"><i style="width:${Math.max(4,(s.avg-50)/(mx-50)*100)}%;background:${COL[s.to]}"></i></div></div><span class="avg">${s.avg.toFixed(1)}</span></div>`).join("");
+  const mini=a=>a.length?a.map(m=>`<div class="mini"><span>${esc(m.name)} <small class="mut">Tổ ${m.to}</small></span><b>${m.s}</b></div>`).join(""):`<p class="mut" style="margin:0">Chưa có dữ liệu.</p>`;
   const rep=[1,2,3,4].map(n=>`<h3 style="margin-top:16px">Tổ ${n}</h3><table><tr><th>Họ tên</th><th>Điểm</th><th>Ghi nhận ${lbl.toLowerCase()}</th></tr>${mem(n).map(m=>`<tr><td>${esc(m.name)}</td><td>${sc(m.id,w)}</td><td>${recs().filter(r=>r.mid==m.id&&(!w||r.week==w)).map(r=>(w?"":`T${r.week}: `)+esc(r.item)+" ("+sg(r.pts)+")").join("; ")||"—"}</td></tr>`).join("")}</table>`).join("");
-  return `<div class="card"><div class="row sp noprint" style="margin-bottom:10px"><h2 style="margin:0">Bảng xếp hạng thi đua</h2><div class="row">
-    <select data-c="rw">${weekOpts(w,1)}</select><button class="btn" data-a="print">In / Xuất PDF</button></div></div>
-    <h2 class="only-print">Báo cáo thi đua lớp 11A2 – ${lbl}</h2>${table}
-    <p class="mut noprint" style="margin:8px 0 0">Điểm TB = trung bình điểm các thành viên (mỗi người bắt đầu từ 100). Bấm vào một tổ để xem chi tiết. Khi in, chọn “Lưu dưới dạng PDF”.</p>
-    <div class="only-print">${rep}</div></div>`;
+  const tv=st.reduce((a,s)=>a+s.vio,0);
+  return `<div class="top noprint"><h2 class="ttl">Xếp hạng thi đua</h2><select data-c="rw" aria-label="Chọn tuần">${weekOpts(w,1)}</select></div>
+    <div class="stats noprint"><div class="stat"><span>Tổng học sinh</span><b>${all.length}</b></div><div class="stat v"><span>Vi phạm</span><b>${tv}</b></div><div class="stat n"><span>Không vi phạm</span><b>${all.length-tv}</b></div><div class="stat"><span>Điểm TB lớp</span><b>${all.length?(all.reduce((a,m)=>a+m.s,0)/all.length).toFixed(1):"0.0"}</b></div></div>
+    <div class="card screen"><div class="row sp" style="margin-bottom:6px"><h3 style="margin:0">Thứ hạng các tổ – ${lbl}</h3><button class="btn s" data-a="print">In / Xuất PDF</button></div>${list}
+    <p class="mut" style="margin:10px 0 0;font-size:13px">Điểm TB là trung bình điểm các thành viên (mỗi người bắt đầu từ 100). Bấm vào một tổ để xem chi tiết.</p></div>
+    <div class="two screen"><div class="card"><h3>Top 5 điểm cao nhất</h3>${mini(top)}</div><div class="card"><h3>5 bạn cần quan tâm</h3>${mini(low)}</div></div>
+    <div class="only-print"><h2>Báo cáo thi đua lớp 11A2 – ${lbl}</h2><table><tr><th>Hạng</th><th>Tổ</th><th>Số HS</th><th>Điểm TB</th><th>Vi phạm</th><th>Không VP</th></tr>${st.map((s,i)=>`<tr><td>${i+1}</td><td>Tổ ${s.to}</td><td>${s.n}</td><td>${s.avg.toFixed(1)}</td><td>${s.vio}</td><td>${s.ok}</td></tr>`).join("")}</table>${rep}</div>`;
 }
 function reqTab(){
-  const all=Object.entries(S.requests).sort((a,b)=>b[1].ts-a[1].ts);
-  return `<div class="card"><h2>Yêu cầu chỉnh sửa từ tổ trưởng</h2>${all.length?all.map(([id,q])=>`<div class="rec"><span class="it"><b>Tổ ${q.to}</b> – ${esc(q.mname)} (tuần ${q.week})<br>
-    <small>${q.type=="del"?"Xóa":"Sửa"}: ${esc(q.item)} (${sg(q.pts)})${q.type=="edit"?` → <b>${esc(q.nitem)} (${sg(q.npts)})</b>`:""}<br><span class="mut">${esc(q.by)} · ${new Date(q.ts).toLocaleDateString("vi-VN")}</span></small></span>
-    ${q.status=="pending"?`<button class="btn ok s" data-a="approve" data-id="${id}">Duyệt</button><button class="btn r s" data-a="reject" data-id="${id}">Từ chối</button>`:`<span class="tag ${q.status=="approved"?"n":"v"}">${q.status=="approved"?"Đã duyệt":"Đã từ chối"}</span>`}</div>`).join(""):`<p class="mut">Chưa có yêu cầu nào.</p>`}</div>`;
+  const all=reqs().sort((a,b)=>b.ts-a.ts);
+  return `<div class="card"><h2 style="margin-bottom:8px">Yêu cầu từ tổ trưởng</h2>${all.length?all.map(q=>`<div class="rec"><span class="it"><b>Tổ ${q.to}</b> – ${describe(q)}<br><small class="mut">${esc(q.by)} · ${new Date(q.ts).toLocaleDateString("vi-VN")}</small></span>
+    ${q.status=="pending"?`<button class="btn ok s" data-a="approve" data-id="${q.id}">Duyệt</button><button class="btn r s" data-a="reject" data-id="${q.id}">Từ chối</button>`:stTag(q.status)}</div>`).join(""):`<p class="mut">Chưa có yêu cầu nào.</p>`}</div>`;
 }
 function accTab(){
   const us=Object.entries(S.users).sort((a,b)=>(a[1].to||0)-(b[1].to||0));
-  return `<div class="card"><h2>Cấp tài khoản</h2><form class="row" data-f="newacc">
+  return `<div class="card"><h2 style="margin-bottom:10px">Cấp tài khoản</h2><form class="row" data-f="newacc">
     <input name="name" placeholder="Họ tên" required><input name="email" type="email" placeholder="Email" required><input name="pw" placeholder="Mật khẩu (≥ 6 ký tự)" minlength="6" required>
-    <select name="role"><option value="student">Học sinh</option><option value="leader">Tổ trưởng</option></select>
+    <select name="role" data-c="role"><option value="student">Học sinh</option><option value="leader">Tổ trưởng</option><option value="teacher">Giáo viên</option></select>
     <select name="to">${[1,2,3,4].map(n=>`<option>${n}</option>`).join("")}</select><button class="btn">Tạo tài khoản</button></form></div>
-    <div class="card"><h3>Tài khoản đã cấp</h3>${us.length?us.map(([id,u])=>`<div class="rec"><span class="it">${esc(u.name)}<br><small class="mut">${esc(u.email)}</small></span><span class="tag n">${u.role=="leader"?"Tổ trưởng":"Học sinh"} – Tổ ${u.to}</span><button class="btn r s" data-a="deluser" data-id="${id}">Thu hồi</button></div>`).join(""):`<p class="mut">Chưa có tài khoản nào.</p>`}</div>`;
+    <div class="card"><h3>Tài khoản đã cấp</h3>${us.length?us.map(([id,u])=>`<div class="rec"><span class="it">${esc(u.name)}<br><small class="mut">${esc(u.email)}</small></span><span class="tag n">${RL[u.role]||u.role}${u.to?" – Tổ "+u.to:""}</span><button class="btn r s" data-a="deluser" data-id="${id}">Thu hồi</button></div>`).join(""):`<p class="mut">Chưa có tài khoản nào.</p>`}</div>`;
 }
 
 /* ---------- Hộp thoại ---------- */
@@ -198,54 +258,72 @@ function modal(h){closeM();const d=document.createElement("div");d.className="mo
 function closeM(){$("#m")?.remove()}
 function loginModal(v){
   S.pending=v;
-  modal(`<h3>${v=="admin"?"Đăng nhập Admin":"Đăng nhập Tổ "+v}</h3><form data-f="login"><input name="e" type="email" placeholder="Email" required autocomplete="username"><input name="p" type="password" placeholder="Mật khẩu" required autocomplete="current-password"><div class="err" id="err"></div><div class="row"><button class="btn">Đăng nhập</button><button type="button" class="btn g" data-a="close">Hủy</button></div></form>`);
+  modal(`<h3>${v=="admin"?"Đăng nhập Giáo viên / Admin":"Đăng nhập Tổ "+v}</h3><form data-f="login"><input name="e" type="email" placeholder="Email" required autocomplete="username"><input name="p" type="password" placeholder="Mật khẩu" required autocomplete="current-password"><div class="err" id="err"></div><div class="row"><button class="btn">Đăng nhập</button><button type="button" class="btn g" data-a="close">Hủy</button></div></form>`);
 }
 function editModal(id){
   const r=S.records[id];
-  modal(`<h3>Yêu cầu sửa: ${esc(r.item)} (${sg(r.pts)})</h3><form data-f="reqedit" data-id="${id}"><select name="i">${ITEMS.map(g=>`<optgroup label="${g[0]}">${g[1].map(x=>`<option value="${FLAT.indexOf(x)}">${x[0]} (${sg(x[1])})</option>`).join("")}</optgroup>`).join("")}</select><div class="row"><button class="btn">Gửi yêu cầu</button><button type="button" class="btn g" data-a="close">Hủy</button></div></form>`);
+  modal(`<h3>${isAdmin()?"Sửa":"Yêu cầu sửa"}: ${esc(r.item)} (${sg(r.pts)})</h3><form data-f="reqedit" data-id="${id}"><select name="i">${itemOpts()}</select><div class="row"><button class="btn">${isAdmin()?"Lưu thay đổi":"Gửi yêu cầu"}</button><button type="button" class="btn g" data-a="close">Hủy</button></div></form>`);
 }
-const sendReq=(id,type,ni)=>{
-  const r=S.records[id],m=S.members[r.mid];
-  const q={rid:id,type,to:r.to,week:r.week,mname:m?.name||"?",item:r.item,pts:r.pts,by:S.name,ts:Date.now(),status:"pending"};
+const sendReq=q=>push(ref(db,"requests"),{...q,to:q.to,by:S.name,ts:Date.now(),status:"pending"}).then(()=>toast("Đã gửi yêu cầu, chờ Quản trị viên duyệt."));
+const recReq=(id,type,ni)=>{
+  const r=S.records[id],m=S.members[r.mid],q={rid:id,type,to:r.to,week:r.week,mname:m?.name||"?",item:r.item,pts:r.pts};
   if(type=="edit"){q.nitem=FLAT[ni][0];q.npts=FLAT[ni][1]}
-  return push(ref(db,"requests"),q).then(()=>toast("Đã gửi yêu cầu, chờ admin duyệt."));
+  return sendReq(q);
 };
 
 /* ---------- Hành động ---------- */
 const A={
   home(){S.view="home";render()},
-  open(d){const v=d.v=="admin"?"admin":+d.v;if(S.user&&can(v)){S.view=v;S.tab="rank";render()}else if(S.user)toast("Tài khoản của bạn không thuộc tổ này.");else loginModal(v)},
+  open(d){const v=d.v=="admin"?"admin":+d.v;if(S.user&&can(v)){S.view=v;S.tab="rank";render()}else if(S.user)toast("Tài khoản của bạn không thuộc mục này.");else loginModal(v)},
   logout(){signOut(auth)},close:closeM,
   sel(d){S.sel=S.sel==d.m?null:d.m;render()},
   wk(d){S.week=+d.w;render()},
-  tab(d){S.tab=d.t;if(d.t[0]=="t")S.sel=null;render()},
+  tab(d){S.tab=d.t;if(d.t[0]=="t")S.sel=null;render();scrollTo(0,0)},
   print(){window.print()},
   redit(d){editModal(d.id)},
-  rdel(d){if(confirm("Gửi yêu cầu xóa ghi nhận này cho admin?"))sendReq(d.id,"del")},
-  async delmem(d){const m=S.members[d.m];if(!confirm(`Xóa "${m.name}" và toàn bộ lịch sử điểm?`))return;
+  async rdel(d){
+    if(isAdmin()){if(confirm("Xóa ghi nhận này?")){await remove(ref(db,"records/"+d.id));toast("Đã xóa.")}}
+    else if(confirm("Gửi yêu cầu xóa ghi nhận này cho Quản trị viên?"))recReq(d.id,"del")},
+  async delmem(d){
+    const m=S.members[d.m];
+    if(!isAdmin()){if(confirm(`Gửi yêu cầu xóa "${m.name}" cho Quản trị viên?`))sendReq({type:"delmem",to:m.to,mid:d.m,mname:m.name});return}
+    if(!confirm(`Xóa "${m.name}" và toàn bộ lịch sử điểm?`))return;
     const up={["members/"+d.m]:null};recs().filter(r=>r.mid==d.m).forEach(r=>up["records/"+r.id]=null);await update(ref(db),up);S.sel=null;toast("Đã xóa tổ viên.")},
-  async approve(d){const q=S.requests[d.id],up={["requests/"+d.id+"/status"]:"approved"};
-    if(q.type=="del")up["records/"+q.rid]=null;else{up["records/"+q.rid+"/item"]=q.nitem;up["records/"+q.rid+"/pts"]=q.npts}
-    if(!S.records[q.rid]){delete up["records/"+q.rid+"/item"];delete up["records/"+q.rid+"/pts"]}
+  async approve(d){
+    const q=S.requests[d.id],up={["requests/"+d.id+"/status"]:"approved"};
+    if(q.type=="add")up["records/"+push(ref(db,"records")).key]={to:q.to,week:q.week,mid:q.mid,item:q.item,pts:q.pts,ts:Date.now(),by:q.by};
+    else if(q.type=="addmem")up["members/"+push(ref(db,"members")).key]={name:q.name,to:q.to};
+    else if(q.type=="delmem"){up["members/"+q.mid]=null;recs().filter(r=>r.mid==q.mid).forEach(r=>up["records/"+r.id]=null)}
+    else if(S.records[q.rid]){if(q.type=="del")up["records/"+q.rid]=null;else{up["records/"+q.rid+"/item"]=q.nitem;up["records/"+q.rid+"/pts"]=q.npts}}
     await update(ref(db),up);toast("Đã duyệt.")},
   reject(d){set(ref(db,"requests/"+d.id+"/status"),"rejected")},
   async deluser(d){if(confirm("Thu hồi quyền của tài khoản này?")){await remove(ref(db,"users/"+d.id))}}
 };
 const F={
   async login(f){const err=$("#err");try{await signInWithEmailAndPassword(auth,f.e.value,f.p.value);closeM()}catch(e){err.textContent="Sai email hoặc mật khẩu."}},
-  async addmem(f){const n=f.name.value.trim();if(!n)return;await push(ref(db,"members"),{name:n,to:S.view});f.reset()},
-  async addrec(f,el){const it=FLAT[f.i.value];await push(ref(db,"records"),{to:S.view,week:S.week,mid:el.dataset.m,item:it[0],pts:it[1],ts:Date.now(),by:S.name});toast("Đã ghi điểm.")},
-  async reqedit(f,el){await sendReq(el.dataset.id,"edit",f.i.value);closeM()},
+  async addmem(f){const n=f.name.value.trim();if(!n)return;
+    if(isAdmin()){await push(ref(db,"members"),{name:n,to:S.view});toast("Đã thêm tổ viên.")}
+    else await sendReq({type:"addmem",to:S.view,name:n,mname:n});
+    f.reset()},
+  async addrec(f,el){const it=FLAT[f.i.value],m=S.members[el.dataset.m];
+    if(isAdmin()){await push(ref(db,"records"),{to:S.view,week:S.week,mid:el.dataset.m,item:it[0],pts:it[1],ts:Date.now(),by:S.name});toast("Đã ghi điểm.")}
+    else await sendReq({type:"add",to:S.view,week:S.week,mid:el.dataset.m,mname:m.name,item:it[0],pts:it[1]})},
+  async reqedit(f,el){
+    if(isAdmin()){const it=FLAT[f.i.value];await update(ref(db,"records/"+el.dataset.id),{item:it[0],pts:it[1]});toast("Đã sửa.")}
+    else await recReq(el.dataset.id,"edit",f.i.value);
+    closeM()},
   async newacc(f){
     const b=f.querySelector("button");b.disabled=true;
     try{const sec=initializeApp(cfg,"sec"+Date.now()),sa=getAuth(sec);
       const c=await createUserWithEmailAndPassword(sa,f.email.value,f.pw.value);
-      await set(ref(db,"users/"+c.user.uid),{name:f.name.value.trim(),email:f.email.value,role:f.role.value,to:+f.to.value});
+      const p={name:f.name.value.trim(),email:f.email.value,role:f.role.value};
+      if(p.role!="teacher")p.to=+f.to.value;
+      await set(ref(db,"users/"+c.user.uid),p);
       await signOut(sa);toast("Đã tạo tài khoản.");f.reset()}
     catch(e){toast("Không tạo được: "+e.code)}b.disabled=false}
 };
-document.addEventListener("click",e=>{const b=e.target.closest("[data-a]");if(!b||b.closest(".det")&&b.dataset.a=="sel")return;if(e.target.closest("button")&&b.dataset.a=="sel"&&b!==e.target.closest("button"))return;A[b.dataset.a]?.(b.dataset)});
-document.addEventListener("change",e=>{const c=e.target.dataset.c;if(c=="week"){S.week=+e.target.value;render()}if(c=="rw"){S.rw=+e.target.value;render()}});
+document.addEventListener("click",e=>{const b=e.target.closest("[data-a]");if(b)A[b.dataset.a]?.(b.dataset)});
+document.addEventListener("change",e=>{const c=e.target.dataset.c;if(c=="week"){S.week=+e.target.value;render()}if(c=="rw"){S.rw=+e.target.value;render()}if(c=="role"){e.target.form.to.style.display=e.target.value=="teacher"?"none":""}});
 document.addEventListener("submit",e=>{e.preventDefault();const el=e.target;F[el.dataset.f]?.(el,el)});
 render();
 </script>
