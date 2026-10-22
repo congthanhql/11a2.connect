@@ -3,130 +3,127 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0f2a43">
+<meta name="theme-color" content="#0b2239">
 <title>Thi đua lớp 11A2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;800&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#0f2a43;--ink2:#1c4466;--mut:#62708a;--bg:#f1f4f9;--card:#fff;--line:#e0e6f0;--good:#15803d;--bad:#c62828;--pri:#1d5fd6;--t1:#1d5fd6;--t2:#15803d;--t3:#d97706;--t4:#7c3aed;--sh:0 1px 2px #0f2a4312,0 6px 18px #0f2a430d}
-*{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
+:root{--ink:#0f2a43;--mut:#62708a;--bg:#f4f6fb;--card:#fff;--soft:#eef2f9;--line:#e1e7f1;--good:#15803d;--goodbg:#e1f5e8;--bad:#c62828;--badbg:#fde8e8;--warn:#a15c00;--warnbg:#fff1d6;--pri:#1d5fd6;--navy:#0b2239;--t1:#1d5fd6;--t2:#15803d;--t3:#d97706;--t4:#7c3aed;--sh:0 8px 26px #0f2a4312;--r:16px}
+@media(prefers-color-scheme:dark){:root{--ink:#e8eef8;--mut:#94a3bd;--bg:#0b1624;--card:#13243a;--soft:#1b3250;--line:#243b5a;--good:#4ade80;--goodbg:#12361f;--bad:#f87171;--badbg:#3d1a1a;--warn:#fbbf24;--warnbg:#3b2d0a;--pri:#5b94ff;--navy:#07111d;--t1:#5b94ff;--t2:#4ade80;--t3:#fbbf24;--t4:#a78bfa;--sh:0 8px 26px #0006}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{margin:0;min-height:100vh;display:flex;flex-direction:column;font:15px/1.55 "Be Vietnam Pro",system-ui,sans-serif;background:var(--bg);color:var(--ink)}
+body.lock{overflow:hidden}
 button,select,input{font:inherit;color:inherit}
-header{background:linear-gradient(120deg,var(--ink),var(--ink2));color:#fff;position:sticky;top:0;z-index:5;padding-top:env(safe-area-inset-top,0)}
-header .in{max-width:1040px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px;justify-content:space-between}
-.brand{display:flex;align-items:center;gap:10px;cursor:pointer;min-width:0}
-.logo{background:#fff;color:var(--ink);font-weight:800;border-radius:12px;padding:6px 9px;font-size:15px;letter-spacing:.3px}
-.brand h1{margin:0;font-size:17px;font-weight:800;line-height:1.2;white-space:nowrap}
-.brand small{opacity:.75;font-size:12px;display:block;line-height:1.2}
-.usr{display:flex;align-items:center;gap:8px;font-size:13px;min-width:0}
-#who{opacity:.9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:240px}
-main{width:100%;max-width:1040px;margin:0 auto;padding:18px 16px;flex:1}
-footer{text-align:center;color:var(--mut);font-size:12.5px;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0));border-top:1px solid var(--line);background:#fff}
-.btn{border:0;border-radius:10px;padding:9px 16px;background:var(--pri);color:#fff;font-weight:600;cursor:pointer;transition:filter .15s}
-.btn:hover{filter:brightness(1.08)}
-.btn.g{background:#e6ecf6;color:var(--ink)}.btn.r{background:var(--bad)}.btn.s{padding:5px 11px;font-size:13px}.btn.ok{background:var(--good)}
-.btn:disabled{opacity:.6}
-header .btn.g{background:#ffffff26;color:#fff}
+button{cursor:pointer}
 :focus-visible{outline:3px solid #8fb0ff;outline-offset:2px}
-.card{background:var(--card);border-radius:16px;padding:16px;margin-bottom:16px;box-shadow:var(--sh)}
+header{position:sticky;top:0;z-index:10;background:linear-gradient(110deg,#0b2239,#1b4a74 60%,#1f6d8a);color:#fff;padding-top:env(safe-area-inset-top,0);box-shadow:0 6px 20px #0b223440}
+header .in{max-width:1040px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0;background:none;border:0;color:#fff;text-align:left;padding:0}
+.logo{background:linear-gradient(135deg,#ffe08a,#ff9f43);color:#3a2400;font-weight:800;border-radius:12px;padding:6px 9px;font-size:15px}
+.brand b{display:block;font-size:16px;font-weight:800;line-height:1.2;white-space:nowrap}
+.brand small{display:block;opacity:.75;font-size:12px;line-height:1.2}
+.usr{display:flex;align-items:center;gap:8px;font-size:13px;min-width:0}
+#who{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px;opacity:.92}
+main{width:100%;max-width:1040px;margin:0 auto;padding:16px;flex:1}
+footer{text-align:center;color:var(--mut);font-size:12.5px;padding:16px 16px calc(16px + env(safe-area-inset-bottom,0));border-top:1px solid var(--line);background:var(--card)}
+.btn{border:0;border-radius:10px;padding:10px 16px;background:var(--pri);color:#fff;font-weight:600;transition:filter .15s,transform .05s;min-height:40px}
+.btn:hover{filter:brightness(1.08)}.btn:active{transform:scale(.98)}
+.btn.g{background:var(--soft);color:var(--ink)}.btn.r{background:var(--bad);color:#fff}.btn.ok{background:var(--good);color:#fff}.btn.s{padding:5px 12px;font-size:13px;min-height:32px}
+.btn.w{width:100%}.btn:disabled{opacity:.55}
+header .btn.g{background:#ffffff26;color:#fff}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-bottom:16px;box-shadow:var(--sh)}
 h2{margin:0;font-size:20px;font-weight:800}h3{margin:0 0 8px;font-size:16px;font-weight:700}
-.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:nowrap}
-.ttl{margin:0;font-size:24px;font-weight:800;color:var(--c,var(--ink));white-space:nowrap}
-.top select{flex:0 0 auto}
-.hero{background:linear-gradient(120deg,var(--ink),#235a86);color:#fff;border-radius:20px;padding:24px 22px;margin-bottom:16px;box-shadow:var(--sh)}
-.hero h2{font-size:24px}.hero p{margin:6px 0 0;opacity:.85;max-width:60ch}
-.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
-.tile{border:0;background:var(--card);border-radius:18px;padding:18px;text-align:left;cursor:pointer;box-shadow:var(--sh);display:flex;gap:14px;align-items:center;transition:transform .15s}
+.mut{color:var(--mut)}.sm{font-size:13px}
+input,select{padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);min-width:0;min-height:42px}
+input:focus,select:focus{border-color:var(--pri);outline:0;box-shadow:0 0 0 3px #1d5fd633}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.row.sp{justify-content:space-between}
+.hero{position:relative;overflow:hidden;background:linear-gradient(125deg,#0b2239,#1d5a8f 65%,#1f8aa0);color:#fff;border-radius:20px;padding:28px 22px;margin-bottom:16px;box-shadow:var(--sh)}
+.hero::after{content:"";position:absolute;right:-50px;top:-60px;width:220px;height:220px;border-radius:50%;background:#ffffff14}
+.hero h2,.hero p{position:relative}.hero h2{font-size:24px}.hero p{margin:6px 0 0;opacity:.88;max-width:60ch}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.tile{border:1px solid var(--line);background:var(--card);border-radius:18px;padding:18px;text-align:left;box-shadow:var(--sh);display:flex;gap:14px;align-items:center;position:relative;overflow:hidden;transition:transform .15s}
 .tile:hover{transform:translateY(-2px)}
-.tile i{font-style:normal;width:48px;height:48px;border-radius:14px;background:var(--c);color:#fff;display:grid;place-items:center;font-size:22px;font-weight:800;flex:none}
+.tile::after{content:"";position:absolute;right:-20px;bottom:-20px;width:90px;height:90px;border-radius:50%;background:var(--c);opacity:.12}
+.tile i{font-style:normal;width:48px;height:48px;border-radius:16px;background:var(--c);color:#fff;display:grid;place-items:center;font-size:22px;font-weight:800;flex:none}
 .tile b{display:block;font-size:17px}.tile span{color:var(--mut);font-size:13px}
-.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.row.sp{justify-content:space-between}
-input,select{padding:9px 11px;border:1px solid var(--line);border-radius:10px;background:#fff;min-width:0}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.ttl{font-size:24px;font-weight:800;margin:0;color:var(--c,var(--ink));white-space:nowrap}
+.step{display:flex;align-items:center;gap:6px}
+.step .btn{padding:0;width:40px}
+.step select{min-width:110px}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
-.stat{background:var(--card);border-radius:14px;padding:12px 14px;box-shadow:var(--sh)}
-.stat span{color:var(--mut);font-size:13px}
-.stat b{font-size:26px;display:block;line-height:1.2}.stat.v b{color:var(--bad)}.stat.n b{color:var(--good)}
-.mem{display:flex;gap:10px;align-items:center;padding:11px 4px;border-top:1px solid var(--line);cursor:pointer}
-.mem:first-of-type{border-top:0}
-.av{width:36px;height:36px;border-radius:50%;background:var(--c);color:#fff;display:grid;place-items:center;font-weight:700;flex:none}
-.mem .nm{flex:1;min-width:0;font-weight:600}
-.mem .nm small{display:block;color:var(--mut);font-weight:400;font-size:12.5px}
+.stat{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--ink);border-radius:14px;padding:10px 14px;box-shadow:var(--sh)}
+.stat span{color:var(--mut);font-size:13px}.stat b{display:block;font-size:26px;line-height:1.25}
+.stat.v{border-top-color:var(--bad)}.stat.v b{color:var(--bad)}.stat.n{border-top-color:var(--good)}.stat.n b{color:var(--good)}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.tools input{flex:1 1 180px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:99px;padding:6px 13px;font-size:13px;font-weight:600}
+.chip.on{background:var(--ink);color:var(--card);border-color:var(--ink)}
+.chip.neg.on{background:var(--bad);border-color:var(--bad);color:#fff}.chip.pos.on{background:var(--good);border-color:var(--good);color:#fff}
+.mem{display:flex;gap:10px;align-items:center;padding:10px 8px;border-radius:12px;border:0;background:none;width:100%;text-align:left;border-top:1px solid var(--line)}
+.mem:first-child{border-top:0}.mem:hover{background:var(--soft)}
+.av{width:38px;height:38px;border-radius:50%;background:var(--c);color:#fff;display:grid;place-items:center;font-weight:700;flex:none}
+.nm{flex:1;min-width:0;font-weight:600}.nm small{display:block;color:var(--mut);font-weight:400;font-size:12.5px}
 .sc{font-weight:800;font-size:18px;min-width:44px;text-align:right}
 .tag{font-size:12px;padding:2px 9px;border-radius:99px;font-weight:600;white-space:nowrap}
-.tag.v{background:#fde8e8;color:var(--bad)}.tag.n{background:#e1f5e8;color:var(--good)}.tag.w{background:#fff1d6;color:#a15c00}
-.det{background:#f5f8fc;border-radius:12px;padding:12px;margin:2px 0 10px}
-.rec{display:flex;gap:8px;align-items:center;padding:8px 0;border-top:1px dashed var(--line);flex-wrap:wrap}
-.rec:first-of-type{border-top:0}
-.rec .it{flex:1;min-width:150px}.p{font-weight:800}.p.pos{color:var(--good)}.p.neg{color:var(--bad)}
-.rec.pd{opacity:.7}
-.wk{display:flex;gap:4px;flex-wrap:wrap;margin:6px 0 10px}
-.wk button{border:1px solid var(--line);background:#fff;border-radius:7px;min-width:36px;padding:4px;font-size:12px;cursor:pointer}
-.wk .bad{background:#fde8e8;border-color:#f3b4b4}.wk .on{background:var(--ink);color:#fff;border-color:var(--ink)}
-.tabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:16px;padding:4px;background:#e6ecf6;border-radius:14px;scrollbar-width:none}
-.tabs button{white-space:nowrap;border:0;background:transparent;border-radius:10px;padding:8px 14px;cursor:pointer;font-weight:500}
-.tabs .on{background:var(--ink);color:#fff}
-.rk{display:flex;gap:12px;align-items:center;padding:12px 4px;border-top:1px solid var(--line);cursor:pointer}
-.rk:first-of-type{border-top:0}
-.pos{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:800;background:#e6ecf6;flex:none}
-.pos.p1{background:#fbbf24}.pos.p2{background:#cbd5e1}.pos.p3{background:#e0a878}
+.tag.v{background:var(--badbg);color:var(--bad)}.tag.n{background:var(--goodbg);color:var(--good)}.tag.w{background:var(--warnbg);color:var(--warn)}
+.rec{display:flex;gap:8px;align-items:center;padding:9px 0;border-top:1px dashed var(--line);flex-wrap:wrap}
+.rec:first-child{border-top:0}.rec .it{flex:1;min-width:150px}.rec.pd{opacity:.7}
+.pt{font-weight:800}.pt.up{color:var(--good)}.pt.dn{color:var(--bad)}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:16px;padding:4px;background:var(--soft);border-radius:14px;scrollbar-width:none;position:sticky;top:62px;z-index:4}
+.tabs button{white-space:nowrap;border:0;background:transparent;border-radius:10px;padding:8px 14px;font-weight:500}
+.tabs .on{background:var(--ink);color:var(--card)}
+.rk{display:flex;gap:12px;align-items:center;padding:12px 8px;border-radius:12px;border:0;border-top:1px solid var(--line);background:none;width:100%;text-align:left}
+.rk:first-of-type{border-top:0}.rk:hover{background:var(--soft)}
+.medal{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:800;background:var(--soft);flex:none}
+.m1{background:#fbbf24;color:#3a2400}.m2{background:#cbd5e1;color:#1e293b}.m3{background:#e0a878;color:#3a2400}
 .rkb{flex:1;min-width:0}.rkb small{color:var(--mut);display:block}
-.bar{height:7px;border-radius:9px;background:#e6ecf6;margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;border-radius:9px}
+.bar{height:7px;border-radius:9px;background:var(--soft);margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;border-radius:9px}
 .avg{font-weight:800;font-size:22px}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.mini{display:flex;justify-content:space-between;gap:8px;padding:7px 0;border-top:1px solid var(--line)}.mini:first-of-type{border-top:0}
-.acc{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px}
+.mini{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-top:1px solid var(--line)}.mini:first-of-type{border-top:0}
 table{width:100%;border-collapse:collapse}th,td{padding:8px 6px;text-align:left;border-bottom:1px solid var(--line);font-size:14px}
-.mut{color:var(--mut)}
-.modal{position:fixed;inset:0;background:#0f2a4399;display:flex;align-items:center;justify-content:center;padding:16px;z-index:20}
-.modal>div{background:#fff;border-radius:18px;padding:20px;width:100%;max-width:390px}
+.empty{text-align:center;color:var(--mut);padding:22px 8px}
+.wk{display:flex;gap:4px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none}
+.wk button{border:1px solid var(--line);background:var(--card);border-radius:8px;min-width:38px;padding:5px 2px;font-size:12px;flex:none}
+.wk .bad{background:var(--badbg);border-color:#f3b4b4;color:var(--bad)}.wk .on{background:var(--ink);color:var(--card);border-color:var(--ink)}
+.entry{display:grid;gap:10px;margin-top:12px;padding-top:12px;border-top:2px solid var(--soft)}
+.grp{font-size:12.5px;color:var(--mut);font-weight:600;margin-bottom:5px}
+.cu{display:grid;grid-template-columns:1fr 1fr;gap:8px}.cu input[name=reason]{grid-column:1/-1}.cu[hidden]{display:none}
+.sheetbg{position:fixed;inset:0;background:#0b223499;z-index:20;animation:fd .2s}
+.sheet{position:fixed;z-index:21;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:560px;max-height:92vh;overflow:auto;background:var(--card);border-radius:22px 22px 0 0;padding:16px 16px calc(20px + env(safe-area-inset-bottom,0));animation:up .25s ease-out}
+.sheet .hd{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.x{border:0;background:var(--soft);border-radius:50%;width:36px;height:36px;font-size:18px;flex:none}
+.modal{position:fixed;inset:0;background:#0b223499;display:flex;align-items:center;justify-content:center;padding:16px;z-index:30}
+.modal>div{background:var(--card);border-radius:18px;padding:20px;width:100%;max-width:420px;max-height:92vh;overflow:auto}
 .modal form{display:grid;gap:10px}
 .err{color:var(--bad);font-size:13px;min-height:18px}
-#toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0));left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:12px;z-index:30;display:none;max-width:90vw;text-align:center}
+.sk{height:64px;border-radius:14px;background:linear-gradient(90deg,var(--soft),var(--card),var(--soft));background-size:200% 100%;animation:sh 1.2s infinite;margin-bottom:10px}
+#toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--card);padding:10px 18px;border-radius:12px;z-index:40;display:none;max-width:90vw;text-align:center;box-shadow:var(--sh)}
 .only-print{display:none}
-/* v2: giao diện mới */
-body{background:radial-gradient(900px 420px at 100% -10%,#d9e8ff 0,transparent 60%),radial-gradient(700px 360px at -10% 0,#e2f6ec 0,transparent 55%),#f4f6fb;background-attachment:fixed}
-header{background:linear-gradient(110deg,#0b2239,#1b4a74 60%,#1f6d8a);box-shadow:0 8px 26px #0b223440}
-.logo{background:linear-gradient(135deg,#ffe08a,#ff9f43);color:#3a2400;box-shadow:0 4px 12px -2px #ff9f4388}
-.hero{position:relative;overflow:hidden;background:linear-gradient(125deg,#0b2239,#1d5a8f 65%,#1f8aa0);padding:30px 24px}
-.hero::after{content:"";position:absolute;right:-50px;top:-60px;width:220px;height:220px;border-radius:50%;background:#ffffff14}
-.hero::before{content:"";position:absolute;right:90px;bottom:-70px;width:150px;height:150px;border-radius:50%;background:#ffd76a26}
-.hero h2,.hero p{position:relative}
-.card{border:1px solid #e6ebf4;box-shadow:0 10px 30px #0f2a4310}
-.tile{border:1px solid #e6ebf4;position:relative;overflow:hidden}
-.tile::after{content:"";position:absolute;right:-20px;bottom:-20px;width:90px;height:90px;border-radius:50%;background:var(--c);opacity:.1}
-.tile i{box-shadow:0 8px 16px -6px var(--c);border-radius:16px}
-.stat{border:1px solid #e6ebf4;border-top:4px solid var(--ink)}.stat.v{border-top-color:var(--bad)}.stat.n{border-top-color:var(--good)}
-.btn{box-shadow:0 4px 12px -5px #1d5fd699}.btn.g{box-shadow:none}
-input:focus,select:focus{border-color:var(--pri);outline:0;box-shadow:0 0 0 3px #1d5fd626}
-.mem{border-radius:12px;padding:11px 8px;transition:background .15s}.mem:hover{background:#f3f7ff}
-.av{box-shadow:0 6px 12px -6px var(--c)}
-.rk{border-radius:12px;padding:12px 8px}.rk:hover{background:#f3f7ff}
-.seg{display:flex;gap:6px;background:#e6ecf6;padding:4px;border-radius:12px}
-.seg label{flex:1;text-align:center;cursor:pointer;border-radius:9px;padding:7px 8px;font-weight:600;font-size:13px;position:relative}
-.seg input{position:absolute;opacity:0;pointer-events:none}
-.seg label:has(input:checked){background:var(--ink);color:#fff;box-shadow:0 4px 10px -4px #0f2a43aa}
-.entry{margin-top:12px;display:grid;gap:8px}
-.entry select,.entry input{width:100%}
-.cu{display:none;grid-template-columns:1fr 1fr;gap:8px}
-.cu input[name=reason]{grid-column:1/-1}
-.cu small{grid-column:1/-1;color:var(--mut);font-size:12.5px}
-.entry .btn{width:100%}
+@keyframes up{from{transform:translate(-50%,40px);opacity:0}}
+@keyframes fd{from{opacity:0}}
+@keyframes sh{to{background-position:-200% 0}}
 @media(max-width:640px){
- main{padding:12px}.brand small{display:none}.brand h1{font-size:15px}#who{max-width:120px}
+ main{padding:12px}.brand small{display:none}.brand b{font-size:15px}#who{max-width:110px}
  .stats{grid-template-columns:1fr 1fr;gap:10px}.two{grid-template-columns:1fr}
- .ttl{font-size:21px}.hero{padding:18px}.hero h2{font-size:20px}
- .mem .tag{display:none}.card{padding:13px;border-radius:14px}
- form.row input,form.row select{flex:1 1 100%}form.row .btn{flex:1 1 100%}
+ .ttl{font-size:21px}.hero{padding:20px}.hero h2{font-size:20px}.card{padding:13px;border-radius:14px}
+ .mem .tag{display:none}.tabs{top:58px}
+ .sheet{border-radius:22px 22px 0 0}
+ form.row input,form.row select,form.row .btn{flex:1 1 100%}
 }
-@media print{header,footer,.noprint,.tabs{display:none!important}body{background:#fff}.card{box-shadow:none;padding:0}.only-print{display:block}.screen{display:none}main{max-width:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media print{header,footer,.noprint,.tabs,#sheet{display:none!important}body{background:#fff;color:#000}.card{box-shadow:none;border:0;padding:0}.only-print{display:block}.screen{display:none}main{max-width:none}}
 </style>
 </head>
 <body>
-<header><div class="in"><div class="brand" data-a="home"><span class="logo">11A2</span><div><h1>Thi đua lớp 11A2</h1><small>Theo dõi nền nếp và điểm thi đua</small></div></div><div class="usr"><span id="who"></span><button class="btn g s" id="out" data-a="logout" style="display:none">Đăng xuất</button></div></div></header>
-<main id="app"><div class="card"><h2>Đang tải…</h2><p class="mut" style="margin:6px 0 0">Nếu màn hình này không thay đổi, hãy mở trang qua máy chủ web (không mở trực tiếp file) và kiểm tra kết nối mạng.</p></div></main>
+<header><div class="in"><button class="brand" data-a="home" aria-label="Về trang chủ"><span class="logo">11A2</span><span><b>Thi đua lớp 11A2</b><small>Theo dõi nền nếp và điểm thi đua</small></span></button><div class="usr"><span id="who"></span><button class="btn g s" id="out" data-a="logout" style="display:none">Đăng xuất</button></div></div></header>
+<main id="app"><div class="sk"></div><div class="sk"></div><div class="sk"></div></main>
+<div id="sheet"></div>
 <footer>© 2026 bản quyền thuộc về 11A2. Chịu trách nhiệm Bản Quyền Huỳnh Công Thành!</footer>
-<div id="toast"></div>
+<div id="toast" role="status"></div>
 <script type="module">
 const B="https://www.gstatic.com/firebasejs/10.12.2/";
 let M;
@@ -150,7 +147,11 @@ const COL=["","var(--t1)","var(--t2)","var(--t3)","var(--t4)"];
 const RL={admin:"Quản trị viên",teacher:"Giáo viên",leader:"Tổ trưởng",student:"Học sinh"};
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const S={user:null,role:null,to:null,name:"",view:"home",tab:"rank",week:7,rw:0,sel:null,members:{},records:{},requests:{},users:{},pending:null};
+const store={get:k=>{try{return localStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}}};
+const fold=s=>String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/đ/g,"d");
+const savedW=+store.get("w11a2");
+const S={user:null,role:null,to:null,name:"",view:"home",tab:"rank",week:WEEKS.includes(savedW)?savedW:7,rw:0,sel:null,loaded:false,
+  members:{},records:{},requests:{},users:{},pending:null,q:"",flt:"all",sort:"name",f:{i:null,custom:false,reason:"",sign:"-1",pts:""}};
 let unsubs=[];
 
 const toast=t=>{const e=$("#toast");e.textContent=t;e.style.display="block";clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display="none",2800)};
@@ -160,6 +161,7 @@ const reqs=()=>Object.entries(S.requests).map(([id,q])=>({id,...q}));
 const sc=(mid,wk)=>100+recs().filter(r=>r.mid==mid&&(!wk||r.week==wk)).reduce((a,r)=>a+r.pts,0);
 const isBad=(mid,wk)=>recs().some(r=>r.mid==mid&&r.pts<0&&(!wk||r.week==wk));
 const sg=n=>(n>0?"+":"")+n;
+const dt=ts=>new Date(ts).toLocaleDateString("vi-VN");
 const pendFor=id=>reqs().some(q=>q.rid==id&&q.status=="pending");
 const pendDel=mid=>reqs().some(q=>q.type=="delmem"&&q.mid==mid&&q.status=="pending");
 const isStaff=()=>S.role=="admin"||S.role=="teacher";
@@ -167,28 +169,33 @@ const isAdmin=()=>S.role=="admin";
 const canLead=to=>S.role=="leader"&&S.to==to;
 const ctl=to=>isAdmin()||canLead(to);
 const can=v=>isStaff()||(v!="admin"&&S.to==v);
+const setWeek=w=>{S.week=Math.min(35,Math.max(7,w));store.set("w11a2",S.week)};
 const weekOpts=(cur,all)=>(all?`<option value="0" ${cur==0?"selected":""}>Tất cả các tuần</option>`:"")+WEEKS.map(w=>`<option value="${w}" ${w==cur?"selected":""}>Tuần ${w}</option>`).join("");
-const itemOpts=()=>ITEMS.map(g=>`<optgroup label="${g[0]}">${g[1].map(x=>`<option value="${FLAT.indexOf(x)}">${x[0]} (${sg(x[1])})</option>`).join("")}</optgroup>`).join("");
+const stepper=(cur,key)=>`<div class="step"><button class="btn g" data-a="wstep" data-d="-1" aria-label="Tuần trước" ${cur<=7?"disabled":""}>‹</button><select data-c="${key}" aria-label="Chọn tuần">${weekOpts(cur)}</select><button class="btn g" data-a="wstep" data-d="1" aria-label="Tuần sau" ${cur>=35?"disabled":""}>›</button></div>`;
 
-const entryForm=()=>`<div class="seg" role="radiogroup" aria-label="Cách nhập"><label><input type="radio" name="mode" value="sys" data-c="mode" checked>Theo hệ thống</label><label><input type="radio" name="mode" value="custom" data-c="mode">Tự nhập điểm</label></div>
-<select name="i" class="sysrow" aria-label="Chọn mục có sẵn">${itemOpts()}</select>
-<div class="cu"><input name="reason" placeholder="Nội dung lỗi hoặc việc tốt" maxlength="80"><select name="sign" aria-label="Cộng hay trừ"><option value="-1">Trừ điểm (−)</option><option value="1">Cộng điểm (+)</option></select><input name="pts" type="number" min="1" max="100" step="1" inputmode="numeric" placeholder="Số điểm"><small>Chọn cộng hoặc trừ rồi nhập số điểm (số nguyên lớn hơn 0).</small></div>`;
-const readEntry=f=>{
-  if(f.mode.value!="custom")return FLAT[f.i.value];
-  const r=f.reason.value.trim(),n=Math.abs(parseInt(f.pts.value,10));
-  return r&&n?[r,(+f.sign.value)*Math.min(n,100)]:null;
+/* ----- Form nhập điểm: chọn nhanh bằng chip ----- */
+const entryForm=()=>{const f=S.f;
+  const grp=(g,cls)=>`<div><div class="grp">${g[0]}</div><div class="chips">${g[1].map(x=>{const i=FLAT.indexOf(x);return `<button type="button" class="chip ${cls} ${!f.custom&&f.i==i?"on":""}" data-a="chip" data-i="${i}">${x[0]} (${sg(x[1])})</button>`}).join("")}</div></div>`;
+  return `${grp(ITEMS[0],"neg")}${grp(ITEMS[1],"pos")}
+  <div><button type="button" class="chip ${f.custom?"on":""}" data-a="chip" data-i="c">✎ Tự nhập điểm</button></div>
+  <div class="cu" ${f.custom?"":"hidden"}><input name="reason" data-k="reason" value="${esc(f.reason)}" placeholder="Nội dung lỗi hoặc việc tốt" maxlength="80" aria-label="Nội dung"><select name="sign" data-k="sign" aria-label="Cộng hay trừ"><option value="-1" ${f.sign=="-1"?"selected":""}>Trừ điểm (−)</option><option value="1" ${f.sign=="1"?"selected":""}>Cộng điểm (+)</option></select><input name="pts" data-k="pts" value="${esc(f.pts)}" type="number" min="1" max="100" step="1" inputmode="numeric" placeholder="Số điểm" aria-label="Số điểm"></div>`;
 };
+const readEntry=()=>{const f=S.f;
+  if(f.custom){const r=f.reason.trim(),n=Math.abs(parseInt(f.pts,10));return r&&n?[r,(+f.sign)*Math.min(n,100)]:null}
+  return f.i==null?null:FLAT[f.i];
+};
+const resetForm=()=>{S.f={i:null,custom:false,reason:"",sign:"-1",pts:""}};
 
 /* ---------- Auth & dữ liệu ---------- */
 onAuthStateChanged(auth,async u=>{
-  unsubs.forEach(f=>f());unsubs=[];
-  if(!u){Object.assign(S,{user:null,role:null,to:null,members:{},records:{},requests:{},users:{},view:"home"});return render();}
+  unsubs.forEach(f=>f());unsubs=[];S.loaded=false;
+  if(!u){Object.assign(S,{user:null,role:null,to:null,members:{},records:{},requests:{},users:{},view:"home",sel:null});return render();}
   let p=null;
   if(u.email===ADMIN)p={role:"admin",name:"Admin tổng"};
   else{try{p=(await get(ref(db,"users/"+u.uid))).val()}catch(e){}}
   if(!p){toast("Tài khoản chưa được admin cấp quyền.");return signOut(auth)}
   Object.assign(S,{user:u,role:p.role,to:p.to||null,name:p.name||u.email});
-  const sub=(path,key)=>unsubs.push(onValue(ref(db,path),s=>{S[key]=s.val()||{};render()},e=>toast("Lỗi đọc dữ liệu: "+e.message)));
+  const sub=(path,key)=>unsubs.push(onValue(ref(db,path),s=>{S[key]=s.val()||{};S.loaded=true;render()},e=>toast("Lỗi đọc dữ liệu: "+e.message)));
   sub("members","members");sub("records","records");sub("requests","requests");
   if(p.role=="admin")sub("users","users");
   const t=S.pending||(isStaff()?"admin":p.to);S.pending=null;
@@ -201,12 +208,16 @@ function render(){
   $("#who").textContent=S.user?`${S.name} · ${RL[S.role]||""}`:"";
   $("#out").style.display=S.user?"":"none";
   const v=S.view;
+  if(v!="home"&&!S.loaded){$("#app").innerHTML=`<div class="sk"></div><div class="sk"></div><div class="sk"></div>`;return}
   $("#app").innerHTML=v=="home"?home():v=="admin"?adminPage():toPage(v);
+  const m=S.sel&&S.members[S.sel];
+  $("#sheet").innerHTML=m?sheet(m):"";
+  document.body.classList.toggle("lock",!!m);
 }
 function home(){
-  return `<div class="hero"><h2>Chào mừng đến trang thi đua 11A2</h2><p>Chọn tổ của bạn để xem điểm và nền nếp theo tuần. Giáo viên và quản trị viên chọn mục bên dưới để xem toàn lớp.</p></div>
-  <div class="grid">${[1,2,3,4].map(n=>`<button class="tile" style="--c:${COL[n]}" data-a="open" data-v="${n}"><i>${n}</i><div><b>Tổ ${n}</b><span>${mem(n).length?mem(n).length+" tổ viên":"Đăng nhập vào tổ"}</span></div></button>`).join("")}
-  <button class="tile" style="--c:var(--ink)" data-a="open" data-v="admin"><i>★</i><div><b>Giáo viên / Admin</b><span>Thống kê toàn lớp</span></div></button></div>`;
+  const tiles=[1,2,3,4].map(n=>`<button class="tile" style="--c:${COL[n]}" data-a="open" data-v="${n}"><i>${n}</i><div><b>Tổ ${n}</b><span>${S.user&&mem(n).length?mem(n).length+" tổ viên":"Đăng nhập vào tổ"}</span></div></button>`).join("");
+  return `<div class="hero"><h2>Chào mừng đến trang thi đua 11A2</h2><p>Chọn tổ của bạn để xem điểm và nền nếp theo tuần. Giáo viên và quản trị viên chọn mục cuối để xem toàn lớp.</p></div>
+  <div class="grid">${tiles}<button class="tile" style="--c:var(--ink)" data-a="open" data-v="admin"><i>★</i><div><b>Giáo viên / Admin</b><span>Thống kê toàn lớp</span></div></button></div>`;
 }
 function stats(ms,w){
   const vio=ms.filter(m=>isBad(m.id,w)).length,avg=ms.length?ms.reduce((a,m)=>a+sc(m.id,w),0)/ms.length:0;
@@ -218,45 +229,53 @@ function describe(q){
   return t[q.type]||"";
 }
 const stTag=s=>s=="pending"?`<span class="tag w">Chờ duyệt</span>`:s=="approved"?`<span class="tag n">Đã duyệt</span>`:`<span class="tag v">Đã từ chối</span>`;
+
+function listHTML(to){
+  const w=S.week,q=fold(S.q.trim());
+  let ms=mem(to).filter(m=>!q||fold(m.name).includes(q)).filter(m=>S.flt=="all"||(S.flt=="bad")==isBad(m.id,w));
+  ms=ms.sort((a,b)=>S.sort=="score"?sc(b.id,w)-sc(a.id,w)||a.name.localeCompare(b.name,"vi"):a.name.localeCompare(b.name,"vi"));
+  if(!ms.length)return `<div class="empty">${mem(to).length?"Không có tổ viên phù hợp.":"Chưa có tổ viên."+(ctl(to)?" Hãy thêm ở bên dưới.":"")}</div>`;
+  return ms.map(m=>{const bad=isBad(m.id,w),pd=pendDel(m.id);
+    return `<button class="mem" data-a="sel" data-m="${m.id}" style="--c:${COL[to]}"><span class="av">${esc((m.name.trim().split(" ").pop()[0]||"?").toUpperCase())}</span>
+    <span class="nm">${esc(m.name)}<small>Tuần ${w}: ${sg(sc(m.id,w)-100)}</small></span>
+    ${pd?`<span class="tag w">Chờ xóa</span>`:`<span class="tag ${bad?"v":"n"}">${bad?"Vi phạm":"Không vi phạm"}</span>`}<span class="sc">${sc(m.id)}</span></button>`}).join("");
+}
 function toPage(to){
   const ms=mem(to),w=S.week,lead=canLead(to),c=ctl(to);
   const mine=reqs().filter(q=>q.to==to).sort((a,b)=>b.ts-a.ts).slice(0,8);
-  return `<div class="top"><h2 class="ttl" style="--c:${COL[to]}">Tổ ${to}</h2><select data-c="week" aria-label="Chọn tuần">${weekOpts(w)}</select></div>
+  const fl=[["all","Tất cả"],["bad","Vi phạm"],["ok","Không vi phạm"]];
+  return `<div class="top"><h2 class="ttl" style="--c:${COL[to]}">Tổ ${to}</h2>${stepper(w,"week")}</div>
   ${stats(ms,w)}
-  <div class="card"><h3>Tổ viên – tuần ${w}</h3>
-    ${lead?`<p class="mut" style="margin:0 0 8px;font-size:13px">Mọi thay đổi của tổ được gửi cho Quản trị viên kiểm duyệt trước khi tính điểm.</p>`:""}
-    ${ms.length?ms.sort((a,b)=>a.name.localeCompare(b.name,"vi")).map(m=>memRow(m,w,c,to)).join(""):`<p class="mut">Chưa có tổ viên.${c?" Hãy thêm ở bên dưới.":""}</p>`}
+  <div class="card"><div class="row sp" style="margin-bottom:8px"><h3 style="margin:0">Tổ viên – tuần ${w}</h3><div class="chips">${fl.map(([k,l])=>`<button class="chip ${S.flt==k?"on":""}" data-a="flt" data-k="${k}">${l}</button>`).join("")}</div></div>
+    ${lead?`<p class="mut sm" style="margin:0 0 8px">Mọi thay đổi của tổ được gửi cho Quản trị viên kiểm duyệt trước khi tính điểm.</p>`:""}
+    <div class="tools"><input type="search" data-k="q" value="${esc(S.q)}" placeholder="Tìm tên tổ viên…" aria-label="Tìm tổ viên"><select data-c="sort" aria-label="Sắp xếp"><option value="name" ${S.sort=="name"?"selected":""}>Theo tên</option><option value="score" ${S.sort=="score"?"selected":""}>Theo điểm cao → thấp</option></select></div>
+    <div id="list">${listHTML(to)}</div>
     ${c?`<form class="row" data-f="addmem" style="margin-top:12px"><input name="name" placeholder="Họ tên tổ viên" required style="flex:1"><button class="btn">${isAdmin()?"Thêm tổ viên":"Gửi duyệt thêm"}</button></form>`:""}</div>
-  ${lead&&mine.length?`<div class="card"><h3>Yêu cầu gần đây của tổ</h3>${mine.map(q=>`<div class="rec"><span class="it">${describe(q)}<br><small class="mut">${new Date(q.ts).toLocaleDateString("vi-VN")}</small></span>${stTag(q.status)}</div>`).join("")}</div>`:""}`;
+  ${lead&&mine.length?`<div class="card"><h3>Yêu cầu gần đây của tổ</h3>${mine.map(q=>`<div class="rec"><span class="it">${describe(q)}<br><small class="mut">${dt(q.ts)}</small></span>${stTag(q.status)}</div>`).join("")}</div>`:""}`;
 }
-function memRow(m,w,c,to){
-  const bad=isBad(m.id,w),open=S.sel==m.id,pd=pendDel(m.id);
-  let d="";
-  if(open){
-    const rs=recs().filter(r=>r.mid==m.id&&r.week==w).sort((a,b)=>b.ts-a.ts);
-    const pa=reqs().filter(q=>q.type=="add"&&q.mid==m.id&&q.week==w&&q.status=="pending");
-    d=`<div class="det"><div class="mut" style="font-size:13px">Lỗi theo tuần (đỏ = có vi phạm)</div>
-      <div class="wk">${WEEKS.map(k=>`<button data-a="wk" data-w="${k}" class="${k==w?"on":isBad(m.id,k)?"bad":""}">${k}</button>`).join("")}</div>
-      <h3>Tuần ${w}</h3>${rs.length||pa.length?rs.map(r=>`<div class="rec"><span class="it">${esc(r.item)}<br><small class="mut">${new Date(r.ts).toLocaleDateString("vi-VN")} · ${esc(r.by)}</small></span>
-        <span class="p ${r.pts>0?"pos":"neg"}">${sg(r.pts)}</span>
-        ${c?(pendFor(r.id)?`<span class="tag w">Chờ duyệt</span>`:`<button class="btn g s" data-a="redit" data-id="${r.id}">Sửa</button><button class="btn r s" data-a="rdel" data-id="${r.id}">Xóa</button>`):""}</div>`).join("")+pa.map(q=>`<div class="rec pd"><span class="it">${esc(q.item)}<br><small class="mut">Đang chờ duyệt · ${esc(q.by)}</small></span><span class="p ${q.pts>0?"pos":"neg"}">${sg(q.pts)}</span><span class="tag w">Chờ duyệt</span></div>`).join(""):`<p class="mut" style="margin:4px 0">Không có ghi nhận nào trong tuần này.</p>`}
-      ${c?`<form class="entry" data-f="addrec" data-m="${m.id}">${entryForm()}<button class="btn ok">${isAdmin()?"Ghi điểm":"Gửi duyệt"}</button></form>
-      ${pd?`<span class="tag w" style="display:inline-block;margin-top:10px">Đang chờ duyệt xóa tổ viên</span>`:`<button class="btn r s" data-a="delmem" data-m="${m.id}" style="margin-top:10px">${isAdmin()?"Xóa tổ viên":"Gửi duyệt xóa tổ viên"}</button>`}`:""}</div>`;
-  }
-  return `<div class="mem" data-a="sel" data-m="${m.id}" style="--c:${COL[to]}"><span class="av">${esc(m.name.trim().split(" ").pop()[0]||"?").toUpperCase()}</span>
-    <span class="nm">${esc(m.name)}<small>Tuần ${w}: ${sg(sc(m.id,w)-100)}</small></span>
-    ${pd?`<span class="tag w">Chờ xóa</span>`:`<span class="tag ${bad?"v":"n"}">${bad?"Vi phạm":"Không vi phạm"}</span>`}
-    <span class="sc">${sc(m.id)}</span></div>${d}`;
+function sheet(m){
+  const w=S.week,to=m.to,c=ctl(to),pd=pendDel(S.sel);
+  const rs=recs().filter(r=>r.mid==S.sel&&r.week==w).sort((a,b)=>b.ts-a.ts);
+  const pa=reqs().filter(q=>q.type=="add"&&q.mid==S.sel&&q.week==w&&q.status=="pending");
+  const body=(rs.length||pa.length)?rs.map(r=>`<div class="rec"><span class="it">${esc(r.item)}<br><small class="mut">${dt(r.ts)} · ${esc(r.by)}</small></span><span class="pt ${r.pts>0?"up":"dn"}">${sg(r.pts)}</span>
+    ${c?(pendFor(r.id)?`<span class="tag w">Chờ duyệt</span>`:`<button class="btn g s" data-a="redit" data-id="${r.id}">Sửa</button><button class="btn r s" data-a="rdel" data-id="${r.id}">Xóa</button>`):""}</div>`).join("")+
+    pa.map(q=>`<div class="rec pd"><span class="it">${esc(q.item)}<br><small class="mut">Đang chờ duyệt · ${esc(q.by)}</small></span><span class="pt ${q.pts>0?"up":"dn"}">${sg(q.pts)}</span><span class="tag w">Chờ duyệt</span></div>`).join(""):`<div class="empty" style="padding:10px">Không có ghi nhận nào trong tuần này.</div>`;
+  return `<div class="sheetbg" data-a="closesheet"></div><div class="sheet" role="dialog" aria-modal="true" aria-label="${esc(m.name)}">
+    <div class="hd" style="--c:${COL[to]}"><span class="av">${esc((m.name.trim().split(" ").pop()[0]||"?").toUpperCase())}</span><div style="flex:1;min-width:0"><b>${esc(m.name)}</b><div class="mut sm">Tổ ${to} · Tổng điểm <b style="color:var(--ink)">${sc(S.sel)}</b></div></div><button class="x" data-a="closesheet" aria-label="Đóng">✕</button></div>
+    <div class="row sp"><h3 style="margin:0">Tuần ${w}: ${sg(sc(S.sel,w)-100)}</h3>${stepper(w,"week")}</div>
+    <div class="wk" style="margin-top:8px">${WEEKS.map(k=>`<button data-a="wk" data-w="${k}" class="${k==w?"on":isBad(S.sel,k)?"bad":""}">${k}</button>`).join("")}</div>
+    ${body}
+    ${c?`<form class="entry" data-f="addrec" data-m="${S.sel}"><h3 style="margin:0">Ghi nhận mới – tuần ${w}</h3>${entryForm()}<button class="btn ok w">${isAdmin()?"Ghi điểm":"Gửi duyệt"}</button></form>
+    ${pd?`<span class="tag w" style="display:inline-block;margin-top:12px">Đang chờ duyệt xóa tổ viên</span>`:`<button class="btn r s" data-a="delmem" data-m="${S.sel}" style="margin-top:12px">${isAdmin()?"Xóa tổ viên":"Gửi duyệt xóa tổ viên"}</button>`}`:""}</div>`;
 }
 function adminPage(){
   const t=S.tab,np=reqs().filter(q=>q.status=="pending").length;
   const tabs=[["rank","Xếp hạng"],...(isAdmin()?[["req",`Yêu cầu${np?` (${np})`:""}`],["acc","Tài khoản"]]:[]),...[1,2,3,4].map(n=>["t"+n,"Tổ "+n])];
-  return `<div class="tabs">${tabs.map(([k,l])=>`<button data-a="tab" data-t="${k}" class="${k==t?"on":""}">${l}</button>`).join("")}</div>`+
+  return `<div class="tabs noprint">${tabs.map(([k,l])=>`<button data-a="tab" data-t="${k}" class="${k==t?"on":""}">${l}</button>`).join("")}</div>`+
    (t=="rank"?rankTab():t=="req"&&isAdmin()?reqTab():t=="acc"&&isAdmin()?accTab():toPage(+t[1]||1));
 }
 function stat(to,w){
-  const ms=mem(to),n=ms.length,tot=ms.reduce((a,m)=>a+sc(m.id,w),0);
-  const vio=ms.filter(m=>isBad(m.id,w)).length;
+  const ms=mem(to),n=ms.length,tot=ms.reduce((a,m)=>a+sc(m.id,w),0),vio=ms.filter(m=>isBad(m.id,w)).length;
   return {to,n,vio,ok:n-vio,avg:n?tot/n:0};
 }
 function rankTab(){
@@ -264,22 +283,22 @@ function rankTab(){
   const lbl=w?"Tuần "+w:"Tất cả các tuần";
   const all=[1,2,3,4].flatMap(n=>mem(n).map(m=>({...m,s:sc(m.id,w)})));
   const top=[...all].sort((a,b)=>b.s-a.s).slice(0,5),low=[...all].sort((a,b)=>a.s-b.s).slice(0,5);
-  const mx=Math.max(100,...st.map(s=>s.avg));
-  const list=st.map((s,i)=>`<div class="rk" data-a="tab" data-t="t${s.to}"><span class="pos p${i+1}">${i+1}</span><div class="rkb"><b style="color:${COL[s.to]}">Tổ ${s.to}</b><small>${s.n} HS · ${s.vio} vi phạm · ${s.ok} không vi phạm</small><div class="bar"><i style="width:${Math.max(4,(s.avg-50)/(mx-50)*100)}%;background:${COL[s.to]}"></i></div></div><span class="avg">${s.avg.toFixed(1)}</span></div>`).join("");
+  const lo=Math.min(100,...st.map(s=>s.avg)),hi=Math.max(100,...st.map(s=>s.avg));
+  const list=st.map((s,i)=>`<button class="rk" data-a="tab" data-t="t${s.to}"><span class="medal m${i+1}">${i+1}</span><span class="rkb"><b style="color:${COL[s.to]}">Tổ ${s.to}</b><small>${s.n} HS · ${s.vio} vi phạm · ${s.ok} không vi phạm</small><span class="bar" style="display:block"><i style="width:${hi==lo?50:Math.max(6,(s.avg-lo+5)/(hi-lo+5)*100)}%;background:${COL[s.to]}"></i></span></span><span class="avg">${s.avg.toFixed(1)}</span></button>`).join("");
   const mini=a=>a.length?a.map(m=>`<div class="mini"><span>${esc(m.name)} <small class="mut">Tổ ${m.to}</small></span><b>${m.s}</b></div>`).join(""):`<p class="mut" style="margin:0">Chưa có dữ liệu.</p>`;
   const rep=[1,2,3,4].map(n=>`<h3 style="margin-top:16px">Tổ ${n}</h3><table><tr><th>Họ tên</th><th>Điểm</th><th>Ghi nhận ${lbl.toLowerCase()}</th></tr>${mem(n).map(m=>`<tr><td>${esc(m.name)}</td><td>${sc(m.id,w)}</td><td>${recs().filter(r=>r.mid==m.id&&(!w||r.week==w)).map(r=>(w?"":`T${r.week}: `)+esc(r.item)+" ("+sg(r.pts)+")").join("; ")||"—"}</td></tr>`).join("")}</table>`).join("");
   const tv=st.reduce((a,s)=>a+s.vio,0);
   return `<div class="top noprint"><h2 class="ttl">Xếp hạng thi đua</h2><select data-c="rw" aria-label="Chọn tuần">${weekOpts(w,1)}</select></div>
     <div class="stats noprint"><div class="stat"><span>Tổng học sinh</span><b>${all.length}</b></div><div class="stat v"><span>Vi phạm</span><b>${tv}</b></div><div class="stat n"><span>Không vi phạm</span><b>${all.length-tv}</b></div><div class="stat"><span>Điểm TB lớp</span><b>${all.length?(all.reduce((a,m)=>a+m.s,0)/all.length).toFixed(1):"0.0"}</b></div></div>
-    <div class="card screen"><div class="row sp" style="margin-bottom:6px"><h3 style="margin:0">Thứ hạng các tổ – ${lbl}</h3><button class="btn s" data-a="print">In / Xuất PDF</button></div>${list}
-    <p class="mut" style="margin:10px 0 0;font-size:13px">Điểm TB là trung bình điểm các thành viên (mỗi người bắt đầu từ 100). Bấm vào một tổ để xem chi tiết.</p></div>
+    <div class="card screen"><div class="row sp" style="margin-bottom:6px"><h3 style="margin:0">Thứ hạng các tổ – ${lbl}</h3><div class="row"><button class="btn g s" data-a="csv">Tải CSV</button><button class="btn s" data-a="print">In / PDF</button></div></div>${list}
+    <p class="mut sm" style="margin:10px 0 0">Điểm TB là trung bình điểm các thành viên (mỗi người bắt đầu từ 100). Bấm vào một tổ để xem chi tiết.</p></div>
     <div class="two screen"><div class="card"><h3>Top 5 điểm cao nhất</h3>${mini(top)}</div><div class="card"><h3>5 bạn cần quan tâm</h3>${mini(low)}</div></div>
     <div class="only-print"><h2>Báo cáo thi đua lớp 11A2 – ${lbl}</h2><table><tr><th>Hạng</th><th>Tổ</th><th>Số HS</th><th>Điểm TB</th><th>Vi phạm</th><th>Không VP</th></tr>${st.map((s,i)=>`<tr><td>${i+1}</td><td>Tổ ${s.to}</td><td>${s.n}</td><td>${s.avg.toFixed(1)}</td><td>${s.vio}</td><td>${s.ok}</td></tr>`).join("")}</table>${rep}</div>`;
 }
 function reqTab(){
-  const all=reqs().sort((a,b)=>b.ts-a.ts);
-  return `<div class="card"><h2 style="margin-bottom:8px">Yêu cầu từ tổ trưởng</h2>${all.length?all.map(q=>`<div class="rec"><span class="it"><b>Tổ ${q.to}</b> – ${describe(q)}<br><small class="mut">${esc(q.by)} · ${new Date(q.ts).toLocaleDateString("vi-VN")}</small></span>
-    ${q.status=="pending"?`<button class="btn ok s" data-a="approve" data-id="${q.id}">Duyệt</button><button class="btn r s" data-a="reject" data-id="${q.id}">Từ chối</button>`:stTag(q.status)}</div>`).join(""):`<p class="mut">Chưa có yêu cầu nào.</p>`}</div>`;
+  const all=reqs().sort((a,b)=>(a.status=="pending"?0:1)-(b.status=="pending"?0:1)||b.ts-a.ts),np=all.filter(q=>q.status=="pending").length;
+  return `<div class="card"><div class="row sp" style="margin-bottom:8px"><h2>Yêu cầu từ tổ trưởng</h2>${np>1?`<button class="btn ok s" data-a="approveall">Duyệt tất cả (${np})</button>`:""}</div>${all.length?all.map(q=>`<div class="rec"><span class="it"><b>Tổ ${q.to}</b> – ${describe(q)}<br><small class="mut">${esc(q.by)} · ${dt(q.ts)}</small></span>
+    ${q.status=="pending"?`<button class="btn ok s" data-a="approve" data-id="${q.id}">Duyệt</button><button class="btn r s" data-a="reject" data-id="${q.id}">Từ chối</button>`:stTag(q.status)}</div>`).join(""):`<div class="empty">Chưa có yêu cầu nào.</div>`}</div>`;
 }
 function accTab(){
   const us=Object.entries(S.users).sort((a,b)=>(a[1].to||0)-(b[1].to||0));
@@ -287,68 +306,93 @@ function accTab(){
     <input name="name" placeholder="Họ tên" required><input name="email" type="email" placeholder="Email" required><input name="pw" placeholder="Mật khẩu (≥ 6 ký tự)" minlength="6" required>
     <select name="role" data-c="role"><option value="student">Học sinh</option><option value="leader">Tổ trưởng</option><option value="teacher">Giáo viên</option></select>
     <select name="to">${[1,2,3,4].map(n=>`<option>${n}</option>`).join("")}</select><button class="btn">Tạo tài khoản</button></form></div>
-    <div class="card"><h3>Tài khoản đã cấp</h3>${us.length?us.map(([id,u])=>`<div class="rec"><span class="it">${esc(u.name)}<br><small class="mut">${esc(u.email)}</small></span><span class="tag n">${RL[u.role]||u.role}${u.to?" – Tổ "+u.to:""}</span><button class="btn r s" data-a="deluser" data-id="${id}">Thu hồi</button></div>`).join(""):`<p class="mut">Chưa có tài khoản nào.</p>`}</div>`;
+    <div class="card"><h3>Tài khoản đã cấp</h3>${us.length?us.map(([id,u])=>`<div class="rec"><span class="it">${esc(u.name)}<br><small class="mut">${esc(u.email)}</small></span><span class="tag n">${RL[u.role]||u.role}${u.to?" – Tổ "+u.to:""}</span><button class="btn r s" data-a="deluser" data-id="${id}">Thu hồi</button></div>`).join(""):`<div class="empty">Chưa có tài khoản nào.</div>`}</div>`;
 }
 
 /* ---------- Hộp thoại ---------- */
-function modal(h){closeM();const d=document.createElement("div");d.className="modal";d.id="m";d.innerHTML=`<div>${h}</div>`;d.onclick=e=>{if(e.target==d)closeM()};document.body.appendChild(d)}
+function modal(h){closeM();const d=document.createElement("div");d.className="modal";d.id="m";d.innerHTML=`<div role="dialog" aria-modal="true">${h}</div>`;d.onclick=e=>{if(e.target==d)closeM()};document.body.appendChild(d)}
 function closeM(){$("#m")?.remove()}
 function loginModal(v){
   S.pending=v;
-  modal(`<h3>${v=="admin"?"Đăng nhập Giáo viên / Admin":"Đăng nhập Tổ "+v}</h3><form data-f="login"><input name="e" type="email" placeholder="Email" required autocomplete="username"><input name="p" type="password" placeholder="Mật khẩu" required autocomplete="current-password"><div class="err" id="err"></div><div class="row"><button class="btn">Đăng nhập</button><button type="button" class="btn g" data-a="close">Hủy</button></div></form>`);
+  modal(`<h3>${v=="admin"?"Đăng nhập Giáo viên / Admin":"Đăng nhập Tổ "+v}</h3><form data-f="login"><input name="e" type="email" placeholder="Email" required autocomplete="username"><input name="p" type="password" placeholder="Mật khẩu" required autocomplete="current-password"><div class="err" id="err" aria-live="polite"></div><div class="row"><button class="btn" style="flex:1">Đăng nhập</button><button type="button" class="btn g" data-a="close">Hủy</button></div></form>`);
+  setTimeout(()=>$("#m input")?.focus(),30);
 }
 function editModal(id){
-  const r=S.records[id];
-  modal(`<h3>${isAdmin()?"Sửa":"Yêu cầu sửa"}: ${esc(r.item)} (${sg(r.pts)})</h3><form data-f="reqedit" data-id="${id}">${entryForm()}<div class="row"><button class="btn">${isAdmin()?"Lưu thay đổi":"Gửi yêu cầu"}</button><button type="button" class="btn g" data-a="close">Hủy</button></div></form>`);
+  const r=S.records[id];resetForm();
+  modal(`<h3>${isAdmin()?"Sửa":"Yêu cầu sửa"}: ${esc(r.item)} (${sg(r.pts)})</h3><form data-f="reqedit" data-id="${id}">${entryForm()}<div class="row"><button class="btn" style="flex:1">${isAdmin()?"Lưu thay đổi":"Gửi yêu cầu"}</button><button type="button" class="btn g" data-a="close">Hủy</button></div></form>`);
 }
-const sendReq=q=>push(ref(db,"requests"),{...q,to:q.to,by:S.name,ts:Date.now(),status:"pending"}).then(()=>toast("Đã gửi yêu cầu, chờ Quản trị viên duyệt."));
+const sendReq=q=>push(ref(db,"requests"),{...q,by:S.name,ts:Date.now(),status:"pending"}).then(()=>toast("Đã gửi yêu cầu, chờ Quản trị viên duyệt."));
 const recReq=(id,type,ni)=>{
   const r=S.records[id],m=S.members[r.mid],q={rid:id,type,to:r.to,week:r.week,mname:m?.name||"?",item:r.item,pts:r.pts};
   if(type=="edit"){q.nitem=ni[0];q.npts=ni[1]}
   return sendReq(q);
 };
+function applyReq(q,id,up){
+  up["requests/"+id+"/status"]="approved";
+  if(q.type=="add"){if(S.members[q.mid])up["records/"+push(ref(db,"records")).key]={to:q.to,week:q.week,mid:q.mid,item:q.item,pts:q.pts,ts:Date.now(),by:q.by}}
+  else if(q.type=="addmem")up["members/"+push(ref(db,"members")).key]={name:q.name,to:q.to};
+  else if(q.type=="delmem"){up["members/"+q.mid]=null;recs().filter(r=>r.mid==q.mid).forEach(r=>up["records/"+r.id]=null)}
+  else if(S.records[q.rid]){if(q.type=="del")up["records/"+q.rid]=null;else{up["records/"+q.rid+"/item"]=q.nitem;up["records/"+q.rid+"/pts"]=q.npts}}
+}
+const guard=fn=>async(...a)=>{try{await fn(...a)}catch(e){toast("Lỗi: "+(e.code||e.message||e))}};
 
 /* ---------- Hành động ---------- */
 const A={
-  home(){S.view="home";render()},
-  open(d){const v=d.v=="admin"?"admin":+d.v;if(S.user&&can(v)){S.view=v;S.tab="rank";render()}else if(S.user)toast("Tài khoản của bạn không thuộc mục này.");else loginModal(v)},
+  home(){S.view="home";S.sel=null;render()},
+  open(d){const v=d.v=="admin"?"admin":+d.v;if(S.user&&can(v)){S.view=v;S.tab="rank";S.sel=null;S.q="";S.flt="all";render();scrollTo(0,0)}else if(S.user)toast("Tài khoản của bạn không thuộc mục này.");else loginModal(v)},
   logout(){signOut(auth)},close:closeM,
-  sel(d){S.sel=S.sel==d.m?null:d.m;render()},
-  wk(d){S.week=+d.w;render()},
-  tab(d){S.tab=d.t;if(d.t[0]=="t")S.sel=null;render();scrollTo(0,0)},
+  sel(d){resetForm();S.sel=d.m;render()},
+  closesheet(){S.sel=null;render()},
+  wk(d){setWeek(+d.w);render()},
+  wstep(d){setWeek(S.week+ +d.d);render()},
+  flt(d){S.flt=d.k;render()},
+  tab(d){S.tab=d.t;S.sel=null;S.q="";S.flt="all";render();scrollTo(0,0)},
   print(){window.print()},
+  csv(){
+    const w=S.rw,rows=[["Tổ","Họ tên","Điểm","Vi phạm","Ghi nhận"]];
+    [1,2,3,4].forEach(n=>mem(n).forEach(m=>rows.push([n,m.name,sc(m.id,w),isBad(m.id,w)?"Có":"Không",recs().filter(r=>r.mid==m.id&&(!w||r.week==w)).map(r=>(w?"":"T"+r.week+": ")+r.item+" ("+sg(r.pts)+")").join("; ")])));
+    const t="\ufeff"+rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(",")).join("\n");
+    const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:"text/csv;charset=utf-8"}));a.download=`thi-dua-11A2-${w?"tuan"+w:"tat-ca"}.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)},
+  chip(d,el){
+    const f=el.closest("form");
+    if(d.i=="c"){S.f.custom=true}else{S.f.custom=false;S.f.i=+d.i}
+    f.querySelectorAll(".chip").forEach(c=>c.classList.remove("on"));
+    el.classList.add("on");
+    f.querySelector(".cu").hidden=!S.f.custom;
+    if(S.f.custom)f.querySelector("[name=reason]").focus();
+  },
   redit(d){editModal(d.id)},
-  async rdel(d){
+  rdel:guard(async d=>{
     if(isAdmin()){if(confirm("Xóa ghi nhận này?")){await remove(ref(db,"records/"+d.id));toast("Đã xóa.")}}
-    else if(confirm("Gửi yêu cầu xóa ghi nhận này cho Quản trị viên?"))recReq(d.id,"del")},
-  async delmem(d){
+    else if(confirm("Gửi yêu cầu xóa ghi nhận này cho Quản trị viên?"))await recReq(d.id,"del")}),
+  delmem:guard(async d=>{
     const m=S.members[d.m];
-    if(!isAdmin()){if(confirm(`Gửi yêu cầu xóa "${m.name}" cho Quản trị viên?`))sendReq({type:"delmem",to:m.to,mid:d.m,mname:m.name});return}
+    if(!isAdmin()){if(confirm(`Gửi yêu cầu xóa "${m.name}" cho Quản trị viên?`))await sendReq({type:"delmem",to:m.to,mid:d.m,mname:m.name});return}
     if(!confirm(`Xóa "${m.name}" và toàn bộ lịch sử điểm?`))return;
-    const up={["members/"+d.m]:null};recs().filter(r=>r.mid==d.m).forEach(r=>up["records/"+r.id]=null);await update(ref(db),up);S.sel=null;toast("Đã xóa tổ viên.")},
-  async approve(d){
-    const q=S.requests[d.id],up={["requests/"+d.id+"/status"]:"approved"};
-    if(q.type=="add")up["records/"+push(ref(db,"records")).key]={to:q.to,week:q.week,mid:q.mid,item:q.item,pts:q.pts,ts:Date.now(),by:q.by};
-    else if(q.type=="addmem")up["members/"+push(ref(db,"members")).key]={name:q.name,to:q.to};
-    else if(q.type=="delmem"){up["members/"+q.mid]=null;recs().filter(r=>r.mid==q.mid).forEach(r=>up["records/"+r.id]=null)}
-    else if(S.records[q.rid]){if(q.type=="del")up["records/"+q.rid]=null;else{up["records/"+q.rid+"/item"]=q.nitem;up["records/"+q.rid+"/pts"]=q.npts}}
-    await update(ref(db),up);toast("Đã duyệt.")},
-  reject(d){set(ref(db,"requests/"+d.id+"/status"),"rejected")},
-  async deluser(d){if(confirm("Thu hồi quyền của tài khoản này?")){await remove(ref(db,"users/"+d.id))}}
+    const up={["members/"+d.m]:null};recs().filter(r=>r.mid==d.m).forEach(r=>up["records/"+r.id]=null);await update(ref(db),up);S.sel=null;render();toast("Đã xóa tổ viên.")}),
+  approve:guard(async d=>{const q=S.requests[d.id],up={};applyReq(q,d.id,up);await update(ref(db),up);toast("Đã duyệt.")}),
+  approveall:guard(async()=>{
+    const p=reqs().filter(q=>q.status=="pending");
+    if(!p.length||!confirm(`Duyệt tất cả ${p.length} yêu cầu đang chờ?`))return;
+    const up={};p.sort((a,b)=>a.ts-b.ts).forEach(q=>applyReq(q,q.id,up));await update(ref(db),up);toast("Đã duyệt tất cả.")}),
+  reject:guard(async d=>{await set(ref(db,"requests/"+d.id+"/status"),"rejected")}),
+  deluser:guard(async d=>{if(confirm("Thu hồi quyền của tài khoản này?"))await remove(ref(db,"users/"+d.id))})
 };
 const F={
-  async login(f){const err=$("#err");try{await signInWithEmailAndPassword(auth,f.e.value,f.p.value);closeM()}catch(e){err.textContent="Sai email hoặc mật khẩu."}},
-  async addmem(f){const n=f.name.value.trim();if(!n)return;
+  async login(f){const err=$("#err"),b=f.querySelector("button");b.disabled=true;
+    try{await signInWithEmailAndPassword(auth,f.e.value,f.p.value);closeM()}catch(e){err.textContent="Sai email hoặc mật khẩu.";b.disabled=false}},
+  addmem:guard(async f=>{const n=f.name.value.trim();if(!n)return;
     if(isAdmin()){await push(ref(db,"members"),{name:n,to:S.view});toast("Đã thêm tổ viên.")}
     else await sendReq({type:"addmem",to:S.view,name:n,mname:n});
-    f.reset()},
-  async addrec(f,el){const it=readEntry(f),m=S.members[el.dataset.m];if(!it)return toast("Hãy nhập nội dung và số điểm lớn hơn 0.");
-    if(isAdmin()){await push(ref(db,"records"),{to:S.view,week:S.week,mid:el.dataset.m,item:it[0],pts:it[1],ts:Date.now(),by:S.name});toast("Đã ghi điểm.")}
-    else await sendReq({type:"add",to:S.view,week:S.week,mid:el.dataset.m,mname:m.name,item:it[0],pts:it[1]})},
-  async reqedit(f,el){const it=readEntry(f);if(!it)return toast("Hãy nhập nội dung và số điểm lớn hơn 0.");
+    f.reset()}),
+  addrec:guard(async(f,el)=>{const it=readEntry(),m=S.members[el.dataset.m];if(!it)return toast(S.f.custom?"Hãy nhập nội dung và số điểm lớn hơn 0.":"Hãy chọn một mục trước.");
+    if(isAdmin()){await push(ref(db,"records"),{to:m.to,week:S.week,mid:el.dataset.m,item:it[0],pts:it[1],ts:Date.now(),by:S.name});toast("Đã ghi điểm.")}
+    else await sendReq({type:"add",to:m.to,week:S.week,mid:el.dataset.m,mname:m.name,item:it[0],pts:it[1]});
+    resetForm();render()}),
+  reqedit:guard(async(f,el)=>{const it=readEntry();if(!it)return toast(S.f.custom?"Hãy nhập nội dung và số điểm lớn hơn 0.":"Hãy chọn một mục trước.");
     if(isAdmin()){await update(ref(db,"records/"+el.dataset.id),{item:it[0],pts:it[1]});toast("Đã sửa.")}
     else await recReq(el.dataset.id,"edit",it);
-    closeM()},
+    closeM();resetForm()}),
   async newacc(f){
     const b=f.querySelector("button");b.disabled=true;
     try{const sec=initializeApp(cfg,"sec"+Date.now()),sa=getAuth(sec);
@@ -357,11 +401,22 @@ const F={
       if(p.role!="teacher")p.to=+f.to.value;
       await set(ref(db,"users/"+c.user.uid),p);
       await signOut(sa);toast("Đã tạo tài khoản.");f.reset()}
-    catch(e){toast("Không tạo được: "+e.code)}b.disabled=false}
+    catch(e){toast("Không tạo được: "+(e.code||e.message))}b.disabled=false}
 };
-document.addEventListener("click",e=>{const b=e.target.closest("[data-a]");if(b)A[b.dataset.a]?.(b.dataset)});
-document.addEventListener("change",e=>{const c=e.target.dataset.c;if(c=="week"){S.week=+e.target.value;render()}if(c=="rw"){S.rw=+e.target.value;render()}if(c=="mode"){const f=e.target.form,cu=e.target.value=="custom";f.querySelector(".cu").style.display=cu?"grid":"none";f.querySelector(".sysrow").style.display=cu?"none":""}if(c=="role"){e.target.form.to.style.display=e.target.value=="teacher"?"none":""}});
+document.addEventListener("click",e=>{const b=e.target.closest("[data-a]");if(b)A[b.dataset.a]?.(b.dataset,b)});
+document.addEventListener("change",e=>{const c=e.target.dataset.c;
+  if(c=="week"){setWeek(+e.target.value);render()}
+  if(c=="rw"){S.rw=+e.target.value;render()}
+  if(c=="sort"){S.sort=e.target.value;render()}
+  if(c=="role"){e.target.form.to.style.display=e.target.value=="teacher"?"none":""}
+  if(e.target.dataset.k=="sign")S.f.sign=e.target.value;
+});
+document.addEventListener("input",e=>{const k=e.target.dataset.k;if(!k)return;
+  if(k=="q"){S.q=e.target.value;const l=$("#list");if(l)l.innerHTML=listHTML(S.view=="admin"?+S.tab[1]||1:S.view)}
+  else if(k=="reason"||k=="pts")S.f[k]=e.target.value;
+});
 document.addEventListener("submit",e=>{e.preventDefault();const el=e.target;F[el.dataset.f]?.(el,el)});
+document.addEventListener("keydown",e=>{if(e.key=="Escape"){if($("#m"))closeM();else if(S.sel)A.closesheet()}});
 render();
 </script>
 </body>
