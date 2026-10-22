@@ -84,6 +84,34 @@ table{width:100%;border-collapse:collapse}th,td{padding:8px 6px;text-align:left;
 .err{color:var(--bad);font-size:13px;min-height:18px}
 #toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0));left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:12px;z-index:30;display:none;max-width:90vw;text-align:center}
 .only-print{display:none}
+/* v2: giao diện mới */
+body{background:radial-gradient(900px 420px at 100% -10%,#d9e8ff 0,transparent 60%),radial-gradient(700px 360px at -10% 0,#e2f6ec 0,transparent 55%),#f4f6fb;background-attachment:fixed}
+header{background:linear-gradient(110deg,#0b2239,#1b4a74 60%,#1f6d8a);box-shadow:0 8px 26px #0b223440}
+.logo{background:linear-gradient(135deg,#ffe08a,#ff9f43);color:#3a2400;box-shadow:0 4px 12px -2px #ff9f4388}
+.hero{position:relative;overflow:hidden;background:linear-gradient(125deg,#0b2239,#1d5a8f 65%,#1f8aa0);padding:30px 24px}
+.hero::after{content:"";position:absolute;right:-50px;top:-60px;width:220px;height:220px;border-radius:50%;background:#ffffff14}
+.hero::before{content:"";position:absolute;right:90px;bottom:-70px;width:150px;height:150px;border-radius:50%;background:#ffd76a26}
+.hero h2,.hero p{position:relative}
+.card{border:1px solid #e6ebf4;box-shadow:0 10px 30px #0f2a4310}
+.tile{border:1px solid #e6ebf4;position:relative;overflow:hidden}
+.tile::after{content:"";position:absolute;right:-20px;bottom:-20px;width:90px;height:90px;border-radius:50%;background:var(--c);opacity:.1}
+.tile i{box-shadow:0 8px 16px -6px var(--c);border-radius:16px}
+.stat{border:1px solid #e6ebf4;border-top:4px solid var(--ink)}.stat.v{border-top-color:var(--bad)}.stat.n{border-top-color:var(--good)}
+.btn{box-shadow:0 4px 12px -5px #1d5fd699}.btn.g{box-shadow:none}
+input:focus,select:focus{border-color:var(--pri);outline:0;box-shadow:0 0 0 3px #1d5fd626}
+.mem{border-radius:12px;padding:11px 8px;transition:background .15s}.mem:hover{background:#f3f7ff}
+.av{box-shadow:0 6px 12px -6px var(--c)}
+.rk{border-radius:12px;padding:12px 8px}.rk:hover{background:#f3f7ff}
+.seg{display:flex;gap:6px;background:#e6ecf6;padding:4px;border-radius:12px}
+.seg label{flex:1;text-align:center;cursor:pointer;border-radius:9px;padding:7px 8px;font-weight:600;font-size:13px;position:relative}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label:has(input:checked){background:var(--ink);color:#fff;box-shadow:0 4px 10px -4px #0f2a43aa}
+.entry{margin-top:12px;display:grid;gap:8px}
+.entry select,.entry input{width:100%}
+.cu{display:none;grid-template-columns:1fr 1fr;gap:8px}
+.cu input[name=reason]{grid-column:1/-1}
+.cu small{grid-column:1/-1;color:var(--mut);font-size:12.5px}
+.entry .btn{width:100%}
 @media(max-width:640px){
  main{padding:12px}.brand small{display:none}.brand h1{font-size:15px}#who{max-width:120px}
  .stats{grid-template-columns:1fr 1fr;gap:10px}.two{grid-template-columns:1fr}
@@ -141,6 +169,15 @@ const ctl=to=>isAdmin()||canLead(to);
 const can=v=>isStaff()||(v!="admin"&&S.to==v);
 const weekOpts=(cur,all)=>(all?`<option value="0" ${cur==0?"selected":""}>Tất cả các tuần</option>`:"")+WEEKS.map(w=>`<option value="${w}" ${w==cur?"selected":""}>Tuần ${w}</option>`).join("");
 const itemOpts=()=>ITEMS.map(g=>`<optgroup label="${g[0]}">${g[1].map(x=>`<option value="${FLAT.indexOf(x)}">${x[0]} (${sg(x[1])})</option>`).join("")}</optgroup>`).join("");
+
+const entryForm=()=>`<div class="seg" role="radiogroup" aria-label="Cách nhập"><label><input type="radio" name="mode" value="sys" data-c="mode" checked>Theo hệ thống</label><label><input type="radio" name="mode" value="custom" data-c="mode">Tự nhập điểm</label></div>
+<select name="i" class="sysrow" aria-label="Chọn mục có sẵn">${itemOpts()}</select>
+<div class="cu"><input name="reason" placeholder="Nội dung lỗi hoặc việc tốt" maxlength="80"><select name="sign" aria-label="Cộng hay trừ"><option value="-1">Trừ điểm (−)</option><option value="1">Cộng điểm (+)</option></select><input name="pts" type="number" min="1" max="100" step="1" inputmode="numeric" placeholder="Số điểm"><small>Chọn cộng hoặc trừ rồi nhập số điểm (số nguyên lớn hơn 0).</small></div>`;
+const readEntry=f=>{
+  if(f.mode.value!="custom")return FLAT[f.i.value];
+  const r=f.reason.value.trim(),n=Math.abs(parseInt(f.pts.value,10));
+  return r&&n?[r,(+f.sign.value)*Math.min(n,100)]:null;
+};
 
 /* ---------- Auth & dữ liệu ---------- */
 onAuthStateChanged(auth,async u=>{
@@ -203,7 +240,7 @@ function memRow(m,w,c,to){
       <h3>Tuần ${w}</h3>${rs.length||pa.length?rs.map(r=>`<div class="rec"><span class="it">${esc(r.item)}<br><small class="mut">${new Date(r.ts).toLocaleDateString("vi-VN")} · ${esc(r.by)}</small></span>
         <span class="p ${r.pts>0?"pos":"neg"}">${sg(r.pts)}</span>
         ${c?(pendFor(r.id)?`<span class="tag w">Chờ duyệt</span>`:`<button class="btn g s" data-a="redit" data-id="${r.id}">Sửa</button><button class="btn r s" data-a="rdel" data-id="${r.id}">Xóa</button>`):""}</div>`).join("")+pa.map(q=>`<div class="rec pd"><span class="it">${esc(q.item)}<br><small class="mut">Đang chờ duyệt · ${esc(q.by)}</small></span><span class="p ${q.pts>0?"pos":"neg"}">${sg(q.pts)}</span><span class="tag w">Chờ duyệt</span></div>`).join(""):`<p class="mut" style="margin:4px 0">Không có ghi nhận nào trong tuần này.</p>`}
-      ${c?`<form class="row" data-f="addrec" data-m="${m.id}" style="margin-top:10px"><select name="i" style="flex:1">${itemOpts()}</select><button class="btn ok">${isAdmin()?"Ghi điểm":"Gửi duyệt"}</button></form>
+      ${c?`<form class="entry" data-f="addrec" data-m="${m.id}">${entryForm()}<button class="btn ok">${isAdmin()?"Ghi điểm":"Gửi duyệt"}</button></form>
       ${pd?`<span class="tag w" style="display:inline-block;margin-top:10px">Đang chờ duyệt xóa tổ viên</span>`:`<button class="btn r s" data-a="delmem" data-m="${m.id}" style="margin-top:10px">${isAdmin()?"Xóa tổ viên":"Gửi duyệt xóa tổ viên"}</button>`}`:""}</div>`;
   }
   return `<div class="mem" data-a="sel" data-m="${m.id}" style="--c:${COL[to]}"><span class="av">${esc(m.name.trim().split(" ").pop()[0]||"?").toUpperCase()}</span>
@@ -262,12 +299,12 @@ function loginModal(v){
 }
 function editModal(id){
   const r=S.records[id];
-  modal(`<h3>${isAdmin()?"Sửa":"Yêu cầu sửa"}: ${esc(r.item)} (${sg(r.pts)})</h3><form data-f="reqedit" data-id="${id}"><select name="i">${itemOpts()}</select><div class="row"><button class="btn">${isAdmin()?"Lưu thay đổi":"Gửi yêu cầu"}</button><button type="button" class="btn g" data-a="close">Hủy</button></div></form>`);
+  modal(`<h3>${isAdmin()?"Sửa":"Yêu cầu sửa"}: ${esc(r.item)} (${sg(r.pts)})</h3><form data-f="reqedit" data-id="${id}">${entryForm()}<div class="row"><button class="btn">${isAdmin()?"Lưu thay đổi":"Gửi yêu cầu"}</button><button type="button" class="btn g" data-a="close">Hủy</button></div></form>`);
 }
 const sendReq=q=>push(ref(db,"requests"),{...q,to:q.to,by:S.name,ts:Date.now(),status:"pending"}).then(()=>toast("Đã gửi yêu cầu, chờ Quản trị viên duyệt."));
 const recReq=(id,type,ni)=>{
   const r=S.records[id],m=S.members[r.mid],q={rid:id,type,to:r.to,week:r.week,mname:m?.name||"?",item:r.item,pts:r.pts};
-  if(type=="edit"){q.nitem=FLAT[ni][0];q.npts=FLAT[ni][1]}
+  if(type=="edit"){q.nitem=ni[0];q.npts=ni[1]}
   return sendReq(q);
 };
 
@@ -305,12 +342,12 @@ const F={
     if(isAdmin()){await push(ref(db,"members"),{name:n,to:S.view});toast("Đã thêm tổ viên.")}
     else await sendReq({type:"addmem",to:S.view,name:n,mname:n});
     f.reset()},
-  async addrec(f,el){const it=FLAT[f.i.value],m=S.members[el.dataset.m];
+  async addrec(f,el){const it=readEntry(f),m=S.members[el.dataset.m];if(!it)return toast("Hãy nhập nội dung và số điểm lớn hơn 0.");
     if(isAdmin()){await push(ref(db,"records"),{to:S.view,week:S.week,mid:el.dataset.m,item:it[0],pts:it[1],ts:Date.now(),by:S.name});toast("Đã ghi điểm.")}
     else await sendReq({type:"add",to:S.view,week:S.week,mid:el.dataset.m,mname:m.name,item:it[0],pts:it[1]})},
-  async reqedit(f,el){
-    if(isAdmin()){const it=FLAT[f.i.value];await update(ref(db,"records/"+el.dataset.id),{item:it[0],pts:it[1]});toast("Đã sửa.")}
-    else await recReq(el.dataset.id,"edit",f.i.value);
+  async reqedit(f,el){const it=readEntry(f);if(!it)return toast("Hãy nhập nội dung và số điểm lớn hơn 0.");
+    if(isAdmin()){await update(ref(db,"records/"+el.dataset.id),{item:it[0],pts:it[1]});toast("Đã sửa.")}
+    else await recReq(el.dataset.id,"edit",it);
     closeM()},
   async newacc(f){
     const b=f.querySelector("button");b.disabled=true;
@@ -323,7 +360,7 @@ const F={
     catch(e){toast("Không tạo được: "+e.code)}b.disabled=false}
 };
 document.addEventListener("click",e=>{const b=e.target.closest("[data-a]");if(b)A[b.dataset.a]?.(b.dataset)});
-document.addEventListener("change",e=>{const c=e.target.dataset.c;if(c=="week"){S.week=+e.target.value;render()}if(c=="rw"){S.rw=+e.target.value;render()}if(c=="role"){e.target.form.to.style.display=e.target.value=="teacher"?"none":""}});
+document.addEventListener("change",e=>{const c=e.target.dataset.c;if(c=="week"){S.week=+e.target.value;render()}if(c=="rw"){S.rw=+e.target.value;render()}if(c=="mode"){const f=e.target.form,cu=e.target.value=="custom";f.querySelector(".cu").style.display=cu?"grid":"none";f.querySelector(".sysrow").style.display=cu?"none":""}if(c=="role"){e.target.form.to.style.display=e.target.value=="teacher"?"none":""}});
 document.addEventListener("submit",e=>{e.preventDefault();const el=e.target;F[el.dataset.f]?.(el,el)});
 render();
 </script>
