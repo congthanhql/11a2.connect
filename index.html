@@ -138,6 +138,19 @@ table{width:100%;border-collapse:collapse}th,td{padding:8px 6px;text-align:left;
 .crumb{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
 .crumb .sp{flex:1}
 
+/* Ghi nhớ đăng nhập */
+.rem{display:flex;gap:8px;align-items:center;font-size:14px;cursor:pointer;user-select:none}
+.rem input{min-height:0;width:18px;height:18px;padding:0;flex:none;accent-color:var(--pri)}
+
+/* Trang duyệt của Admin */
+.rq{border:1px solid var(--line);border-left:5px solid var(--pri);border-radius:14px;padding:12px;margin-bottom:12px}
+.rq.k-add,.rq.k-addmem{border-left-color:var(--good)}.rq.k-del,.rq.k-delmem{border-left-color:var(--bad)}.rq.k-edit{border-left-color:#d97706}
+.rq.done{opacity:.7}
+.rqh{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.kv{display:flex;gap:10px;padding:4px 0;border-top:1px dashed var(--line);font-size:14px}.kv:first-of-type{border-top:0}
+.kv span{color:var(--mut);min-width:118px;flex:none}.kv b{font-weight:600}
+.rqf{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:flex-end;margin-top:10px}
+
 /* Mobile */
 @media(max-width:640px){
  .grid{grid-template-columns:1fr 1fr;gap:10px}
@@ -161,6 +174,7 @@ table{width:100%;border-collapse:collapse}th,td{padding:8px 6px;text-align:left;
  .sheet .hd{position:sticky;top:0;background:var(--card);z-index:2;padding:4px 0 8px}
  .acts{position:sticky;bottom:0;background:var(--card);padding:10px 0 4px;box-shadow:0 -10px 14px -10px #0004;z-index:3}
  .acts .btn{flex:1}
+ .kv{flex-direction:column;gap:0}.kv span{min-width:0}
  footer{font-size:11.5px}
 }
 </style>
@@ -181,7 +195,7 @@ try{
   document.getElementById("app").innerHTML=`<div class="card"><h2>Không tải được Firebase</h2><p>Trình duyệt không kết nối được tới <code>gstatic.com</code>, hoặc bạn đang mở file trực tiếp (file://). Hãy mở trang qua máy chủ web (Firebase Hosting, GitHub Pages hoặc <code>npx serve</code>) và kiểm tra mạng.</p><p class="mut">Chi tiết: ${String(e.message||e)}</p></div>`;
   throw e;
 }
-const {initializeApp,getAuth,signInWithEmailAndPassword,signOut,onAuthStateChanged,createUserWithEmailAndPassword,getDatabase,ref,onValue,get,set,push,update,remove}=M;
+const {initializeApp,getAuth,signInWithEmailAndPassword,signOut,onAuthStateChanged,createUserWithEmailAndPassword,setPersistence,browserLocalPersistence,browserSessionPersistence,getDatabase,ref,onValue,get,set,push,update,remove}=M;
 
 const cfg={apiKey:"AIzaSyDDHoie6vCkj_HOibHzN-VZ4PEXKpwfujU",authDomain:"csdl-11a2.firebaseapp.com",databaseURL:"https://csdl-11a2-default-rtdb.firebaseio.com",projectId:"csdl-11a2",storageBucket:"csdl-11a2.firebasestorage.app",messagingSenderId:"527409951361",appId:"1:527409951361:web:c28965e470649aad2dd380"};
 const app=initializeApp(cfg),auth=getAuth(app),db=getDatabase(app);
@@ -194,13 +208,13 @@ const COL=["","var(--t1)","var(--t2)","var(--t3)","var(--t4)"];
 const RL={admin:"Quản trị viên",teacher:"Giáo viên",leader:"Tổ trưởng",student:"Học sinh"};
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const store={get:k=>{try{return localStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}}};
+const store={get:k=>{try{return localStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}},del:k=>{try{localStorage.removeItem(k)}catch(e){}}};
 const fold=s=>String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/đ/g,"d");
 const ld=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
 const shift=(s,n)=>{const [y,m,d]=s.split("-").map(Number);return ld(new Date(y,m-1,d+n))};
 const savedW=+store.get("w11a2");
 const S={user:null,role:null,to:null,name:"",view:"home",tab:"rank",week:WEEKS.includes(savedW)?savedW:7,rw:0,sel:null,loaded:false,
-  members:{},records:{},requests:{},users:{},att:{},ad:ld(new Date()),sub:"score",pending:null,q:"",flt:"all",sort:"name",f:{i:null,custom:false,reason:"",sign:"-1",pts:""}};
+  members:{},records:{},requests:{},users:{},att:{},ad:ld(new Date()),sub:"score",pending:null,q:"",flt:"all",rf:"all",sort:"name",f:{i:null,custom:false,reason:"",sign:"-1",pts:""}};
 let unsubs=[];
 
 const toast=t=>{const e=$("#toast");e.textContent=t;e.style.display="block";clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display="none",2800)};
@@ -354,10 +368,31 @@ function rankTab(){
     <div class="two screen"><div class="card"><h3>Top 5 điểm cao nhất</h3>${mini(top)}</div><div class="card"><h3>5 bạn cần quan tâm</h3>${mini(low)}</div></div>
     <div class="only-print"><h2>Báo cáo thi đua lớp 11A2 – ${lbl}</h2><table><tr><th>Hạng</th><th>Tổ</th><th>Số HS</th><th>Điểm TB</th><th>Vi phạm</th><th>Không VP</th></tr>${st.map((s,i)=>`<tr><td>${i+1}</td><td>Tổ ${s.to}</td><td>${s.n}</td><td>${s.avg.toFixed(1)}</td><td>${s.vio}</td><td>${s.ok}</td></tr>`).join("")}</table>${rep}</div>`;
 }
+
+/* ---------- Trang duyệt: phân loại + chi tiết nội dung ---------- */
+const RT={add:["➕ Thêm điểm","n","Điểm thi đua"],edit:["✎ Sửa điểm","w","Điểm thi đua"],del:["🗑 Xóa điểm","v","Điểm thi đua"],addmem:["👤 Thêm tổ viên","n","Tổ viên"],delmem:["⚠ Xóa tổ viên","v","Tổ viên"]};
+const kv=(k,v)=>`<div class="kv"><span>${k}</span><b>${v}</b></div>`;
+const pt$=n=>`<span class="pt ${n>0?"up":"dn"}">${sg(n)}</span>`;
+function detail(q){
+  const who=kv("Học sinh",esc(q.mname)+" · Tổ "+q.to),wk=kv("Tuần",q.week);
+  if(q.type=="add")return who+wk+kv("Nội dung duyệt",esc(q.item))+kv("Điểm",pt$(q.pts));
+  if(q.type=="edit")return who+wk+kv("Hiện tại",esc(q.item)+" "+pt$(q.pts))+kv("Đề nghị sửa thành",esc(q.nitem)+" "+pt$(q.npts));
+  if(q.type=="del")return who+wk+kv("Ghi nhận bị xóa",esc(q.item)+" "+pt$(q.pts));
+  if(q.type=="addmem")return kv("Họ tên",esc(q.name))+kv("Thêm vào","Tổ "+q.to);
+  if(q.type=="delmem")return who+kv("Ảnh hưởng",`Xóa tổ viên và <span class="pt dn">${recs().filter(r=>r.mid==q.mid).length} ghi nhận điểm</span>`);
+  return "";
+}
 function reqTab(){
-  const all=reqs().sort((a,b)=>(a.status=="pending"?0:1)-(b.status=="pending"?0:1)||b.ts-a.ts),np=all.filter(q=>q.status=="pending").length;
-  return `<div class="card"><div class="row sp" style="margin-bottom:8px"><h2>Yêu cầu từ tổ trưởng</h2>${np>1?`<button class="btn ok s" data-a="approveall">Duyệt tất cả (${np})</button>`:""}</div>${all.length?all.map(q=>`<div class="rec"><span class="it"><b>Tổ ${q.to}</b> – ${describe(q)}<br><small class="mut">${esc(q.by)} · ${dt(q.ts)}</small></span>
-    ${q.status=="pending"?`<button class="btn ok s" data-a="approve" data-id="${q.id}">Duyệt</button><button class="btn r s" data-a="reject" data-id="${q.id}">Từ chối</button>`:stTag(q.status)}</div>`).join(""):`<div class="empty">Chưa có yêu cầu nào.</div>`}</div>`;
+  const all=reqs().sort((a,b)=>(a.status=="pending"?0:1)-(b.status=="pending"?0:1)||b.ts-a.ts);
+  const cnt=k=>all.filter(q=>q.status=="pending"&&(k=="all"||q.type==k)).length;
+  const vis=all.filter(q=>S.rf=="all"||q.type==S.rf),np=vis.filter(q=>q.status=="pending").length;
+  const chips=[["all","Tất cả"],...Object.entries(RT).map(([k,v])=>[k,v[0]])].map(([k,l])=>`<button class="chip ${S.rf==k?"on":""}" data-a="rf" data-k="${k}">${l}${cnt(k)?` (${cnt(k)})`:""}</button>`).join("");
+  return `<div class="card"><div class="row sp" style="margin-bottom:8px"><h2>Yêu cầu từ tổ trưởng</h2>${np>1?`<button class="btn ok s" data-a="approveall">Duyệt tất cả${S.rf=="all"?"":" mục này"} (${np})</button>`:""}</div>
+    <div class="chips" style="margin-bottom:12px">${chips}</div>
+    ${vis.length?vis.map(q=>{const t=RT[q.type]||["Khác","i",""],pd=q.status=="pending";
+      return `<div class="rq k-${q.type} ${pd?"":"done"}"><div class="rqh"><span class="tag ${t[1]}">${t[0]}</span><span class="tag i">Nhóm: ${t[2]}</span><span class="tag i">Tổ ${q.to}</span><span style="flex:1"></span>${pd?"":stTag(q.status)}</div>
+      ${detail(q)}<div class="mut sm" style="margin-top:6px">Người gửi: ${esc(q.by)} · ${dt(q.ts)}</div>
+      ${pd?`<div class="rqf"><button class="btn r s" data-a="reject" data-id="${q.id}">Từ chối</button><button class="btn ok s" data-a="approve" data-id="${q.id}">Duyệt</button></div>`:""}</div>`}).join(""):`<div class="empty">Không có yêu cầu nào${S.rf=="all"?"":" thuộc loại này"}.</div>`}</div>`;
 }
 function accTab(){
   const us=Object.entries(S.users).sort((a,b)=>(a[1].to||0)-(b[1].to||0));
@@ -428,8 +463,9 @@ function modal(h){closeM();const d=document.createElement("div");d.className="mo
 function closeM(){$("#m")?.remove()}
 function loginModal(v){
   S.pending=v;
-  modal(`<h3>${v=="admin"?"Đăng nhập Giáo viên / Admin":"Đăng nhập Tổ trưởng – Tổ "+v}</h3><form data-f="login"><input name="e" type="email" placeholder="Email" required autocomplete="username"><input name="p" type="password" placeholder="Mật khẩu" required autocomplete="current-password"><div class="err" id="err" aria-live="polite"></div><div class="row"><button class="btn" style="flex:1">Đăng nhập</button><button type="button" class="btn g" data-a="close">Hủy</button></div></form>`);
-  setTimeout(()=>$("#m input")?.focus(),30);
+  const em=store.get("11a2_email")||"",rem=store.get("11a2_rem")!=="0";
+  modal(`<h3>${v=="admin"?"Đăng nhập Giáo viên / Admin":"Đăng nhập Tổ trưởng – Tổ "+v}</h3><form data-f="login"><input name="e" type="email" placeholder="Email" required autocomplete="username" value="${esc(em)}"><input name="p" type="password" placeholder="Mật khẩu" required autocomplete="current-password"><label class="rem"><input type="checkbox" name="rem" ${rem?"checked":""}> Ghi nhớ đăng nhập trên thiết bị này</label><div class="err" id="err" aria-live="polite"></div><div class="row"><button class="btn" style="flex:1">Đăng nhập</button><button type="button" class="btn g" data-a="close">Hủy</button></div></form>`);
+  setTimeout(()=>{const i=$("#m input[name=p]");(em?i:$("#m input"))?.focus()},30);
 }
 function editModal(id){
   const r=S.records[id];resetForm();
@@ -463,6 +499,7 @@ const A={
   wk(d){setWeek(+d.w);render()},
   wstep(d){setWeek(S.week+ +d.d);render()},
   flt(d){S.flt=d.k;render()},
+  rf(d){S.rf=d.k;render()},
   tab(d){S.tab=d.t;if(d.t[0]=="t")S.sub="score";S.sel=null;S.q="";S.flt="all";render();scrollTo(0,0)},
   print(){window.print()},
   csv(){
@@ -522,15 +559,22 @@ const A={
     const up={["members/"+d.m]:null};recs().filter(r=>r.mid==d.m).forEach(r=>up["records/"+r.id]=null);await update(ref(db),up);S.sel=null;render();toast("Đã xóa tổ viên.")}),
   approve:guard(async d=>{const q=S.requests[d.id],up={};applyReq(q,d.id,up);await update(ref(db),up);toast("Đã duyệt.")}),
   approveall:guard(async()=>{
-    const p=reqs().filter(q=>q.status=="pending");
-    if(!p.length||!confirm(`Duyệt tất cả ${p.length} yêu cầu đang chờ?`))return;
-    const up={};p.sort((a,b)=>a.ts-b.ts).forEach(q=>applyReq(q,q.id,up));await update(ref(db),up);toast("Đã duyệt tất cả.")}),
+    const p=reqs().filter(q=>q.status=="pending"&&(S.rf=="all"||q.type==S.rf));
+    if(!p.length||!confirm(`Duyệt ${p.length} yêu cầu${S.rf=="all"?"":" loại “"+RT[S.rf][0]+"”"}?`))return;
+    const up={};p.sort((a,b)=>a.ts-b.ts).forEach(q=>applyReq(q,q.id,up));await update(ref(db),up);toast("Đã duyệt.")}),
   reject:guard(async d=>{await set(ref(db,"requests/"+d.id+"/status"),"rejected")}),
   deluser:guard(async d=>{if(confirm("Thu hồi quyền của tài khoản này?"))await remove(ref(db,"users/"+d.id))})
 };
 const F={
-  async login(f){const err=$("#err"),b=f.querySelector("button");b.disabled=true;
-    try{await signInWithEmailAndPassword(auth,f.e.value,f.p.value);closeM()}catch(e){err.textContent="Sai email hoặc mật khẩu.";b.disabled=false}},
+  async login(f){const err=$("#err"),b=f.querySelector("button"),email=f.e.value.trim(),rem=f.rem.checked;b.disabled=true;
+    try{
+      /* Ghi nhớ: lưu phiên lâu dài (localStorage). Không ghi nhớ: chỉ giữ đến khi đóng tab */
+      await setPersistence(auth,rem?browserLocalPersistence:browserSessionPersistence);
+      await signInWithEmailAndPassword(auth,email,f.p.value);
+      if(rem){store.set("11a2_email",email);store.set("11a2_rem","1")}
+      else{store.del("11a2_email");store.set("11a2_rem","0")}
+      closeM();
+    }catch(e){err.textContent="Sai email hoặc mật khẩu.";b.disabled=false}},
   addmem:guard(async f=>{const n=f.name.value.trim();if(!n)return;
     if(isAdmin()){await push(ref(db,"members"),{name:n,to:S.view});toast("Đã thêm tổ viên.")}
     else await sendReq({type:"addmem",to:S.view,name:n,mname:n});
