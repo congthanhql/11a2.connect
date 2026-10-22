@@ -2,423 +2,244 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Quản lý điểm rèn luyện học sinh</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Thi đua lớp 11A2</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f4f6fb;--card:#fff;--ink:#1c2333;--mut:#6b7488;--pri:#2f5bea;--ok:#12a150;--bad:#d93a3a;--warn:#e08a00;--line:#e3e7f0}
+:root{--ink:#14213d;--mut:#5b667a;--bg:#eef2f7;--card:#fff;--line:#dbe2ec;--good:#17803d;--bad:#c62828;--pri:#1d4ed8;--t1:#1d4ed8;--t2:#15803d;--t3:#d97706;--t4:#7c3aed}
 *{box-sizing:border-box}
-body{margin:0;font-family:system-ui,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);font-size:15px}
-header{background:var(--pri);color:#fff;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-header h1{font-size:18px;margin:0}
-header .who{font-size:13px;opacity:.9;margin-right:8px}
-main{max-width:1100px;margin:18px auto;padding:0 14px}
-.card{background:var(--card);border-radius:12px;padding:18px;margin-bottom:16px;box-shadow:0 1px 3px rgba(20,30,60,.08)}
-h2{margin:0 0 12px;font-size:18px}h3{margin:0 0 12px}
-.row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}.row>*{flex:1;min-width:120px}.row.end{justify-content:flex-end}.row.end>*{flex:0 0 auto}
-label{display:block;font-size:13px;color:var(--mut);margin-bottom:10px}
-input,select,textarea{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;font:inherit;margin-top:4px;background:#fff;color:var(--ink)}
-.btn{border:1px solid var(--line);background:#fff;color:var(--ink);padding:8px 14px;border-radius:8px;cursor:pointer;font:inherit}
-.btn:hover{background:#f0f3fa}.btn.pri{background:var(--pri);border-color:var(--pri);color:#fff}.btn.pri:hover{background:#2449c4}
-.btn.bad{color:var(--bad)}.btn.ok{background:var(--ok);border-color:var(--ok);color:#fff}.btn.sm{padding:4px 9px;font-size:13px}
-header .btn{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.4);color:#fff}
-.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
-.tab{padding:8px 14px;border-radius:20px;background:#fff;border:1px solid var(--line);cursor:pointer}
-.tab.on{background:var(--pri);color:#fff;border-color:var(--pri)}
-.tab i{font-style:normal;background:var(--bad);color:#fff;border-radius:10px;padding:0 7px;font-size:12px;margin-left:5px}
-table{width:100%;border-collapse:collapse}
-th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
-th{font-size:12px;text-transform:uppercase;color:var(--mut);letter-spacing:.03em}
-tr.click{cursor:pointer}tr.click:hover{background:#f6f8fe}
-.tw{overflow-x:auto}
-.badge{display:inline-block;padding:2px 9px;border-radius:12px;font-size:12px;font-weight:600}
-.b-ok{background:#e1f5ea;color:var(--ok)}.b-bad{background:#fde6e6;color:var(--bad)}.b-warn{background:#fff1d9;color:var(--warn)}.b-mut{background:#eceff6;color:var(--mut)}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:16px}
-.stat{background:#fff;border-radius:12px;padding:14px;box-shadow:0 1px 3px rgba(20,30,60,.08)}
-.stat b{display:block;font-size:26px}.stat span{color:var(--mut);font-size:13px}
-.ring{--c:var(--ok);width:160px;height:160px;border-radius:50%;background:conic-gradient(var(--c) calc(var(--p)*1%),#e8ecf5 0);display:grid;place-items:center;position:relative;margin:auto}
-.ring::before{content:"";position:absolute;inset:14px;background:#fff;border-radius:50%}
-.ring>div{position:relative;text-align:center}.ring b{font-size:44px;line-height:1}.ring small{color:var(--mut)}
-.bar{height:10px;background:#e8ecf5;border-radius:6px;overflow:hidden;min-width:100px}.bar>i{display:block;height:100%;background:var(--pri)}
-.neg{color:var(--bad);font-weight:700}.pos{color:var(--ok);font-weight:700}.mut{color:var(--mut)}.empty{text-align:center;color:var(--mut);padding:22px}
-.mback{position:fixed;inset:0;background:rgba(15,20,40,.5);display:flex;align-items:center;justify-content:center;padding:14px;z-index:50}
-.mbox{background:#fff;border-radius:14px;padding:20px;width:100%;max-width:460px;max-height:92vh;overflow:auto}
-#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#1c2333;color:#fff;padding:10px 18px;border-radius:10px;z-index:99;display:none;max-width:90%}
-#toast.err{background:var(--bad)}
-.printonly{display:none}
-@media print{.noprint,header,.tabs{display:none!important}.printonly{display:block}body{background:#fff}.card{box-shadow:none;border:1px solid #ccc;break-inside:avoid}main{max-width:none;margin:0}}
+body{margin:0;font:15px/1.5 "Be Vietnam Pro",system-ui,sans-serif;background:var(--bg);color:var(--ink)}
+button,select,input{font:inherit}
+header{background:var(--ink);color:#fff;padding:10px 16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;position:sticky;top:0;z-index:5}
+header h1{font-size:18px;margin:0;flex:1;font-weight:800;letter-spacing:.2px;cursor:pointer}
+header small{opacity:.8}
+main{max-width:1000px;margin:0 auto;padding:16px}
+.btn{border:0;border-radius:8px;padding:8px 14px;background:var(--pri);color:#fff;font-weight:500;cursor:pointer}
+.btn.g{background:#e3e9f3;color:var(--ink)}.btn.r{background:var(--bad)}.btn.s{padding:4px 10px;font-size:13px}.btn.ok{background:var(--good)}
+.btn:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #93b4ff;outline-offset:1px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:14px}
+h2{margin:0 0 10px;font-size:19px}h3{margin:0 0 8px;font-size:16px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.tile{border:0;border-left:8px solid var(--c);background:var(--card);border-radius:10px;padding:18px 16px;text-align:left;cursor:pointer;box-shadow:0 1px 0 var(--line)}
+.tile b{font-size:26px;display:block;color:var(--c)}.tile span{color:var(--mut)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.row.sp{justify-content:space-between}
+input,select{padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;min-width:0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.stat b{font-size:24px;display:block}.stat.v b{color:var(--bad)}.stat.n b{color:var(--good)}
+.mem{display:flex;gap:10px;align-items:center;padding:10px 4px;border-top:1px solid var(--line);cursor:pointer;flex-wrap:wrap}
+.mem:first-child{border-top:0}.mem.me{background:#f1f6ff}
+.mem .nm{flex:1;min-width:120px;font-weight:500}
+.sc{font-weight:800;min-width:46px;text-align:right}
+.tag{font-size:12px;padding:2px 8px;border-radius:99px;font-weight:500}
+.tag.v{background:#fde8e8;color:var(--bad)}.tag.n{background:#e3f6ea;color:var(--good)}
+.det{background:#f7f9fc;border-radius:8px;padding:10px;margin:0 0 8px}
+.rec{display:flex;gap:8px;align-items:center;padding:6px 0;border-top:1px dashed var(--line);flex-wrap:wrap}
+.rec .it{flex:1;min-width:140px}.p{font-weight:700}.p.pos{color:var(--good)}.p.neg{color:var(--bad)}
+.wk{display:flex;gap:4px;flex-wrap:wrap;margin:6px 0}
+.wk button{border:1px solid var(--line);background:#fff;border-radius:6px;min-width:34px;padding:3px 4px;font-size:12px;cursor:pointer}
+.wk .bad{background:#fde8e8;border-color:#f3b4b4}.wk .on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:14px;padding-bottom:2px}
+.tabs button{white-space:nowrap;border:0;background:#e3e9f3;border-radius:8px;padding:8px 14px;cursor:pointer}
+.tabs .on{background:var(--ink);color:#fff}
+table{width:100%;border-collapse:collapse}th,td{padding:8px 6px;text-align:left;border-bottom:1px solid var(--line)}
+.wrap{overflow-x:auto}
+tr[data-a]{cursor:pointer}
+.mut{color:var(--mut)}.pend{font-size:12px;color:#b45309;font-weight:500}
+.modal{position:fixed;inset:0;background:#0008;display:flex;align-items:center;justify-content:center;padding:16px;z-index:20}
+.modal>div{background:#fff;border-radius:12px;padding:18px;width:100%;max-width:380px}
+.modal form{display:grid;gap:10px}
+.err{color:var(--bad);font-size:13px;min-height:18px}
+#toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:8px 16px;border-radius:8px;z-index:30;display:none}
+.only-print{display:none}
+@media(max-width:560px){main{padding:10px}.stats{gap:6px}.stat b{font-size:20px}}
+@media print{header,.noprint,.tabs{display:none!important}body{background:#fff}.card{border:0;padding:0}.only-print{display:block}.screen{display:none}main{max-width:none}}
 </style>
 </head>
 <body>
-<header class="noprint">
-  <h1>📘 Quản lý điểm rèn luyện</h1>
-  <div id="bar"></div>
-</header>
-<main id="main"></main>
-<div id="modal"></div>
+<header><h1 data-a="home">Thi đua lớp 11A2</h1><small id="who"></small><button class="btn g s" id="out" data-a="logout" style="display:none">Đăng xuất</button></header>
+<main id="app"></main>
 <div id="toast"></div>
-
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, onValue, push, set, update, remove, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {getAuth,signInWithEmailAndPassword,signOut,onAuthStateChanged,createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {getDatabase,ref,onValue,get,set,push,update,remove} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-const firebaseConfig = {
-  apiKey : "AIzaSyDDHoie6vCkj_HOibHzN-VZ4PEXKpwfujU" , 
-  authDomain : "csdl-11a2.firebaseapp.com" , 
-  URL cơ sở dữ liệu : "https://csdl-11a2-default-rtdb.firebaseio.com/" , 
-  projectId : "csdl-11a2" , 
-  storageBucket : "csdl-11a2.firebasestorage.app" , 
-  messagingSenderId : "527409951361" , 
-  appId : "1:527409951361:web:c28965e470649aad2dd380" ,
-};
-const ADMIN_EMAIL = "congthanh.edu.vn@gmail.com";
-const TEAMS = [1, 2, 3, 4];
-const DEFAULT_FAULTS = [
-  {name:"Đi học muộn",points:-2},{name:"Nghỉ học không phép",points:-5},{name:"Không làm bài tập",points:-3},
-  {name:"Mất trật tự trong giờ",points:-2},{name:"Sai đồng phục",points:-2},{name:"Sử dụng điện thoại trong giờ",points:-5},
-  {name:"Nói tục, chửi thề",points:-5},{name:"Vứt rác bừa bãi",points:-2},{name:"Đánh nhau",points:-20},
-  {name:"Phát biểu xây dựng bài",points:2},{name:"Đạt điểm 10",points:3},{name:"Giúp đỡ bạn bè",points:2}
-];
+const cfg={apiKey:"AIzaSyDDHoie6vCkj_HOibHzN-VZ4PEXKpwfujU",authDomain:"csdl-11a2.firebaseapp.com",databaseURL:"https://csdl-11a2-default-rtdb.firebaseio.com",projectId:"csdl-11a2",storageBucket:"csdl-11a2.firebasestorage.app",messagingSenderId:"527409951361",appId:"1:527409951361:web:c28965e470649aad2dd380"};
+const app=initializeApp(cfg),auth=getAuth(app),db=getDatabase(app);
+const ADMIN="congthanh.edu.vn@gmail.com";
+const ITEMS=[["Trừ điểm",[["Đi học muộn",-2],["Không làm bài tập",-3],["Không thuộc bài",-2],["Nói chuyện riêng trong giờ",-2],["Mất trật tự",-3],["Sai đồng phục",-2],["Vứt rác bừa bãi",-2],["Dùng điện thoại trong giờ",-5],["Nghỉ học không phép",-5],["Đánh nhau, mất đoàn kết",-10]]],
+["Cộng điểm",[["Phát biểu xây dựng bài",2],["Điểm 9–10",3],["Giúp đỡ bạn bè",2],["Trực nhật tốt",2],["Tham gia phong trào",3],["Việc tốt được khen",5]]]];
+const FLAT=ITEMS.flatMap(g=>g[1]);
+const WEEKS=Array.from({length:29},(_,i)=>i+7);
+const COL=["","var(--t1)","var(--t2)","var(--t3)","var(--t4)"];
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const S={user:null,role:null,to:null,name:"",view:"home",tab:"rank",week:7,rw:0,sel:null,members:{},records:{},requests:{},users:{},pending:null};
+let unsubs=[];
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-const auth = getAuth(app);
-let app2 = null;
+const toast=t=>{const e=$("#toast");e.textContent=t;e.style.display="block";clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display="none",2600)};
+const mem=to=>Object.entries(S.members).filter(([,m])=>m.to==to).map(([id,m])=>({id,...m}));
+const recs=()=>Object.entries(S.records).map(([id,r])=>({id,...r}));
+const sc=(mid,wk)=>100+recs().filter(r=>r.mid==mid&&(!wk||r.week==wk)).reduce((a,r)=>a+r.pts,0);
+const isBad=(mid,wk)=>recs().some(r=>r.mid==mid&&r.pts<0&&(!wk||r.week==wk));
+const sg=n=>(n>0?"+":"")+n;
+const pendFor=id=>Object.values(S.requests).some(q=>q.rid==id&&q.status=="pending");
+const canLead=to=>S.role=="leader"&&S.to==to;
+const can=v=>S.role=="admin"||(v!="admin"&&S.to==v);
+const weekOpts=(cur,all)=>(all?`<option value="0" ${cur==0?"selected":""}>Tất cả các tuần</option>`:"")+WEEKS.map(w=>`<option value="${w}" ${w==cur?"selected":""}>Tuần ${w}</option>`).join("");
 
-const $ = s => document.querySelector(s);
-const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const fmt = ts => ts ? new Date(ts).toLocaleString("vi-VN") : "";
-const sgn = n => (n > 0 ? "+" : "") + n;
-const clamp = n => Math.max(0, Math.min(100, n));
-let lsGet = k => { try { return localStorage.getItem(k) || ""; } catch { return ""; } };
-
-const S = { students:{}, records:{}, faults:{}, requests:{}, users:{}, me:null, view:"student",
-  tab:"overview", code:lsGet("hsCode"), draft:lsGet("hsCode"), fTeam:"all", q:"", err:"", fl:[] };
-let unsubs = [];
-
-/* ---------- tính toán ---------- */
-function scoreOf(id){ let s = 100; for (const r of Object.values(S.records)) if (r.studentId === id) s += Number(r.delta) || 0; return clamp(s); }
-function faultCount(id){ return Object.values(S.records).filter(r => r.studentId === id && r.delta < 0).length; }
-function teamStats(t){
-  const m = Object.entries(S.students).filter(([,s]) => s.team === t);
-  const faulty = m.filter(([id]) => faultCount(id) > 0).length;
-  const avg = m.length ? m.reduce((a,[id]) => a + scoreOf(id), 0) / m.length : 0;
-  return { n:m.length, faulty, clean:m.length - faulty, avg };
-}
-const ranking = () => TEAMS.map(t => ({ t, ...teamStats(t) })).sort((a,b) => b.avg - a.avg || a.faulty - b.faulty);
-const faultList = () => { const l = Object.values(S.faults); return l.length ? l : DEFAULT_FAULTS; };
-const grade = s => s >= 90 ? ["Tốt","b-ok","var(--ok)"] : s >= 80 ? ["Khá","b-ok","var(--ok)"] : s >= 65 ? ["Trung bình","b-warn","var(--warn)"] : ["Cần cố gắng","b-bad","var(--bad)"];
-const membersOf = t => Object.entries(S.students).filter(([,s]) => s.team === t).sort((a,b) => a[1].name.localeCompare(b[1].name,"vi"));
-const pendingFor = (type,key,id) => Object.values(S.requests).some(q => q.status === "pending" && q.type === type && q[key] === id);
-function genCode(team, extra = []){ const used = new Set([...Object.values(S.students).map(s => s.code), ...extra]); let c; do { c = "T" + team + Math.floor(100 + Math.random()*900); } while (used.has(c)); return c; }
-
-/* ---------- tiện ích UI ---------- */
-function toast(msg, err){ const t = $("#toast"); t.textContent = msg; t.className = err ? "err" : ""; t.style.display = "block"; clearTimeout(toast.t); toast.t = setTimeout(() => t.style.display = "none", 3200); }
-const errMsg = e => /PERMISSION_DENIED|permission/i.test(e.message || e) ? "Không có quyền ghi dữ liệu (kiểm tra lại Rules trên Firebase)." : (e.message || String(e));
-function openModal(title, body){ $("#modal").innerHTML = `<div class="mback" data-act="closeModal"><div class="mbox"><h3>${title}</h3>${body}</div></div>`; }
-const closeModal = () => $("#modal").innerHTML = "";
-
-/* ---------- lắng nghe dữ liệu ---------- */
-function listen(path, key){ unsubs.push(onValue(ref(db, path), snap => { S[key] = snap.val() || {}; render(); }, e => toast("Lỗi đọc " + path + ": " + e.message, true))); }
-["students","records","faults"].forEach(k => listen(k, k));
-
-onAuthStateChanged(auth, async user => {
-  S.me = null; S.requests = {}; S.users = {};
-  if (user) {
-    if ((user.email || "").toLowerCase() === ADMIN_EMAIL) {
-      S.me = { role:"admin", uid:user.uid, email:user.email, name:"Quản trị viên" };
-      S.view = "admin"; listen("requests","requests"); listen("users","users");
-    } else {
-      try {
-        const u = (await get(ref(db, "users/" + user.uid))).val();
-        if (u && u.role === "leader") { S.me = { role:"leader", uid:user.uid, ...u }; S.view = "leader"; listen("requests","requests"); }
-        else { await signOut(auth); S.err = "Tài khoản này chưa được cấp quyền tổ trưởng."; S.view = "login"; }
-      } catch (e) { S.err = errMsg(e); S.view = "login"; }
-    }
-  } else if (S.view !== "login") S.view = "student";
+/* ---------- Auth & dữ liệu ---------- */
+onAuthStateChanged(auth,async u=>{
+  unsubs.forEach(f=>f());unsubs=[];
+  if(!u){Object.assign(S,{user:null,role:null,to:null,members:{},records:{},requests:{},users:{},view:"home"});return render();}
+  let p=null;
+  if(u.email===ADMIN)p={role:"admin",name:"Admin tổng"};
+  else{try{p=(await get(ref(db,"users/"+u.uid))).val()}catch(e){}}
+  if(!p){toast("Tài khoản chưa được admin phân tổ.");return signOut(auth)}
+  Object.assign(S,{user:u,role:p.role,to:p.to||null,name:p.name||u.email});
+  const sub=(path,key)=>unsubs.push(onValue(ref(db,path),s=>{S[key]=s.val()||{};render()},e=>toast("Lỗi đọc dữ liệu: "+e.message)));
+  sub("members","members");sub("records","records");sub("requests","requests");
+  if(p.role=="admin")sub("users","users");
+  const t=S.pending||(p.role=="admin"?"admin":p.to);S.pending=null;
+  if(can(t)){S.view=t;S.tab="rank"}else{toast("Tài khoản này không thuộc tổ đã chọn.");S.view=p.to||"admin"}
   render();
 });
 
-/* ---------- render ---------- */
+/* ---------- Giao diện ---------- */
 function render(){
-  const a = document.activeElement, id = a && a.id, pos = a && a.selectionStart;
-  $("#bar").innerHTML = S.me
-    ? `<span class="who">${esc(S.me.name || S.me.email)}${S.me.role==="leader" ? " · Tổ " + S.me.team : " · Admin"}</span><button class="btn" data-act="logout">Đăng xuất</button>`
-    : S.view === "login" ? `<button class="btn" data-act="go" data-v="student">← Trang học sinh</button>`
-    : `<button class="btn" data-act="go" data-v="login">Đăng nhập Tổ trưởng / Admin</button>`;
-  const v = S.view;
-  $("#main").innerHTML = v === "login" ? viewLogin() : v === "leader" && S.me ? viewLeader() : v === "admin" && S.me ? viewAdmin() : viewStudent();
-  if (id && $("#" + id)) { const el = $("#" + id); el.focus(); try { el.setSelectionRange(pos,pos); } catch {} }
+  $("#who").textContent=S.user?`${S.name} (${{admin:"Admin",leader:"Tổ trưởng",student:"Học sinh"}[S.role]})`:"";
+  $("#out").style.display=S.user?"":"none";
+  const v=S.view;
+  $("#app").innerHTML=v=="home"?home():v=="admin"?adminPage():toPage(v);
+}
+function home(){
+  return `<div class="card"><h2>Chọn tổ để đăng nhập</h2><p class="mut" style="margin:0">Học sinh và tổ trưởng đăng nhập bằng tài khoản do admin cấp. Học sinh chỉ xem được tổ của mình.</p></div>
+  <div class="grid">${[1,2,3,4].map(n=>`<button class="tile" style="--c:${COL[n]}" data-a="open" data-v="${n}"><b>Tổ ${n}</b><span>${mem(n).length?mem(n).length+" tổ viên":"Đăng nhập vào tổ"}</span></button>`).join("")}
+  <button class="tile" style="--c:var(--ink)" data-a="open" data-v="admin"><b>Admin</b><span>Bảng xếp hạng &amp; duyệt yêu cầu</span></button></div>`;
+}
+function toPage(to){
+  const ms=mem(to),w=S.week,lead=canLead(to);
+  const vio=ms.filter(m=>isBad(m.id,w)).length;
+  return `<div class="row sp noprint" style="margin-bottom:12px"><h2 style="margin:0;color:${COL[to]}">Tổ ${to}</h2>
+    <select data-c="week" aria-label="Chọn tuần">${weekOpts(w)}</select></div>
+  <div class="stats"><div class="stat"><span class="mut">Tổ viên</span><b>${ms.length}</b></div>
+    <div class="stat v"><span class="mut">Vi phạm</span><b>${vio}</b></div>
+    <div class="stat n"><span class="mut">Không vi phạm</span><b>${ms.length-vio}</b></div></div>
+  <div class="card"><h3>Tổ viên – tuần ${w}</h3>
+    ${ms.length?ms.sort((a,b)=>a.name.localeCompare(b.name,"vi")).map(m=>memRow(m,w,lead)).join(""):`<p class="mut">Chưa có tổ viên.${lead?" Hãy thêm ở bên dưới.":""}</p>`}
+    ${lead?`<form class="row" data-f="addmem" style="margin-top:10px"><input name="name" placeholder="Họ tên tổ viên" required style="flex:1"><button class="btn">Thêm tổ viên</button></form>`:""}</div>`;
+}
+function memRow(m,w,lead){
+  const bad=isBad(m.id,w),open=S.sel==m.id,mine=S.user&&S.users&&0;
+  let d="";
+  if(open){
+    const rs=recs().filter(r=>r.mid==m.id&&r.week==w).sort((a,b)=>b.ts-a.ts);
+    d=`<div class="det"><div class="mut" style="font-size:13px">Lỗi theo tuần (đỏ = có vi phạm)</div>
+      <div class="wk">${WEEKS.map(k=>`<button data-a="wk" data-w="${k}" class="${k==w?"on":isBad(m.id,k)?"bad":""}">${k}</button>`).join("")}</div>
+      <h3>Tuần ${w}</h3>${rs.length?rs.map(r=>`<div class="rec"><span class="it">${esc(r.item)}<br><small class="mut">${new Date(r.ts).toLocaleDateString("vi-VN")} · ${esc(r.by)}</small></span>
+        <span class="p ${r.pts>0?"pos":"neg"}">${sg(r.pts)}</span>
+        ${lead?(pendFor(r.id)?`<span class="pend">Chờ duyệt</span>`:`<button class="btn g s" data-a="redit" data-id="${r.id}">Sửa</button><button class="btn r s" data-a="rdel" data-id="${r.id}">Xóa</button>`):""}</div>`).join(""):`<p class="mut" style="margin:4px 0">Không có ghi nhận nào trong tuần này.</p>`}
+      ${lead?`<form class="row" data-f="addrec" data-m="${m.id}" style="margin-top:10px"><select name="i" style="flex:1">${ITEMS.map(g=>`<optgroup label="${g[0]}">${g[1].map(x=>`<option value="${FLAT.indexOf(x)}">${x[0]} (${sg(x[1])})</option>`).join("")}</optgroup>`).join("")}</select><button class="btn ok">Ghi điểm</button></form>
+      <button class="btn r s" data-a="delmem" data-m="${m.id}" style="margin-top:10px">Xóa tổ viên</button>`:""}</div>`;
+  }
+  return `<div class="mem" data-a="sel" data-m="${m.id}"><span class="nm">${esc(m.name)}</span>
+    <span class="tag ${bad?"v":"n"}">${bad?"Vi phạm":"Không vi phạm"}</span>
+    <span class="mut" style="font-size:13px">Tuần: ${sg(sc(m.id,w)-100)}</span><span class="sc">${sc(m.id)}</span></div>${d}`;
+}
+function adminPage(){
+  const t=S.tab,np=Object.values(S.requests).filter(q=>q.status=="pending").length;
+  const tabs=[["rank","Xếp hạng"],["req",`Yêu cầu${np?` (${np})`:""}`],["acc","Tài khoản"],...[1,2,3,4].map(n=>["t"+n,"Tổ "+n])];
+  return `<div class="tabs">${tabs.map(([k,l])=>`<button data-a="tab" data-t="${k}" class="${k==t?"on":""}">${l}</button>`).join("")}</div>`+
+   (t=="rank"?rankTab():t=="req"?reqTab():t=="acc"?accTab():toPage(+t[1]));
+}
+function stat(to,w){
+  const ms=mem(to),n=ms.length,tot=ms.reduce((a,m)=>a+sc(m.id,w),0);
+  const vio=ms.filter(m=>isBad(m.id,w)).length;
+  return {to,n,vio,ok:n-vio,avg:n?tot/n:0};
+}
+function rankTab(){
+  const w=S.rw,st=[1,2,3,4].map(n=>stat(n,w)).sort((a,b)=>b.avg-a.avg);
+  const lbl=w?"Tuần "+w:"Tất cả các tuần";
+  const table=`<table><tr><th>Hạng</th><th>Tổ</th><th>Số HS</th><th>Điểm TB</th><th>Vi phạm</th><th>Không VP</th></tr>
+    ${st.map((s,i)=>`<tr data-a="tab" data-t="t${s.to}"><td><b>${i+1}</b></td><td style="color:${COL[s.to]};font-weight:700">Tổ ${s.to}</td><td>${s.n}</td><td><b>${s.avg.toFixed(1)}</b></td><td>${s.vio}</td><td>${s.ok}</td></tr>`).join("")}</table>`;
+  const rep=[1,2,3,4].map(n=>`<h3 style="margin-top:16px">Tổ ${n}</h3><table><tr><th>Họ tên</th><th>Điểm</th><th>Ghi nhận ${lbl.toLowerCase()}</th></tr>${mem(n).map(m=>`<tr><td>${esc(m.name)}</td><td>${sc(m.id,w)}</td><td>${recs().filter(r=>r.mid==m.id&&(!w||r.week==w)).map(r=>(w?"":`T${r.week}: `)+esc(r.item)+" ("+sg(r.pts)+")").join("; ")||"—"}</td></tr>`).join("")}</table>`).join("");
+  return `<div class="card"><div class="row sp noprint" style="margin-bottom:10px"><h2 style="margin:0">Bảng xếp hạng thi đua</h2><div class="row">
+    <select data-c="rw">${weekOpts(w,1)}</select><button class="btn" data-a="print">In / Xuất PDF</button></div></div>
+    <h2 class="only-print">Báo cáo thi đua lớp 11A2 – ${lbl}</h2>${table}
+    <p class="mut noprint" style="margin:8px 0 0">Điểm TB = trung bình điểm các thành viên (mỗi người bắt đầu từ 100). Bấm vào một tổ để xem chi tiết. Khi in, chọn “Lưu dưới dạng PDF”.</p>
+    <div class="only-print">${rep}</div></div>`;
+}
+function reqTab(){
+  const all=Object.entries(S.requests).sort((a,b)=>b[1].ts-a[1].ts);
+  return `<div class="card"><h2>Yêu cầu chỉnh sửa từ tổ trưởng</h2>${all.length?all.map(([id,q])=>`<div class="rec"><span class="it"><b>Tổ ${q.to}</b> – ${esc(q.mname)} (tuần ${q.week})<br>
+    <small>${q.type=="del"?"Xóa":"Sửa"}: ${esc(q.item)} (${sg(q.pts)})${q.type=="edit"?` → <b>${esc(q.nitem)} (${sg(q.npts)})</b>`:""}<br><span class="mut">${esc(q.by)} · ${new Date(q.ts).toLocaleDateString("vi-VN")}</span></small></span>
+    ${q.status=="pending"?`<button class="btn ok s" data-a="approve" data-id="${id}">Duyệt</button><button class="btn r s" data-a="reject" data-id="${id}">Từ chối</button>`:`<span class="tag ${q.status=="approved"?"n":"v"}">${q.status=="approved"?"Đã duyệt":"Đã từ chối"}</span>`}</div>`).join(""):`<p class="mut">Chưa có yêu cầu nào.</p>`}</div>`;
+}
+function accTab(){
+  const us=Object.entries(S.users).sort((a,b)=>(a[1].to||0)-(b[1].to||0));
+  return `<div class="card"><h2>Cấp tài khoản</h2><form class="row" data-f="newacc">
+    <input name="name" placeholder="Họ tên" required><input name="email" type="email" placeholder="Email" required><input name="pw" placeholder="Mật khẩu (≥ 6 ký tự)" minlength="6" required>
+    <select name="role"><option value="student">Học sinh</option><option value="leader">Tổ trưởng</option></select>
+    <select name="to">${[1,2,3,4].map(n=>`<option>${n}</option>`).join("")}</select><button class="btn">Tạo tài khoản</button></form></div>
+    <div class="card"><h3>Tài khoản đã cấp</h3>${us.length?us.map(([id,u])=>`<div class="rec"><span class="it">${esc(u.name)}<br><small class="mut">${esc(u.email)}</small></span><span class="tag n">${u.role=="leader"?"Tổ trưởng":"Học sinh"} – Tổ ${u.to}</span><button class="btn r s" data-a="deluser" data-id="${id}">Thu hồi</button></div>`).join(""):`<p class="mut">Chưa có tài khoản nào.</p>`}</div>`;
 }
 
-/* ----- Học sinh ----- */
-function viewStudent(){
-  const code = S.code.trim().toUpperCase();
-  const f = code ? Object.entries(S.students).find(([,s]) => (s.code || "").toUpperCase() === code) : null;
-  let h = `<div class="card"><h2>Tra cứu điểm của em</h2>
-    <form data-form="lookup" class="row"><label style="margin:0">Mã học sinh (do tổ trưởng cấp)<input id="codeIn" value="${esc(S.draft)}" placeholder="VD: T1234" autocomplete="off"></label><button class="btn pri" style="flex:0 0 auto">Xem điểm</button></form></div>`;
-  if (code && !f) return h + `<div class="card empty">Không tìm thấy mã “${esc(code)}”. Hãy hỏi tổ trưởng để kiểm tra lại mã.</div>`;
-  if (!f) return h + `<div class="card empty">Nhập mã học sinh để xem điểm rèn luyện và thống kê tổ của em.</div>`;
-  const [id, s] = f, sc = scoreOf(id), g = grade(sc), st = teamStats(s.team);
-  const recs = Object.values(S.records).filter(r => r.studentId === id).sort((a,b) => b.at - a.at);
-  h += `<div class="card"><h2>${esc(s.name)} <span class="mut" style="font-weight:400">· Tổ ${s.team}</span></h2>
-    <div class="ring" style="--p:${sc};--c:${g[2]}"><div><b>${sc}</b><small>/ 100 điểm</small></div></div>
-    <p style="text-align:center"><span class="badge ${g[1]}">Xếp loại: ${g[0]}</span></p></div>
-    <div class="card"><h2>Tổ ${s.team} của em</h2><div class="stats" style="margin:0">
-      <div class="stat"><b>${st.n}</b><span>Thành viên</span></div>
-      <div class="stat"><b class="neg">${st.faulty}</b><span>Người có lỗi</span></div>
-      <div class="stat"><b class="pos">${st.clean}</b><span>Người không lỗi</span></div></div></div>
-    <div class="card"><h2>Lịch sử cộng / trừ điểm</h2>${recs.length ? `<div class="tw"><table><tr><th>Thời gian</th><th>Nội dung</th><th>Điểm</th></tr>${recs.map(r =>
-      `<tr><td class="mut">${fmt(r.at)}</td><td>${esc(r.reason)}</td><td class="${r.delta<0?"neg":"pos"}">${sgn(r.delta)}</td></tr>`).join("")}</table></div>` : `<div class="empty">Chưa có ghi nhận nào. Em đang giữ trọn 100 điểm! 🎉</div>`}</div>`;
-  return h;
+/* ---------- Hộp thoại ---------- */
+function modal(h){closeM();const d=document.createElement("div");d.className="modal";d.id="m";d.innerHTML=`<div>${h}</div>`;d.onclick=e=>{if(e.target==d)closeM()};document.body.appendChild(d)}
+function closeM(){$("#m")?.remove()}
+function loginModal(v){
+  S.pending=v;
+  modal(`<h3>${v=="admin"?"Đăng nhập Admin":"Đăng nhập Tổ "+v}</h3><form data-f="login"><input name="e" type="email" placeholder="Email" required autocomplete="username"><input name="p" type="password" placeholder="Mật khẩu" required autocomplete="current-password"><div class="err" id="err"></div><div class="row"><button class="btn">Đăng nhập</button><button type="button" class="btn g" data-a="close">Hủy</button></div></form>`);
 }
-
-/* ----- Đăng nhập ----- */
-function viewLogin(){
-  return `<div class="card" style="max-width:420px;margin:30px auto"><h2>Đăng nhập quản lý</h2>
-    <form data-form="login"><label>Email<input name="email" type="email" required autocomplete="username"></label>
-    <label>Mật khẩu<input name="pw" type="password" required autocomplete="current-password"></label>
-    ${S.err ? `<p class="neg">${esc(S.err)}</p>` : ""}<button class="btn pri" style="width:100%">Đăng nhập</button></form></div>`;
+function editModal(id){
+  const r=S.records[id];
+  modal(`<h3>Yêu cầu sửa: ${esc(r.item)} (${sg(r.pts)})</h3><form data-f="reqedit" data-id="${id}"><select name="i">${ITEMS.map(g=>`<optgroup label="${g[0]}">${g[1].map(x=>`<option value="${FLAT.indexOf(x)}">${x[0]} (${sg(x[1])})</option>`).join("")}</optgroup>`).join("")}</select><div class="row"><button class="btn">Gửi yêu cầu</button><button type="button" class="btn g" data-a="close">Hủy</button></div></form>`);
 }
-
-/* ----- Tổ trưởng ----- */
-function viewLeader(){
-  const t = S.me.team, st = teamStats(t), mem = membersOf(t);
-  const recs = Object.entries(S.records).filter(([,r]) => r.team === t).sort((a,b) => b[1].at - a[1].at).slice(0,60);
-  const mine = Object.entries(S.requests).filter(([,r]) => r.byUid === S.me.uid).sort((a,b) => b[1].at - a[1].at).slice(0,15);
-  return `<div class="stats"><div class="stat"><b>${st.n}</b><span>Thành viên Tổ ${t}</span></div><div class="stat"><b class="neg">${st.faulty}</b><span>Người có lỗi</span></div>
-    <div class="stat"><b class="pos">${st.clean}</b><span>Người không lỗi</span></div><div class="stat"><b>${st.avg.toFixed(1)}</b><span>Điểm trung bình</span></div></div>
-  <div class="card"><div class="row" style="justify-content:space-between;margin-bottom:10px"><h2 style="margin:0;flex:1">Tổ viên – bấm vào tên để ghi điểm</h2><button class="btn pri" style="flex:0 0 auto" data-act="addStu">+ Thêm tổ viên</button></div>
-    ${studentTable(mem, true)}</div>
-  <div class="card"><h2>Lịch sử ghi điểm của tổ</h2>${recTable(recs)}</div>
-  <div class="card"><h2>Yêu cầu sửa / xóa của tôi</h2>${mine.length ? `<div class="tw"><table><tr><th>Thời gian</th><th>Yêu cầu</th><th>Trạng thái</th></tr>${mine.map(([,q]) =>
-    `<tr><td class="mut">${fmt(q.at)}</td><td>${describe(q)}</td><td>${statusBadge(q.status)}</td></tr>`).join("")}</table></div>` : `<div class="empty">Chưa có yêu cầu nào. Việc sửa / xóa điểm cần Admin duyệt.</div>`}</div>`;
-}
-const statusBadge = s => s === "approved" ? `<span class="badge b-ok">Đã duyệt</span>` : s === "rejected" ? `<span class="badge b-bad">Từ chối</span>` : `<span class="badge b-warn">Chờ duyệt</span>`;
-
-function studentTable(list, leader){
-  if (!list.length) return `<div class="empty">Chưa có học sinh.</div>`;
-  return `<div class="tw"><table><tr><th>Họ tên</th>${leader ? "" : "<th>Tổ</th>"}<th>Mã</th><th>Điểm</th><th>Tình trạng</th><th></th></tr>${list.map(([id,s]) => {
-    const sc = scoreOf(id), fc = faultCount(id), pend = pendingFor("deleteStudent","studentId",id);
-    return `<tr class="click" data-act="rec" data-id="${id}"><td><b>${esc(s.name)}</b></td>${leader ? "" : `<td>Tổ ${s.team}</td>`}<td class="mut">${esc(s.code)}</td>
-      <td><b>${sc}</b></td><td>${fc ? `<span class="badge b-bad">${fc} lỗi</span>` : `<span class="badge b-ok">Không lỗi</span>`}</td>
-      <td style="text-align:right;white-space:nowrap">${leader ? "" : `<button class="btn sm" data-act="editStu" data-id="${id}">Sửa</button> `}
-      ${pend ? `<span class="badge b-warn">Chờ duyệt xóa</span>` : `<button class="btn sm bad" data-act="delStu" data-id="${id}">Xóa</button>`}</td></tr>`;
-  }).join("")}</table></div>`;
-}
-function recTable(list){
-  if (!list.length) return `<div class="empty">Chưa có bản ghi.</div>`;
-  return `<div class="tw"><table><tr><th>Thời gian</th><th>Học sinh</th><th>Nội dung</th><th>Điểm</th><th>Người ghi</th><th></th></tr>${list.map(([id,r]) => {
-    const pend = pendingFor("deleteRecord","recordId",id) || pendingFor("editRecord","recordId",id);
-    return `<tr><td class="mut">${fmt(r.at)}</td><td>${esc(S.students[r.studentId]?.name || r.studentName)}${S.me.role==="admin" ? ` <span class="mut">· Tổ ${r.team}</span>` : ""}</td><td>${esc(r.reason)}</td>
-      <td class="${r.delta<0?"neg":"pos"}">${sgn(r.delta)}</td><td class="mut">${esc(r.by)}</td><td style="white-space:nowrap;text-align:right">${pend ? `<span class="badge b-warn">Chờ duyệt</span>` :
-      `<button class="btn sm" data-act="editRec" data-id="${id}">Sửa</button> <button class="btn sm bad" data-act="delRec" data-id="${id}">Xóa</button>`}</td></tr>`;
-  }).join("")}</table></div>`;
-}
-function describe(q){
-  const o = q.old || {}, n = q.new || {};
-  if (q.type === "deleteRecord") return `Xóa ghi nhận “${esc(o.reason)}” (${sgn(o.delta)}) của <b>${esc(q.studentName)}</b>`;
-  if (q.type === "editRecord") return `Sửa ghi nhận của <b>${esc(q.studentName)}</b>: “${esc(o.reason)}” (${sgn(o.delta)}) → “${esc(n.reason)}” (${sgn(n.delta)})`;
-  return `Xóa tổ viên <b>${esc(q.studentName)}</b> khỏi Tổ ${q.team}`;
-}
-
-/* ----- Admin ----- */
-function viewAdmin(){
-  const pend = Object.values(S.requests).filter(q => q.status === "pending").length;
-  const tabs = [["overview","Tổng quan"],["students","Học sinh"],["history","Lịch sử"],["requests","Yêu cầu duyệt"],["leaders","Tổ trưởng"],["faults","Danh mục lỗi"],["report","Báo cáo / In"]];
-  const nav = `<div class="tabs">${tabs.map(([k,l]) => `<div class="tab ${S.tab===k?"on":""}" data-act="tab" data-v="${k}">${l}${k==="requests"&&pend ? `<i>${pend}</i>` : ""}</div>`).join("")}</div>`;
-  return nav + ({ overview:adOverview, students:adStudents, history:adHistory, requests:adRequests, leaders:adLeaders, faults:adFaults, report:adReport }[S.tab] || adOverview)();
-}
-function rankTable(){
-  return `<div class="tw"><table><tr><th>Hạng</th><th>Tổ</th><th>Sĩ số</th><th>Có lỗi</th><th>Không lỗi</th><th>Điểm TB</th><th></th></tr>${ranking().map((r,i) =>
-    `<tr><td><b>${i+1}</b></td><td><b>Tổ ${r.t}</b></td><td>${r.n}</td><td class="neg">${r.faulty}</td><td class="pos">${r.clean}</td><td><b>${r.avg.toFixed(1)}</b></td>
-    <td style="min-width:120px"><div class="bar"><i style="width:${r.avg}%"></i></div></td></tr>`).join("")}</table></div>`;
-}
-function adOverview(){
-  const all = Object.keys(S.students), faulty = all.filter(id => faultCount(id) > 0).length;
-  return `<div class="stats"><div class="stat"><b>${all.length}</b><span>Tổng học sinh</span></div><div class="stat"><b class="neg">${faulty}</b><span>Có lỗi</span></div>
-    <div class="stat"><b class="pos">${all.length - faulty}</b><span>Không lỗi</span></div><div class="stat"><b>${Object.keys(S.records).length}</b><span>Lượt ghi điểm</span></div></div>
-    <div class="card"><h2>Xếp hạng các tổ</h2>${rankTable()}</div>`;
-}
-function adStudents(){
-  const q = S.q.trim().toLowerCase();
-  const list = Object.entries(S.students).filter(([,s]) => (S.fTeam === "all" || s.team === Number(S.fTeam)) && (!q || s.name.toLowerCase().includes(q) || (s.code||"").toLowerCase().includes(q)))
-    .sort((a,b) => a[1].team - b[1].team || a[1].name.localeCompare(b[1].name,"vi"));
-  return `<div class="card"><div class="row"><label>Lọc theo tổ<select id="fTeam"><option value="all">Tất cả</option>${TEAMS.map(t => `<option value="${t}" ${String(S.fTeam)===String(t)?"selected":""}>Tổ ${t}</option>`).join("")}</select></label>
-    <label>Tìm tên / mã<input id="q" value="${esc(S.q)}"></label><button class="btn pri" style="flex:0 0 auto;margin-bottom:10px" data-act="addStu">+ Thêm học sinh</button></div>${studentTable(list,false)}</div>`;
-}
-function adHistory(){ return `<div class="card"><h2>Lịch sử ghi điểm (100 gần nhất)</h2>${recTable(Object.entries(S.records).sort((a,b) => b[1].at - a[1].at).slice(0,100))}</div>`; }
-function adRequests(){
-  const all = Object.entries(S.requests).sort((a,b) => b[1].at - a[1].at), p = all.filter(([,q]) => q.status === "pending"), d = all.filter(([,q]) => q.status !== "pending").slice(0,20);
-  return `<div class="card"><h2>Đang chờ duyệt (${p.length})</h2>${p.length ? `<div class="tw"><table><tr><th>Thời gian</th><th>Tổ / người gửi</th><th>Yêu cầu</th><th></th></tr>${p.map(([id,q]) =>
-    `<tr><td class="mut">${fmt(q.at)}</td><td>Tổ ${q.team}<br><span class="mut">${esc(q.by)}</span></td><td>${describe(q)}</td>
-    <td style="white-space:nowrap"><button class="btn sm ok" data-act="approve" data-id="${id}">Duyệt</button> <button class="btn sm bad" data-act="reject" data-id="${id}">Từ chối</button></td></tr>`).join("")}</table></div>` : `<div class="empty">Không có yêu cầu nào.</div>`}</div>
-    <div class="card"><h2>Đã xử lý gần đây</h2>${d.length ? `<div class="tw"><table>${d.map(([,q]) => `<tr><td class="mut">${fmt(q.resolvedAt||q.at)}</td><td>Tổ ${q.team}</td><td>${describe(q)}</td><td>${statusBadge(q.status)}</td></tr>`).join("")}</table></div>` : `<div class="empty">—</div>`}</div>`;
-}
-function adLeaders(){
-  const ls = Object.entries(S.users).filter(([,u]) => u.role === "leader");
-  return `<div class="card"><h2>Tạo tài khoản tổ trưởng</h2><form data-form="addLeader" class="row">
-    <label>Họ tên<input name="name" required></label><label>Email<input name="email" type="email" required></label>
-    <label>Mật khẩu (≥ 6 ký tự)<input name="pw" type="text" minlength="6" required></label>
-    <label>Tổ<select name="team">${TEAMS.map(t => `<option value="${t}">Tổ ${t}</option>`).join("")}</select></label><button class="btn pri" style="flex:0 0 auto;margin-bottom:10px">Tạo tài khoản</button></form></div>
-    <div class="card"><h2>Danh sách tổ trưởng</h2>${ls.length ? `<div class="tw"><table><tr><th>Họ tên</th><th>Email</th><th>Tổ</th><th></th></tr>${ls.map(([id,u]) =>
-    `<tr><td>${esc(u.name)}</td><td>${esc(u.email)}</td><td>Tổ ${u.team}</td><td style="text-align:right"><button class="btn sm bad" data-act="delLeader" data-id="${id}">Gỡ quyền</button></td></tr>`).join("")}</table></div>` : `<div class="empty">Chưa có tổ trưởng.</div>`}</div>`;
-}
-function adFaults(){
-  const l = Object.entries(S.faults);
-  return `<div class="card"><h2>Danh mục lỗi / thành tích có sẵn</h2>
-    <form data-form="addFault" class="row"><label>Tên lỗi / thành tích<input name="name" required></label><label>Điểm (âm = trừ, dương = cộng)<input name="points" type="number" required placeholder="-2"></label>
-    <button class="btn pri" style="flex:0 0 auto;margin-bottom:10px">Thêm</button></form>
-    ${l.length ? `<div class="tw"><table>${l.map(([id,f]) => `<tr><td>${esc(f.name)}</td><td class="${f.points<0?"neg":"pos"}">${sgn(f.points)}</td><td style="text-align:right"><button class="btn sm bad" data-act="delFault" data-id="${id}">Xóa</button></td></tr>`).join("")}</table></div>`
-    : `<div class="empty">Đang dùng danh mục mẫu. <button class="btn sm" data-act="seedFaults">Lưu danh mục mẫu để chỉnh sửa</button></div>`}</div>`;
-}
-function adReport(){
-  const today = new Date().toLocaleDateString("vi-VN");
-  return `<div class="row end noprint" style="margin-bottom:12px"><button class="btn pri" data-act="print">🖨 In / Xuất PDF</button></div>
-  <div class="card"><div class="printonly" style="text-align:center"><h2 style="font-size:22px">BÁO CÁO ĐIỂM RÈN LUYỆN</h2></div>
-    <p class="mut">Ngày lập: ${today}</p><h2>Xếp hạng các tổ</h2>${rankTable()}</div>
-  ${TEAMS.map(t => { const m = membersOf(t).map(([id,s]) => ({s, id, sc:scoreOf(id), fc:faultCount(id)})).sort((a,b) => a.sc - b.sc), st = teamStats(t);
-    return `<div class="card"><h2>Tổ ${t} <span class="mut" style="font-weight:400">– ${st.n} HS · ${st.faulty} có lỗi · ${st.clean} không lỗi · TB ${st.avg.toFixed(1)}</span></h2>
-    ${m.length ? `<table><tr><th>STT</th><th>Họ tên</th><th>Mã</th><th>Số lỗi</th><th>Điểm /100</th><th>Xếp loại</th></tr>${m.map((x,i) => `<tr><td>${i+1}</td><td>${esc(x.s.name)}</td><td>${esc(x.s.code)}</td><td>${x.fc}</td><td><b>${x.sc}</b></td><td>${grade(x.sc)[0]}</td></tr>`).join("")}</table>` : `<div class="empty">Chưa có học sinh.</div>`}</div>`; }).join("")}
-  <div class="printonly" style="display:none"></div>`;
-}
-
-/* ---------- Modal ghi điểm ---------- */
-function recModal(sid){
-  const s = S.students[sid]; if (!s) return;
-  S.fl = faultList();
-  openModal(`Ghi điểm: ${esc(s.name)} <span class="mut" style="font-weight:400">(đang có ${scoreOf(sid)}/100)</span>`, `<form data-form="rec"><input type="hidden" name="sid" value="${sid}">
-    <label>Chọn lỗi / thành tích có sẵn<select id="faultSel"><option value="">— Nhập tay —</option>${S.fl.map((f,i) => `<option value="${i}">${esc(f.name)} (${sgn(f.points)})</option>`).join("")}</select></label>
-    <label>Ghi rõ lỗi / nội dung<input name="reason" id="reasonIn" required maxlength="150"></label>
-    <div class="row"><label>Loại<select name="sign" id="signSel"><option value="sub">Trừ điểm</option><option value="add">Cộng điểm</option></select></label>
-    <label>Số điểm<input name="pts" id="ptsIn" type="number" min="1" max="100" value="1" required></label></div>
-    <div class="row end"><button type="button" class="btn" data-act="closeModal">Hủy</button><button class="btn pri">Lưu</button></div></form>`);
-}
-
-/* ---------- Xử lý form ---------- */
-const sendReq = (type, extra) => set(push(ref(db,"requests")), { type, status:"pending", team:extra.team, by:S.me.name || S.me.email, byUid:S.me.uid, at:Date.now(), ...extra });
-
-const forms = {
-  lookup(d){ S.code = d.code.trim(); S.draft = S.code; try { localStorage.setItem("hsCode", S.code); } catch {} render(); },
-  async login(d){ S.err = ""; try { S.view = "login"; await signInWithEmailAndPassword(auth, d.email.trim(), d.pw); } catch (e) { S.err = "Sai email hoặc mật khẩu."; render(); } },
-  async rec(d){
-    const s = S.students[d.sid], pts = Math.abs(Number(d.pts)), reason = d.reason.trim();
-    if (!s || !pts || !reason) return toast("Hãy nhập nội dung và số điểm", true);
-    const delta = d.sign === "sub" ? -pts : pts;
-    await set(push(ref(db,"records")), { studentId:d.sid, studentName:s.name, team:s.team, reason, delta, by:S.me.name || S.me.email, byUid:S.me.uid, at:Date.now() });
-    closeModal(); toast(`Đã ghi ${sgn(delta)} điểm cho ${s.name}`);
-  },
-  async addStu(d){
-    const team = S.me.role === "leader" ? S.me.team : Number(d.team);
-    const names = d.names.split("\n").map(x => x.trim()).filter(Boolean);
-    if (!names.length) return;
-    const made = [];
-    for (const name of names) { const code = genCode(team, made); made.push(code); await set(push(ref(db,"students")), { name, team, code, createdAt:Date.now() }); }
-    closeModal(); toast(`Đã thêm ${names.length} học sinh`);
-  },
-  async editStu(d){
-    const old = S.students[d.id], team = Number(d.team), up = { [`students/${d.id}/name`]:d.name.trim(), [`students/${d.id}/team`]:team };
-    for (const [rid,r] of Object.entries(S.records)) if (r.studentId === d.id) { up[`records/${rid}/team`] = team; up[`records/${rid}/studentName`] = d.name.trim(); }
-    await update(ref(db), up); closeModal(); toast("Đã cập nhật");
-  },
-  async editRec(d){
-    const r = S.records[d.rid], pts = Math.abs(Number(d.pts)), reason = d.reason.trim();
-    if (!r || !pts || !reason) return;
-    const delta = d.sign === "sub" ? -pts : pts;
-    if (S.me.role === "admin") await update(ref(db,"records/" + d.rid), { reason, delta });
-    else await sendReq("editRecord", { team:r.team, recordId:d.rid, studentName:r.studentName, old:{ reason:r.reason, delta:r.delta }, new:{ reason, delta } });
-    closeModal(); toast(S.me.role === "admin" ? "Đã sửa" : "Đã gửi yêu cầu sửa cho Admin duyệt");
-  },
-  async addLeader(d){
-    app2 = app2 || initializeApp(firebaseConfig, "secondary");
-    const a2 = getAuth(app2), email = d.email.trim();
-    const cred = await createUserWithEmailAndPassword(a2, email, d.pw);
-    await set(ref(db, "users/" + cred.user.uid), { role:"leader", name:d.name.trim(), email, team:Number(d.team), createdAt:Date.now() });
-    await signOut(a2); toast("Đã tạo tài khoản tổ trưởng"); S.tab = "leaders"; render();
-  },
-  async addFault(d){ await set(push(ref(db,"faults")), { name:d.name.trim(), points:Number(d.points) }); toast("Đã thêm"); }
+const sendReq=(id,type,ni)=>{
+  const r=S.records[id],m=S.members[r.mid];
+  const q={rid:id,type,to:r.to,week:r.week,mname:m?.name||"?",item:r.item,pts:r.pts,by:S.name,ts:Date.now(),status:"pending"};
+  if(type=="edit"){q.nitem=FLAT[ni][0];q.npts=FLAT[ni][1]}
+  return push(ref(db,"requests"),q).then(()=>toast("Đã gửi yêu cầu, chờ admin duyệt."));
 };
-document.addEventListener("submit", async e => {
-  const f = e.target, k = f.dataset.form; if (!k) return; e.preventDefault();
-  try { await forms[k](Object.fromEntries(new FormData(f))); if (k === "addFault" || k === "addLeader") f.reset(); } catch (err) { toast(errMsg(err), true); }
-});
 
 /* ---------- Hành động ---------- */
-const acts = {
-  go: d => { S.err = ""; S.view = d.v; render(); },
-  tab: d => { S.tab = d.v; render(); },
-  logout: async () => { await signOut(auth); S.view = "student"; render(); },
-  closeModal,
-  print: () => window.print(),
-  rec: d => recModal(d.id),
-  addStu: () => openModal("Thêm học sinh", `<form data-form="addStu">
-    ${S.me.role === "admin" ? `<label>Tổ<select name="team">${TEAMS.map(t => `<option value="${t}">Tổ ${t}</option>`).join("")}</select></label>` : ""}
-    <label>Họ tên (mỗi dòng một học sinh)<textarea name="names" rows="5" required></textarea></label>
-    <p class="mut" style="font-size:13px">Hệ thống tự tạo mã học sinh để các em tra cứu điểm.</p>
-    <div class="row end"><button type="button" class="btn" data-act="closeModal">Hủy</button><button class="btn pri">Thêm</button></div></form>`),
-  editStu: d => { const s = S.students[d.id]; openModal("Sửa học sinh", `<form data-form="editStu"><input type="hidden" name="id" value="${d.id}">
-    <label>Họ tên<input name="name" value="${esc(s.name)}" required></label>
-    <label>Tổ<select name="team">${TEAMS.map(t => `<option value="${t}" ${t===s.team?"selected":""}>Tổ ${t}</option>`).join("")}</select></label>
-    <div class="row end"><button type="button" class="btn" data-act="closeModal">Hủy</button><button class="btn pri">Lưu</button></div></form>`); },
-  delStu: async d => {
-    const s = S.students[d.id]; if (!s) return;
-    try {
-      if (S.me.role === "admin") {
-        if (!confirm(`Xóa học sinh ${s.name} và toàn bộ lịch sử điểm?`)) return;
-        const up = { [`students/${d.id}`]:null };
-        for (const [rid,r] of Object.entries(S.records)) if (r.studentId === d.id) up[`records/${rid}`] = null;
-        await update(ref(db), up); toast("Đã xóa");
-      } else {
-        if (!confirm(`Gửi yêu cầu xóa ${s.name} cho Admin duyệt?`)) return;
-        await sendReq("deleteStudent", { team:s.team, studentId:d.id, studentName:s.name }); toast("Đã gửi yêu cầu cho Admin");
-      }
-    } catch (e) { toast(errMsg(e), true); }
-  },
-  editRec: d => { const r = S.records[d.id]; if (!r) return;
-    openModal(`Sửa ghi nhận – ${esc(r.studentName)}`, `<form data-form="editRec"><input type="hidden" name="rid" value="${d.id}">
-    <label>Nội dung<input name="reason" value="${esc(r.reason)}" required></label>
-    <div class="row"><label>Loại<select name="sign"><option value="sub" ${r.delta<0?"selected":""}>Trừ điểm</option><option value="add" ${r.delta>=0?"selected":""}>Cộng điểm</option></select></label>
-    <label>Số điểm<input name="pts" type="number" min="1" max="100" value="${Math.abs(r.delta)}" required></label></div>
-    ${S.me.role === "leader" ? `<p class="mut" style="font-size:13px">Yêu cầu sẽ được gửi cho Admin duyệt trước khi có hiệu lực.</p>` : ""}
-    <div class="row end"><button type="button" class="btn" data-act="closeModal">Hủy</button><button class="btn pri">${S.me.role === "leader" ? "Gửi yêu cầu" : "Lưu"}</button></div></form>`); },
-  delRec: async d => {
-    const r = S.records[d.id]; if (!r) return;
-    try {
-      if (S.me.role === "admin") { if (!confirm("Xóa ghi nhận này?")) return; await remove(ref(db,"records/" + d.id)); toast("Đã xóa"); }
-      else { if (!confirm("Gửi yêu cầu xóa ghi nhận này cho Admin duyệt?")) return;
-        await sendReq("deleteRecord", { team:r.team, recordId:d.id, studentName:r.studentName, old:{ reason:r.reason, delta:r.delta } }); toast("Đã gửi yêu cầu cho Admin"); }
-    } catch (e) { toast(errMsg(e), true); }
-  },
-  approve: async d => {
-    const q = S.requests[d.id]; if (!q) return;
-    const up = { [`requests/${d.id}/status`]:"approved", [`requests/${d.id}/resolvedAt`]:Date.now() };
-    if (q.type === "deleteRecord" && S.records[q.recordId]) up[`records/${q.recordId}`] = null;
-    if (q.type === "editRecord" && S.records[q.recordId]) { up[`records/${q.recordId}/reason`] = q.new.reason; up[`records/${q.recordId}/delta`] = q.new.delta; }
-    if (q.type === "deleteStudent") { up[`students/${q.studentId}`] = null; for (const [rid,r] of Object.entries(S.records)) if (r.studentId === q.studentId) up[`records/${rid}`] = null; }
-    try { await update(ref(db), up); toast("Đã duyệt"); } catch (e) { toast(errMsg(e), true); }
-  },
-  reject: async d => { try { await update(ref(db,"requests/" + d.id), { status:"rejected", resolvedAt:Date.now() }); toast("Đã từ chối"); } catch (e) { toast(errMsg(e), true); } },
-  delLeader: async d => { if (!confirm("Gỡ quyền tổ trưởng của tài khoản này?")) return; try { await remove(ref(db,"users/" + d.id)); toast("Đã gỡ quyền"); } catch (e) { toast(errMsg(e), true); } },
-  delFault: async d => { try { await remove(ref(db,"faults/" + d.id)); } catch (e) { toast(errMsg(e), true); } },
-  seedFaults: async () => { try { for (const f of DEFAULT_FAULTS) await set(push(ref(db,"faults")), f); toast("Đã lưu danh mục mẫu"); } catch (e) { toast(errMsg(e), true); } }
+const A={
+  home(){S.view="home";render()},
+  open(d){const v=d.v=="admin"?"admin":+d.v;if(S.user&&can(v)){S.view=v;S.tab="rank";render()}else if(S.user)toast("Tài khoản của bạn không thuộc tổ này.");else loginModal(v)},
+  logout(){signOut(auth)},close:closeM,
+  sel(d){S.sel=S.sel==d.m?null:d.m;render()},
+  wk(d){S.week=+d.w;render()},
+  tab(d){S.tab=d.t;if(d.t[0]=="t")S.sel=null;render()},
+  print(){window.print()},
+  redit(d){editModal(d.id)},
+  rdel(d){if(confirm("Gửi yêu cầu xóa ghi nhận này cho admin?"))sendReq(d.id,"del")},
+  async delmem(d){const m=S.members[d.m];if(!confirm(`Xóa "${m.name}" và toàn bộ lịch sử điểm?`))return;
+    const up={["members/"+d.m]:null};recs().filter(r=>r.mid==d.m).forEach(r=>up["records/"+r.id]=null);await update(ref(db),up);S.sel=null;toast("Đã xóa tổ viên.")},
+  async approve(d){const q=S.requests[d.id],up={["requests/"+d.id+"/status"]:"approved"};
+    if(q.type=="del")up["records/"+q.rid]=null;else{up["records/"+q.rid+"/item"]=q.nitem;up["records/"+q.rid+"/pts"]=q.npts}
+    if(!S.records[q.rid]){delete up["records/"+q.rid+"/item"];delete up["records/"+q.rid+"/pts"]}
+    await update(ref(db),up);toast("Đã duyệt.")},
+  reject(d){set(ref(db,"requests/"+d.id+"/status"),"rejected")},
+  async deluser(d){if(confirm("Thu hồi quyền của tài khoản này?")){await remove(ref(db,"users/"+d.id))}}
 };
-document.addEventListener("click", e => {
-  const b = e.target.closest("[data-act]"); if (!b) return;
-  if (b.dataset.act === "closeModal" && e.target !== b) return;
-  acts[b.dataset.act]?.(b.dataset);
-});
-
-document.addEventListener("input", e => {
-  if (e.target.id === "codeIn") S.draft = e.target.value;
-  if (e.target.id === "q") { S.q = e.target.value; render(); }
-});
-document.addEventListener("change", e => {
-  if (e.target.id === "fTeam") { S.fTeam = e.target.value; render(); }
-  if (e.target.id === "faultSel") {
-    const f = S.fl[e.target.value]; if (!f) return;
-    $("#reasonIn").value = f.name; $("#signSel").value = f.points < 0 ? "sub" : "add"; $("#ptsIn").value = Math.abs(f.points);
-  }
-});
+const F={
+  async login(f){const err=$("#err");try{await signInWithEmailAndPassword(auth,f.e.value,f.p.value);closeM()}catch(e){err.textContent="Sai email hoặc mật khẩu."}},
+  async addmem(f){const n=f.name.value.trim();if(!n)return;await push(ref(db,"members"),{name:n,to:S.view});f.reset()},
+  async addrec(f,el){const it=FLAT[f.i.value];await push(ref(db,"records"),{to:S.view,week:S.week,mid:el.dataset.m,item:it[0],pts:it[1],ts:Date.now(),by:S.name});toast("Đã ghi điểm.")},
+  async reqedit(f,el){await sendReq(el.dataset.id,"edit",f.i.value);closeM()},
+  async newacc(f){
+    const b=f.querySelector("button");b.disabled=true;
+    try{const sec=initializeApp(cfg,"sec"+Date.now()),sa=getAuth(sec);
+      const c=await createUserWithEmailAndPassword(sa,f.email.value,f.pw.value);
+      await set(ref(db,"users/"+c.user.uid),{name:f.name.value.trim(),email:f.email.value,role:f.role.value,to:+f.to.value});
+      await signOut(sa);toast("Đã tạo tài khoản.");f.reset()}
+    catch(e){toast("Không tạo được: "+e.code)}b.disabled=false}
+};
+document.addEventListener("click",e=>{const b=e.target.closest("[data-a]");if(!b||b.closest(".det")&&b.dataset.a=="sel")return;if(e.target.closest("button")&&b.dataset.a=="sel"&&b!==e.target.closest("button"))return;A[b.dataset.a]?.(b.dataset)});
+document.addEventListener("change",e=>{const c=e.target.dataset.c;if(c=="week"){S.week=+e.target.value;render()}if(c=="rw"){S.rw=+e.target.value;render()}});
+document.addEventListener("submit",e=>{e.preventDefault();const el=e.target;F[el.dataset.f]?.(el,el)});
 render();
 </script>
 </body>
