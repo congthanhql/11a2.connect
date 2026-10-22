@@ -44,7 +44,7 @@ input:focus,select:focus{border-color:var(--pri);outline:0;box-shadow:0 0 0 3px 
 .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
 .tile{border:1px solid var(--line);background:var(--card);border-radius:18px;padding:18px;text-align:left;box-shadow:var(--sh);display:flex;gap:14px;align-items:center;position:relative;overflow:hidden;transition:transform .15s}
 .tile:hover{transform:translateY(-2px)}
-.tile::after{content:"";position:absolute;right:-20px;bottom:-20px;width:90px;height:90px;border-radius:50%;background:var(--c);opacity:.12}
+.tile::after{content:"";position:absolute;right:-20px;bottom:-20px;width:90px;height:90px;border-radius:50%;background:var(--c);opacity:.12;pointer-events:none}
 .tile i{font-style:normal;width:48px;height:48px;border-radius:16px;background:var(--c);color:#fff;display:grid;place-items:center;font-size:22px;font-weight:800;flex:none}
 .tile b{display:block;font-size:17px}.tile span{color:var(--mut);font-size:13px}
 .top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
@@ -129,6 +129,41 @@ table{width:100%;border-collapse:collapse}th,td{padding:8px 6px;text-align:left;
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 @media print{header,footer,.noprint,.tabs,#sheet{display:none!important}body{background:#fff;color:#000}.card{box-shadow:none;border:0;padding:0}.only-print{display:block}.screen{display:none}main{max-width:none}}
+
+/* Thẻ tổ có nút đăng nhập ở góc */
+.tile{padding:0;display:block;min-height:112px}
+.tbody{display:flex;gap:14px;align-items:center;width:100%;border:0;background:none;text-align:left;padding:46px 18px 18px;position:relative;z-index:1}
+.tile.nc .tbody{padding-top:18px}
+.tlog{position:absolute;top:10px;right:10px;z-index:2;border:0;border-radius:99px;padding:5px 12px;font-size:12.5px;font-weight:700;background:var(--c);color:#fff;min-height:30px}
+.tok{position:absolute;top:10px;right:10px;z-index:2;font-size:12px;font-weight:700;color:var(--good);background:var(--goodbg);padding:4px 10px;border-radius:99px}
+.crumb{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.crumb .sp{flex:1}
+
+/* Mobile */
+@media(max-width:640px){
+ .grid{grid-template-columns:1fr 1fr;gap:10px}
+ .tile.adm{grid-column:1/-1}
+ .tile{min-height:0;border-radius:16px}
+ .tbody{flex-direction:column;align-items:flex-start;gap:10px;padding:48px 14px 14px}
+ .tile.nc{grid-column:1/-1}
+ .tile.nc .tbody{padding-top:14px;flex-direction:row;align-items:center}
+ .tile.adm .tbody{flex-direction:row;align-items:center;padding-top:48px}
+ .tile i{width:44px;height:44px}.tbody b{font-size:16px}
+ .hero h2{font-size:19px}.hero p{font-size:14px}
+ .mem{padding:12px 8px;min-height:62px}
+ .sc{background:var(--soft);border-radius:10px;padding:2px 8px;min-width:50px;text-align:center}
+ .chip{padding:9px 14px;min-height:40px}
+ .btn{min-height:44px}.btn.s{min-height:38px}
+ .tabs button{padding:10px 16px}
+ .top{flex-wrap:wrap}.step{width:100%}.step select{flex:1}
+ .at button{min-height:46px;font-size:14px}
+ .sheet{max-height:94vh;padding-top:24px}
+ .sheet::before{content:"";position:absolute;top:8px;left:50%;width:42px;height:4px;border-radius:9px;background:var(--line);transform:translateX(-50%)}
+ .sheet .hd{position:sticky;top:0;background:var(--card);z-index:2;padding:4px 0 8px}
+ .acts{position:sticky;bottom:0;background:var(--card);padding:10px 0 4px;box-shadow:0 -10px 14px -10px #0004;z-index:3}
+ .acts .btn{flex:1}
+ footer{font-size:11.5px}
+}
 </style>
 </head>
 <body>
@@ -183,10 +218,12 @@ const isStaff=()=>S.role=="admin"||S.role=="teacher";
 const isAdmin=()=>S.role=="admin";
 const canLead=to=>S.role=="leader"&&S.to==to;
 const ctl=to=>isAdmin()||canLead(to);
-const can=v=>isStaff()||(v!="admin"&&S.to==v);
 const setWeek=w=>{S.week=Math.min(35,Math.max(7,w));store.set("w11a2",S.week)};
 const weekOpts=(cur,all)=>(all?`<option value="0" ${cur==0?"selected":""}>Tất cả các tuần</option>`:"")+WEEKS.map(w=>`<option value="${w}" ${w==cur?"selected":""}>Tuần ${w}</option>`).join("");
 const stepper=(cur,key)=>`<div class="step"><button class="btn g" data-a="wstep" data-d="-1" aria-label="Tuần trước" ${cur<=7?"disabled":""}>‹</button><select data-c="${key}" aria-label="Chọn tuần">${weekOpts(cur)}</select><button class="btn g" data-a="wstep" data-d="1" aria-label="Tuần sau" ${cur>=35?"disabled":""}>›</button></div>`;
+const corner=(v,edit,lbl)=>edit?`<span class="tok">✓ Có quyền sửa</span>`:S.user?"":`<button class="tlog" data-a="login" data-v="${v}">🔑 ${lbl||"Tổ trưởng"}</button>`;
+const crumb=to=>{const edit=S.user&&ctl(to);
+  return `<div class="crumb noprint"><button class="btn g s" data-a="home">‹ Trang chủ</button><span class="sp"></span>${edit?`<span class="tag n">✓ Có quyền chỉnh sửa</span>`:`<span class="tag i">👁 Chỉ xem</span>${S.user?"":`<button class="btn s" data-a="login" data-v="${to}">🔑 Tổ trưởng</button>`}`}</div>`};
 
 /* ----- Form nhập điểm: chọn nhanh bằng chip ----- */
 const entryForm=()=>{const f=S.f;
@@ -201,22 +238,26 @@ const readEntry=()=>{const f=S.f;
 };
 const resetForm=()=>{S.f={i:null,custom:false,reason:"",sign:"-1",pts:""}};
 
-/* ---------- Auth & dữ liệu ---------- */
+/* ---------- Dữ liệu công khai: ai cũng xem được ---------- */
+const listen=(path,key,list)=>list.push(onValue(ref(db,path),s=>{S[key]=s.val()||{};S.loaded=true;render()},e=>{S.loaded=true;toast("Không đọc được "+path+": "+e.message);render()}));
+const pubSubs=[];
+listen("members","members",pubSubs);listen("records","records",pubSubs);listen("attendance","att",pubSubs);
+
+/* ---------- Auth ---------- */
 onAuthStateChanged(auth,async u=>{
-  unsubs.forEach(f=>f());unsubs=[];S.loaded=false;
-  if(!u){Object.assign(S,{user:null,role:null,to:null,members:{},records:{},requests:{},users:{},att:{},view:"home",sel:null});return render();}
+  unsubs.forEach(f=>f());unsubs=[];
+  if(!u){Object.assign(S,{user:null,role:null,to:null,name:"",requests:{},users:{},view:"home",sel:null});return render()}
   let p=null;
   if(u.email===ADMIN)p={role:"admin",name:"Admin tổng"};
   else{try{p=(await get(ref(db,"users/"+u.uid))).val()}catch(e){}}
   if(!p){toast("Tài khoản chưa được admin cấp quyền.");return signOut(auth)}
   Object.assign(S,{user:u,role:p.role,to:p.to||null,name:p.name||u.email});
-  const sub=(path,key)=>unsubs.push(onValue(ref(db,path),s=>{S[key]=s.val()||{};S.loaded=true;render()},e=>toast("Lỗi đọc dữ liệu: "+e.message)));
-  sub("members","members");sub("records","records");sub("requests","requests");
-  unsubs.push(onValue(ref(db,"attendance"),s=>{S.att=s.val()||{};render()},()=>{S.att={};toast("Chưa đọc được dữ liệu điểm danh. Hãy cập nhật Rules Firebase.")}));
-  if(p.role=="admin")sub("users","users");
-  const t=S.pending||(isStaff()?"admin":p.to);S.pending=null;
-  if(can(t)){S.view=t;S.tab="rank"}else{toast("Tài khoản này không thuộc tổ đã chọn.");S.view=isStaff()?"admin":p.to}
-  render();
+  if(p.role!="student")listen("requests","requests",unsubs);
+  if(p.role=="admin")listen("users","users",unsubs);
+  let t=S.pending||(isStaff()?"admin":p.to);S.pending=null;
+  if(t=="admin"&&!isStaff()){toast("Mục này dành cho Giáo viên / Admin.");t=p.to||"home"}
+  else if(t!="admin"&&!isStaff()&&p.to!=t)toast(`Tài khoản thuộc Tổ ${p.to}. Ở Tổ ${t} bạn chỉ được xem.`);
+  Object.assign(S,{view:t,tab:"rank",sub:"score",sel:null});render();
 });
 
 /* ---------- Giao diện ---------- */
@@ -231,9 +272,11 @@ function render(){
   document.body.classList.toggle("lock",!!m);
 }
 function home(){
-  const tiles=[1,2,3,4].map(n=>`<button class="tile" style="--c:${COL[n]}" data-a="open" data-v="${n}"><i>${n}</i><div><b>Tổ ${n}</b><span>${S.user&&mem(n).length?mem(n).length+" tổ viên":"Đăng nhập vào tổ"}</span></div></button>`).join("");
-  return `<div class="hero"><h2>Chào mừng đến trang thi đua 11A2</h2><p>Chọn tổ của bạn để xem điểm và nền nếp theo tuần. Giáo viên và quản trị viên chọn mục cuối để xem toàn lớp.</p></div>
-  <div class="grid">${tiles}${leaderTile()}<button class="tile" style="--c:var(--ink)" data-a="open" data-v="admin"><i>★</i><div><b>Giáo viên / Admin</b><span>Thống kê toàn lớp</span></div></button></div>`;
+  const tiles=[1,2,3,4].map(n=>{
+    const sub=S.loaded?`${mem(n).length} tổ viên · Xem số liệu`:"Xem điểm & điểm danh";
+    return `<div class="tile" style="--c:${COL[n]}"><button class="tbody" data-a="open" data-v="${n}"><i>${n}</i><div><b>Tổ ${n}</b><span>${sub}</span></div></button>${corner(n,S.user&&ctl(n))}</div>`}).join("");
+  return `<div class="hero"><h2>Chào mừng đến trang thi đua 11A2</h2><p>Bấm vào tổ để xem điểm và nền nếp theo tuần. Tổ trưởng bấm nút 🔑 ở góc thẻ để đăng nhập và chỉnh sửa.</p></div>
+  <div class="grid">${tiles}${leaderTile()}<div class="tile adm" style="--c:var(--ink)"><button class="tbody" data-a="open" data-v="admin"><i>★</i><div><b>Giáo viên / Admin</b><span>Thống kê toàn lớp</span></div></button>${corner("admin",isStaff(),"GV / Admin")}</div></div>`;
 }
 function stats(ms,w){
   const vio=ms.filter(m=>isBad(m.id,w)).length,avg=ms.length?ms.reduce((a,m)=>a+sc(m.id,w),0)/ms.length:0;
@@ -261,7 +304,7 @@ function toPage(to){
   const ms=mem(to),w=S.week,lead=canLead(to),c=ctl(to);
   const mine=reqs().filter(q=>q.to==to).sort((a,b)=>b.ts-a.ts).slice(0,8);
   const fl=[["all","Tất cả"],["bad","Vi phạm"],["ok","Không vi phạm"]];
-  return `<div class="top"><h2 class="ttl" style="--c:${COL[to]}">Tổ ${to}</h2>${stepper(w,"week")}</div>${subSeg()}
+  return `${crumb(to)}<div class="top"><h2 class="ttl" style="--c:${COL[to]}">Tổ ${to}</h2>${stepper(w,"week")}</div>${subSeg()}
   ${stats(ms,w)}
   <div class="card"><div class="row sp" style="margin-bottom:8px"><h3 style="margin:0">Tổ viên – tuần ${w}</h3><div class="chips">${fl.map(([k,l])=>`<button class="chip ${S.flt==k?"on":""}" data-a="flt" data-k="${k}">${l}</button>`).join("")}</div></div>
     ${lead?`<p class="mut sm" style="margin:0 0 8px">Mọi thay đổi của tổ được gửi cho Quản trị viên kiểm duyệt trước khi tính điểm.</p>`:""}
@@ -341,7 +384,7 @@ const canAtt=(to,d)=>{if(isAdmin())return true;if(!canLead(to)||aSt(d,to)=="conf
 const pendAtt=()=>{const t=ld(new Date());return [1,2,3,4].filter(n=>aSt(t,n)=="submitted").length};
 const dateBar=()=>`<div class="step"><button class="btn g" data-a="dstep" data-d="-1" aria-label="Ngày trước">‹</button><input type="date" value="${S.ad}" max="${ld(new Date())}" data-c="adate" aria-label="Chọn ngày"><button class="btn g" data-a="dstep" data-d="1" aria-label="Ngày sau" ${S.ad>=ld(new Date())?"disabled":""}>›</button></div>`;
 const subSeg=()=>`<div class="seg noprint"><button data-a="sub" data-s="score" class="${S.sub!="att"?"on":""}">Điểm thi đua</button><button data-a="sub" data-s="att" class="${S.sub=="att"?"on":""}">Điểm danh</button></div>`;
-const leaderTile=()=>S.user&&S.role=="leader"&&S.to?`<button class="tile" style="--c:var(--good)" data-a="attgo" data-t="${S.to}" data-today="1"><i>✓</i><div><b>Điểm danh hôm nay</b><span>Tổ ${S.to} · ${ATS[aSt(ld(new Date()),S.to)][0]}</span></div></button>`:"";
+const leaderTile=()=>S.user&&S.role=="leader"&&S.to?`<div class="tile nc" style="--c:var(--good)"><button class="tbody" data-a="attgo" data-t="${S.to}" data-today="1"><i>✓</i><div><b>Điểm danh hôm nay</b><span>Tổ ${S.to} · ${ATS[aSt(ld(new Date()),S.to)][0]}</span></div></button></div>`:"";
 const statCard=(l,v,c)=>`<div class="stat ${c||""}"><span>${l}</span><b>${v}</b></div>`;
 
 function attPage(to){
@@ -354,13 +397,13 @@ function attPage(to){
   if(ed&&ms.length&&st!="confirmed")acts.push(`<button class="btn ok" data-a="attsubmit" data-t="${to}">${st=="submitted"?"Gửi lại":"Gửi điểm danh"}</button>`);
   if(isStaff()&&st=="submitted")acts.push(`<button class="btn" data-a="attconfirm" data-t="${to}">Xác nhận điểm danh</button>`);
   if(isAdmin()&&st=="confirmed")acts.push(`<button class="btn r" data-a="attunlock" data-t="${to}">Mở khóa để sửa</button>`);
-  const hint=!ed&&lead?(st=="confirmed"?"Điểm danh này đã được xác nhận nên không thể sửa. Cần sửa hãy nhờ Quản trị viên mở khóa.":"Tổ trưởng chỉ điểm danh được trong 3 ngày gần nhất."):ed&&lead?"Bấm trạng thái cho từng bạn, xong bấm “Gửi điểm danh”. Bạn nào chưa chọn sẽ tính là có mặt.":!ed?"Bạn chỉ có quyền xem điểm danh của tổ này.":"";
-  return `<div class="top"><h2 class="ttl" style="--c:${COL[to]}">Tổ ${to}</h2>${dateBar()}</div>${subSeg()}
+  const hint=!ed&&lead?(st=="confirmed"?"Điểm danh này đã được xác nhận nên không thể sửa. Cần sửa hãy nhờ Quản trị viên mở khóa.":"Tổ trưởng chỉ điểm danh được trong 3 ngày gần nhất."):ed&&lead?"Bấm trạng thái cho từng bạn, xong bấm “Gửi điểm danh”. Bạn nào chưa chọn sẽ tính là có mặt.":!ed?(S.user?"Bạn chỉ có quyền xem điểm danh của tổ này.":"Đang ở chế độ chỉ xem. Bấm 🔑 Tổ trưởng để đăng nhập và điểm danh."):"";
+  return `${crumb(to)}<div class="top"><h2 class="ttl" style="--c:${COL[to]}">Tổ ${to}</h2>${dateBar()}</div>${subSeg()}
   <div class="stats">${statCard("Có mặt",c.p,"n")}${statCard("Đi muộn",c.l)}${statCard("Vắng (phép + KP)",c.e+c.a,"v")}${statCard("Chưa chọn",c.un)}</div>
   <div class="card"><div class="row sp" style="margin-bottom:6px"><div><h3 style="margin:0">${dlabel(d)}</h3><div class="mut sm">${info}</div></div>${aTag(st)}</div>
   ${hint?`<div class="hint">${hint}</div>`:""}
   <div>${ms.length?rows:`<div class="empty">Chưa có tổ viên.</div>`}</div>
-  ${acts.length?`<div class="row" style="margin-top:12px">${acts.join("")}</div>`:""}</div>`;
+  ${acts.length?`<div class="row acts" style="margin-top:12px">${acts.join("")}</div>`:""}</div>`;
 }
 function attTab(){
   const d=S.ad,tn=[1,2,3,4].filter(n=>mem(n).length);
@@ -386,7 +429,7 @@ function modal(h){closeM();const d=document.createElement("div");d.className="mo
 function closeM(){$("#m")?.remove()}
 function loginModal(v){
   S.pending=v;
-  modal(`<h3>${v=="admin"?"Đăng nhập Giáo viên / Admin":"Đăng nhập Tổ "+v}</h3><form data-f="login"><input name="e" type="email" placeholder="Email" required autocomplete="username"><input name="p" type="password" placeholder="Mật khẩu" required autocomplete="current-password"><div class="err" id="err" aria-live="polite"></div><div class="row"><button class="btn" style="flex:1">Đăng nhập</button><button type="button" class="btn g" data-a="close">Hủy</button></div></form>`);
+  modal(`<h3>${v=="admin"?"Đăng nhập Giáo viên / Admin":"Đăng nhập Tổ trưởng – Tổ "+v}</h3><form data-f="login"><input name="e" type="email" placeholder="Email" required autocomplete="username"><input name="p" type="password" placeholder="Mật khẩu" required autocomplete="current-password"><div class="err" id="err" aria-live="polite"></div><div class="row"><button class="btn" style="flex:1">Đăng nhập</button><button type="button" class="btn g" data-a="close">Hủy</button></div></form>`);
   setTimeout(()=>$("#m input")?.focus(),30);
 }
 function editModal(id){
@@ -411,7 +454,10 @@ const guard=fn=>async(...a)=>{try{await fn(...a)}catch(e){toast("Lỗi: "+(e.cod
 /* ---------- Hành động ---------- */
 const A={
   home(){S.view="home";S.sel=null;render()},
-  open(d){const v=d.v=="admin"?"admin":+d.v;if(S.user&&can(v)){S.view=v;S.tab="rank";S.sub="score";S.sel=null;S.q="";S.flt="all";render();scrollTo(0,0)}else if(S.user)toast("Tài khoản của bạn không thuộc mục này.");else loginModal(v)},
+  open(d){const v=d.v=="admin"?"admin":+d.v;
+    if(v=="admin"&&!isStaff()){S.user?toast("Mục này dành cho Giáo viên / Admin."):loginModal("admin");return}
+    S.view=v;S.tab="rank";S.sub="score";S.sel=null;S.q="";S.flt="all";render();scrollTo(0,0)},
+  login(d){loginModal(d.v=="admin"?"admin":+d.v)},
   logout(){signOut(auth)},close:closeM,
   sel(d){resetForm();S.sel=d.m;render()},
   closesheet(){S.sel=null;render()},
